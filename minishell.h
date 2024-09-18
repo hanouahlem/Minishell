@@ -13,6 +13,8 @@ typedef struct mini_s
 	struct mini_s *next;
 }			mini_t;
 
+int     ft_strlen(char *str);
+int	ft_fleche(char *str);
 int	ft_quote(char *str);
 
 #endif

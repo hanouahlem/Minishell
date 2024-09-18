@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
+#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/18 15:18:03 by ahbey            ###   ########.fr        #
+#    Updated: 2024/09/18 18:46:16 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		parsing.c \
+		utils.c  \
 
 CC	=	cc
 
