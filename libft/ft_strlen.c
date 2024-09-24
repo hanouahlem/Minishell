@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:55 by ahbey            ###   ########.fr       */
+/*   Created: 2023/11/06 16:08:05 by ahbey             #+#    #+#             */
+/*   Updated: 2023/11/16 15:58:37 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
+/*int	main()
+{
+	char str[] = "hello yoyo";
+
+	__builtin_printf("le nombre de caractere est : %d\n",ft_strlen(str));
+}*/

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:55 by ahbey            ###   ########.fr       */
+/*   Created: 2023/11/09 12:27:55 by ahbey             #+#    #+#             */
+/*   Updated: 2023/11/16 15:58:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+int	ft_tolower(int c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if (c >= 'A' && c <= 'Z')
+		c = c + 32;
+	return (c);
 }
+/*#include <stdio.h>
+#include <ctype.h>
+int	main()
+{
+	printf("%d\n",ft_tolower('L'));
+	printf("%d", tolower('L'));
+}*/

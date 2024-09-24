@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahbey <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:55 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/06 11:46:49 by ahbey             #+#    #+#             */
+/*   Updated: 2023/12/06 16:02:46 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

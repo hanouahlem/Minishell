@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:55 by ahbey            ###   ########.fr       */
+/*   Created: 2023/11/14 11:24:35 by ahbey             #+#    #+#             */
+/*   Updated: 2023/11/16 15:55:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+void	ft_bzero(void *s, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = 0;
 		i++;
-	return (i);
+	}
 }
+/*int main()
+{
+	char str[]= "hello je suis la";
+	ft_bzero(str, 10);
+	printf("%s\n", str);
+}*/

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahbey <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:55 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/05 15:58:49 by ahbey             #+#    #+#             */
+/*   Updated: 2023/12/05 17:40:24 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_strlen(char *str)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	new->next = *lst;
+	*lst = new;
 }
