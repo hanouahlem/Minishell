@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/18 18:51:01 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:59:21 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int syntax(char *line)
 	printf("hello\n");
 	return (0);
 }
-int main()
+int main(int ac, char **av, char **env)
 {
     char *line;
-	
+	(void)ac;
+	(void)av;
+	(void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
     while (1)
@@ -51,6 +53,7 @@ int main()
 		add_history(line);
 		if (ft_fleche(line) == 1)
 			printf("No fleeeeches !\n");
+		
     }
     return (0);
 }

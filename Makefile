@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/18 18:46:16 by manbengh         ###   ########.fr        #
+#    Updated: 2024/09/24 14:58:15 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,26 @@ OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	minishell
 
+LIBFT 	=	libft/libft.a
+
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) 
+
+$(LIBFT):
+	make -C libft
 
 %.o: %.c minishell.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 		rm -f ${OBJS}
+		make -C libft clean
 
 fclean: clean
 		rm -f $(NAME)
+		make -C libft fclean
 
 re:		fclean all
 
