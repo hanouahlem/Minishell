@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/24 14:59:21 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/24 18:56:32 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,26 @@ int syntax(char *line)
 }
 int main(int ac, char **av, char **env)
 {
-    char *line;
+    // char *line;
 	(void)ac;
 	(void)av;
-	(void)env;
+	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-    while (1)
-	{
-		line = readline("Minishell ");
-		if (!line)
-			break ;
-		if (!*line)
-			continue ;
-		syntax(line);
-		ft_quote(line);
-		add_history(line);
-		if (ft_fleche(line) == 1)
-			printf("No fleeeeches !\n");
-		
-    }
+	get_env(env);
+    // while (1)
+	// {
+	// 	line = readline("Minishell ");
+	// 	if (!line)
+	// 		break ;
+	// 	if (!*line)
+	// 		continue ;
+	// 	syntax(line);
+	// 	ft_quote(line);
+	// 	add_history(line);
+	// 	if (ft_fleche(line) == 1)
+	// 		printf("No fleeeeches !\n");
+    // }
     return (0);
 }
 
