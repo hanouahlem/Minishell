@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/18 18:46:16 by manbengh         ###   ########.fr        #
+#    Updated: 2024/09/24 18:55:35 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		parsing.c \
 		utils.c  \
+		get_path.c \
 
 CC	=	cc
 
@@ -22,19 +23,26 @@ OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	minishell
 
+LIBFT 	=	libft/libft.a
+
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME) 
+
+$(LIBFT):
+	make -C libft
 
 %.o: %.c minishell.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 		rm -f ${OBJS}
+		make -C libft clean
 
 fclean: clean
 		rm -f $(NAME)
+		make -C libft fclean
 
 re:		fclean all
 
