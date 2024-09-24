@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/18 18:59:19 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:36:06 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_quote(char *str)
 		i++;
 	}
 	if (flag == 1)
-		return (printf("error : quot de veau\n"), 1);
+		return (printf("error : syntax\n"), 1);
 	return (0);
 }
 
@@ -52,20 +52,11 @@ int	ft_fleche(char *str)
 	{
 		if (str[ft_strlen(str) - 1] == '>' || str[ft_strlen(str) - 1] == '<')
 		{
-			return (1);
+			return (printf("Error : syntax"),1);
 		}
 		i++;
 	}
 	return (0);
 }
 
-// ft_error_syntax(char *str)
-// {
-// 	int	i;
 
-// 	i = 0;
-// 	while(str[i])
-// 	{
-// 		if(str[i] == '<' || str[i]== '>')
-// 	}
-// }

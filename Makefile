@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/24 14:57:55 by manbengh         ###   ########.fr        #
+#    Updated: 2024/09/24 14:58:15 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
-	parsing.c \
-	utils.c  \
+		parsing.c \
+		utils.c  \
 
 CC	=	cc
 
@@ -22,29 +22,27 @@ OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	minishell
 
-INC = -Iincludes -I/usr/include -ILibft
+LIBFT 	=	libft/libft.a
 
-LIBFT = Libft/libft.a
+all: ${NAME}
 
-all: $(NAME)
-
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(INC) -lreadline -o $(NAME) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) 
 
 $(LIBFT):
-	make -C Libft
+	make -C libft
 
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(INC)
+%.o: %.c minishell.h
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
-	rm -f ${OBJ}
-	make -C Libft clean
+		rm -f ${OBJS}
+		make -C libft clean
 
 fclean: clean
-	rm -f ${NAME}
-	make -C Libft fclean
+		rm -f $(NAME)
+		make -C libft fclean
 
-re: fclean all
+re:		fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re/
