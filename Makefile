@@ -6,13 +6,14 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/24 14:58:15 by ahbey            ###   ########.fr        #
+#    Updated: 2024/09/24 18:55:35 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		parsing.c \
 		utils.c  \
+		get_path.c \
 
 CC	=	cc
 
@@ -27,7 +28,7 @@ LIBFT 	=	libft/libft.a
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME) 
 
 $(LIBFT):
 	make -C libft

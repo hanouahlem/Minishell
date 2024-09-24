@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/24 14:59:21 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/24 19:23:08 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int main(int ac, char **av, char **env)
     char *line;
 	(void)ac;
 	(void)av;
-	(void)env;
+	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
+	get_env(env);
     while (1)
 	{
 		line = readline("Minishell ");
@@ -53,7 +54,6 @@ int main(int ac, char **av, char **env)
 		add_history(line);
 		if (ft_fleche(line) == 1)
 			printf("No fleeeeches !\n");
-		
     }
     return (0);
 }
