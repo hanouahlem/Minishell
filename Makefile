@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/24 18:55:35 by ahbey            ###   ########.fr        #
+#    Updated: 2024/09/26 18:46:34 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ SRCS =	minishell.c \
 		parsing.c \
 		utils.c  \
 		get_path.c \
+		token.c  \
+		create_token.c \
 
 CC	=	cc
 
