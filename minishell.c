@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/26 18:58:01 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/27 17:14:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	main(int ac, char **av, char **env)
 		if (!*line)
 			continue ;
 		syntax(line);
-		ft_quote(line);
+		if(ft_quote(line))
+			return(0);
 		add_history(line);
 		if (ft_check_redir_in_out(line) == 1)
 			printf("No fleeeeches !\n");
