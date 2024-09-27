@@ -6,59 +6,11 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/24 18:50:23 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/25 19:22:39 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	ft_strlen(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i])
-// 		i++;
-// 	return (i);
-// }
-
-// ft_strlen_egale()
-//  return i
-
-//  find_key ()
- 
-//  key = substr(0, strlenegale(string))
-//  return (key);
-
-int	ft_strlen_stop(char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-char	*find_key_for_env(char *my_env)
-{
-	char	*key;
-
-	key = ft_substr(my_env, 0, ft_strlen_stop(my_env, '='));
-	return (key);
-}
-
-char	*find_value_for_env(char *my_env)
-{
-	char	*value;
-
-	value = ft_substr(my_env, ft_strlen_stop(my_env, '='), ft_strlen(my_env));
-	return (value);
-}
 
 env_t	*ft_lstnew_env(void *my_env)
 {
@@ -91,4 +43,15 @@ void	ft_lstadd_back_env(env_t **lst, env_t *new)
 		ft_lstlast_env(*lst)->next = new;
 	else
 		*lst = new;
+}
+
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return ((unsigned char )s1[i] - (unsigned char )s2[i]);
 }

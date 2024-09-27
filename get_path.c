@@ -6,43 +6,62 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:26:09 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/24 18:59:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/26 19:14:36 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void get_env(char **env)
+void	get_env(char **env)
 {
-	int i;
+	int		i;
 	env_t	*node;
-	env_t *path;
+	env_t	*path;
 
 	i = 0;
 	node = NULL;
 	path = NULL;
-	while(env[i])
+	while (env[i])
 	{
 		node = ft_lstnew_env(env[i]);
 		if (!node)
 			return ;
-		// split();
 		ft_lstadd_back_env(&path, node);
 		i++;
 	}
-	while (path)
-	{
-		printf("%s\n", path->content);
-		path = path->next;
-	}
+	// while (path)
+	// {
+	// 	printf("%s\n", path->value);
+	// 	path = path->next;
+	// }
 }
 
-// void	print_node(env_t *nodes)
-// {
-// 	while (nodes)
-// 	{
-// 		printf(("%s\n", nodes));
-// 		nodes = nodes->next;
-// 	}
-// }
+char	*find_key_for_env(char *my_env)
+{
+	char	*key;
 
+	key = ft_substr(my_env, 0, ft_strlen_stop(my_env, '='));
+	return (key);
+}
+
+char	*find_value_for_env(char *my_env)
+{
+	char	*value;
+
+	value = ft_substr(my_env, ft_strlen_stop(my_env, '='), ft_strlen(my_env));
+	return (value);
+}
+
+int	ft_strlen_stop(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
