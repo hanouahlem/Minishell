@@ -12,12 +12,21 @@ typedef struct mini_s
 {
 	char			*data;
 	struct mini_s	*next;
-}					mini_t;
-typedef struct var_s
+}				mini_t;
+
+typedef enum token_type
 {
-	char			*key;
-	char			*value;
-}					var_t;
+	W_SPACE,
+}		token_type;
+
+typedef struct s_token
+{
+	int	index;
+	char	*str;
+	token_type	tokens;
+	struct s_token *next;
+	struct s_token *prev;
+}		t_token;
 
 typedef struct env_s
 {

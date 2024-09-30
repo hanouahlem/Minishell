@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:26:09 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/24 18:59:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/25 19:02:38 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void get_env(char **env)
 		ft_lstadd_back_env(&path, node);
 		i++;
 	}
-	while (path)
-	{
-		printf("%s\n", path->content);
-		path = path->next;
-	}
+	// while (path)
+	// {
+	// 	printf("%s\n", path->content);
+	// 	path = path->next;
+	// }
 }
 
 // void	print_node(env_t *nodes)
