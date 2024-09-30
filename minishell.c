@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/24 19:23:08 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/27 17:14:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,49 @@
 // 	}
 // }
 
-int syntax(char *line)
+int	syntax(char *line)
 {
 	// check_guim
 	// 	return (1)
-	// check syntax 
+	// check syntax
 	// return (2)
 	(void)line;
-	printf("hello\n");
 	return (0);
 }
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-    char *line;
+	char	*line;
+	t_token	*tokenis;
+
 	(void)ac;
 	(void)av;
 	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
+	tokenis = NULL;
 	get_env(env);
-    while (1)
+	while (1)
 	{
-		line = readline("Minishell ");
+		line = readline("Minishell> ");
 		if (!line)
 			break ;
 		if (!*line)
 			continue ;
 		syntax(line);
-		ft_quote(line);
+		if(ft_quote(line))
+			return(0);
 		add_history(line);
-		if (ft_fleche(line) == 1)
+		if (ft_check_redir_in_out(line) == 1)
 			printf("No fleeeeches !\n");
-    }
-    return (0);
+		split_line(line, tokenis);
+	}
+	return (0);
 }
 
 /*
 
 1 - check les guillemets
-"'''''''''" vrai 
+"'''''''''" vrai
 "'" vrai
 """" vrai
 '"""""""""""""""' vrai
@@ -70,15 +74,15 @@ int main(int ac, char **av, char **env)
 """"""" FAUX
 
 1 - expend
-$USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER' 
+$USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 
 2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS
 "bonjour ||||| c moi"
 "*******************"
 
-3 - gerer la syntax 
+3 - gerer la syntax
 
-|| faux 
+|| faux
 >>> faux
 |       | faux
 command | faux
