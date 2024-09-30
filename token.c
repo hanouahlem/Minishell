@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/26 19:52:18 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/30 18:16:01 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,53 @@ int	check_redir(char *str, int i)
 	return (0);
 }
 
-void	split_line(char *line, t_token *tokenis)
+void	handle_token(char *str, int *index_l, t_token **tokenis)
 {
-	int	i;
-	int	index_l;
-	char	*str;
 	t_token	*node_t;
 
-	i = 0;
+	str[*index_l] = '\0';
+	node_t = ft_lstnew_tok(str);
+	ft_lstadd_back_tok(tokenis, node_t);
+	*index_l = 0;
+}
+
+void	process_special_char(char *line, char *str, int *i, t_token **tokenis)
+{
+	t_token	*node_t;
+
+	str[0] = line[*i];
+	str[1] = '\0';
+	node_t = ft_lstnew_tok(str);
+	ft_lstadd_back_tok(tokenis, node_t);
+}
+
+void	split_line(char *line, t_token *tokenis)
+{
+	int		i;
+	int		index_l;
+	char	*str;
+
+	i = -1;
 	index_l = 0;
-	node_t = NULL;
 	str = ft_strdup(line);
-	while (line[i])
+	while (line[++i])
 	{
 		if (line[i] == ' ')
 		{
 			if (index_l > 0)
-			{
-				str[index_l] = '\0';
-				node_t = ft_lstnew_tok(str);
-				ft_lstadd_back_tok(&tokenis, node_t);
-				index_l = 0;
-			}
+				handle_token(str, &index_l, &tokenis);
 		}
 		else if (line[i] == '|' || line[i] == '>' || line[i] == '<')
 		{
 			if (index_l > 0)
-			{
-				str[index_l] = '\0';
-				node_t = ft_lstnew_tok(str);
-				ft_lstadd_back_tok(&tokenis, node_t);
-				index_l = 0;
-			}
-			str[0] = line[i];
-			str[1] = '\0';
-			node_t = ft_lstnew_tok(str);
-			ft_lstadd_back_tok(&tokenis, node_t);
+				handle_token(str, &index_l, &tokenis);
+			process_special_char(line, str, &i, &tokenis);
 		}
 		else
 			str[index_l++] = line[i];
-		i++;
 	}
 	if (index_l > 0)
-	{
-		str[index_l] = '\0';
-		node_t = ft_lstnew_tok(str);
-		ft_lstadd_back_tok(&tokenis, node_t);
-	}
+		handle_token(str, &index_l, &tokenis);
 	while (tokenis)
 	{
 		printf("%s --> ", tokenis->value_t);

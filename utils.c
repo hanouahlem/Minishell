@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/25 19:22:39 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/09/30 18:16:04 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-env_t	*ft_lstnew_env(void *my_env)
+t_env	*ft_lstnew_env(void *my_env)
 {
-	env_t	*new;
+	t_env	*new;
 
-	new = malloc(sizeof(env_t));
+	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
 	new->content = ft_strdup(my_env);
@@ -26,7 +26,7 @@ env_t	*ft_lstnew_env(void *my_env)
 	return (new);
 }
 
-env_t	*ft_lstlast_env(env_t *lst)
+t_env	*ft_lstlast_env(t_env *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -35,7 +35,7 @@ env_t	*ft_lstlast_env(env_t *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back_env(env_t **lst, env_t *new)
+void	ft_lstadd_back_env(t_env **lst, t_env *new)
 {
 	if (!lst || !new)
 		return ;
@@ -45,7 +45,6 @@ void	ft_lstadd_back_env(env_t **lst, env_t *new)
 		*lst = new;
 }
 
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
@@ -53,5 +52,5 @@ int	ft_strcmp(const char *s1, const char *s2)
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-	return ((unsigned char )s1[i] - (unsigned char )s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

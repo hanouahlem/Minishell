@@ -1,11 +1,11 @@
 
 #include "minishell.h"
 
-void	get_env(char **env)
+t_env	*get_env(char **env)
 {
 	int		i;
-	env_t	*node;
-	env_t	*path;
+	t_env	*node;
+	t_env	*path;
 
 	i = 0;
 	node = NULL;
@@ -14,10 +14,11 @@ void	get_env(char **env)
 	{
 		node = ft_lstnew_env(env[i]);
 		if (!node)
-			return ;
+			return (NULL);
 		ft_lstadd_back_env(&path, node);
 		i++;
 	}
+	return (path);
 	// while (path)
 	// {
 	// 	printf("%s\n", path->content);

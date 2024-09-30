@@ -8,42 +8,37 @@
 # include <signal.h>
 # include <stdio.h>
 
-typedef struct mini_s
-{
-	char			*data;
-	struct mini_s	*next;
-}				mini_t;
+# define SQUOTE '\''
+# define DQUOTE '"'
+# define W_SPACE ' '
+# define W_TAB '\t'
 
-typedef enum token_type
-{
-	REDIR_IN,      // <
-	REDIR_OUT,     // >
-	DBL_REDIR_IN,  // <<
-	DBL_REDIR_OUT, // >>
-	PIPE,          //|
-	WORD,
-	W_SPACE,
-}		token_type;
-
-typedef struct s_token
-{
-	int	index;
-	char	*str;
-	token_type	tokens;
-	struct s_token *next;
-	struct s_token *prev;
-}		t_token;
-
-
-typedef struct env_s
+typedef struct t_env
 {
 	char			*key;
 	char			*value;
 	char			*content;
-	struct env_s	*next;
-}					env_t;
+	struct t_env	*next;
+}					t_env;
 
-typedef enum token_type
+typedef struct t_token
+{
+	int				index;
+	int				type;
+	char			*value_t;
+	// t_token_type		tokens;
+	struct t_token	*next;
+	struct t_token	*prev;
+}					t_token;
+
+typedef struct t_mini
+{
+	char			*data;
+	t_token			*token;
+	t_env			*env;
+}					t_mini;
+
+typedef enum t_token_type
 {
 	REDIR_IN,      // <
 	REDIR_OUT,     // >
@@ -51,40 +46,25 @@ typedef enum token_type
 	DBL_REDIR_OUT, // >>
 	PIPE,          //|
 	WORD,
-	W_SPACE,
-}					token_type;
-
-typedef struct s_token
-{
-	int				index;
-	int				type;
-	char			*value_t;
-	// token_type		tokens;
-	struct s_token	*next;
-	struct s_token	*prev;
-}					t_token;
+	// W_SPACE,
+}					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
 int					ft_quote(char *str);
 
-env_t				*ft_lstnew_env(void *content);
-env_t				*ft_lstlast_env(env_t *lst);
-void				ft_lstadd_back_env(env_t **lst, env_t *new);
+t_env				*ft_lstnew_env(void *content);
+t_env				*ft_lstlast_env(t_env *lst);
+void				ft_lstadd_back_env(t_env **lst, t_env *new);
 
 t_token				*ft_lstnew_tok(void *values);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
-void	split_line(char *line, t_token *tokenis);
+void				split_line(char *line, t_token *tokenis);
 
-void				get_env(char **env);
-char	*find_key_for_env(char *my_env);
-char	*find_value_for_env(char *my_env);
-int	ft_strlen_stop(char *str, char c);
+t_env				*get_env(char **env);
+char				*find_key_for_env(char *my_env);
+char				*find_value_for_env(char *my_env);
+int					ft_strlen_stop(char *str, char c);
 
 int					ft_strcmp(const char *s1, const char *s2);
-
-
-
-
-
 
 #endif
