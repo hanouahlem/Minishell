@@ -6,25 +6,16 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/09/26 18:46:34 by ahbey            ###   ########.fr        #
-=======
-#    Updated: 2024/09/24 14:57:55 by manbengh         ###   ########.fr        #
->>>>>>> MANAAAAAR
+#    Updated: 2024/10/01 12:34:54 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
-<<<<<<< HEAD
 		parsing.c \
 		utils.c  \
 		get_path.c \
 		token.c  \
 		create_token.c \
-=======
-	parsing.c \
-	utils.c  \
->>>>>>> MANAAAAAR
 
 CC	=	cc
 
@@ -34,7 +25,6 @@ OBJS	=	$(SRCS:.c=.o)
 
 NAME	=	minishell
 
-<<<<<<< HEAD
 LIBFT 	=	libft/libft.a
 
 all: ${NAME}
@@ -44,11 +34,6 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(LIBFT):
 	make -C libft
-=======
-INC = -Iincludes -I/usr/include -ILibft
-
-LIBFT = Libft/libft.a
->>>>>>> MANAAAAAR
 
 all: $(NAME)
 
@@ -62,21 +47,12 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC)
 
 clean:
-<<<<<<< HEAD
 		rm -f ${OBJS}
 		make -C libft clean
 
 fclean: clean
 		rm -f $(NAME)
 		make -C libft fclean
-=======
-	rm -f ${OBJ}
-	make -C Libft clean
-
-fclean: clean
-	rm -f ${NAME}
-	make -C Libft fclean
->>>>>>> MANAAAAAR
 
 re: fclean all
 
