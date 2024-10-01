@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:15:48 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:51:16 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
-		split_line(line, tokenis);
+		split_line(0, line, tokenis);
 	}
 	// free env
 	return (0);
