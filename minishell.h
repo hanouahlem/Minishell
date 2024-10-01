@@ -31,6 +31,7 @@ typedef struct t_token
 	struct t_token	*prev;
 }					t_token;
 
+
 typedef struct t_mini
 {
 	char			*data;
