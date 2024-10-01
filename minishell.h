@@ -8,6 +8,16 @@
 # include <signal.h>
 # include <stdio.h>
 
+// pour les utiliser apres plus lisible
+// enum		token_type
+// {
+// 	REDIR_IN = '>',
+// 	REDIR_OUT = '<',
+// 	PIPE = '|',
+// 	SPACE_ = ' ',
+// 	WORD,
+// };
+
 typedef struct mini_s
 {
 	char			*data;
