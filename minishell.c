@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/01 16:51:16 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:23:19 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
 	tokenis = NULL;
