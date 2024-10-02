@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:15:48 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:54:43 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **env)
 	t_mini	data;
 	char	*line;
 	t_token	*tokenis;
+	char *test;
 
 	(void)ac;
 	(void)av;
@@ -59,6 +60,10 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
+		test = token_negation(line);
+		printf("test apres negation = %s\n", test);
+		token_negation(test);
+		printf("test apres posi = %s\n", test);
 		split_line(line, tokenis);
 	}
 	// free env
@@ -68,18 +73,18 @@ int	main(int ac, char **av, char **env)
 /*
 
 1 - check les guillemets
-"'''''''''" vrai
+"'''''''''" vrai        fait
 "'" vrai
 """" vrai
 '"""""""""""""""' vrai
 ''' faux
-""" faux
+""" faux                       fait
 """"""" FAUX
 
 1 - expend
 $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 
-2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS
+2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS         faiiiiit
 "bonjour ||||| c moi"
 "*******************"
 
@@ -89,13 +94,13 @@ $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 >>> faux
 |       | faux
 command | faux
-| command |
+| command |                 fait
 >  > faux
 "|||||" vrai
 '<><><||||<><' vrai
 
 4 - remettre en positive
-"****************"
+"****************"         fait 
 "bonjour || c moi"
 
 5 - tokenisation

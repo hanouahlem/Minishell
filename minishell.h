@@ -65,5 +65,6 @@ char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
 
 int					ft_strcmp(const char *s1, const char *s2);
+char				*token_negation(char *str);
 
 #endif

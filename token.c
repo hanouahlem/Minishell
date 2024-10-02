@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:16:01 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:48:37 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void	split_line(char *line, t_token *tokenis)
 	}
 	if (index_l > 0)
 		handle_token(str, &index_l, &tokenis);
-	while (tokenis)
-	{
-		printf("%s --> ", tokenis->value_t);
-		printf("%d\n", tokenis->type);
-		tokenis = tokenis->next;
-	}
+	// while (tokenis)
+	// {
+	// 	printf("%s --> ", tokenis->value_t);
+	// 	printf("%d\n", tokenis->type);
+	// 	tokenis = tokenis->next;
+	// }
 }
