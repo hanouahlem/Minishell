@@ -45,7 +45,6 @@ typedef enum t_token_type
 	DBL_REDIR_OUT, // >>
 	PIPE,          //|
 	WORD,
-	// W_SPACE,
 }					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
@@ -66,5 +65,7 @@ int					ft_strlen_stop(char *str, char c);
 
 int					ft_strcmp(const char *s1, const char *s2);
 char				*token_negation(char *str);
+
+char				*delete_quote(char *str);
 
 #endif

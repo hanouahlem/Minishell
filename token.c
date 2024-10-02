@@ -6,30 +6,30 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/02 15:48:37 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/02 20:44:27 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_redir(char *str, int i)
-{
-	if (str[i] == '<')
-	{
-		if (str[i + 1] != '<')
-			return (1);
-		else if (str[i + 1] == '<')
-			return (2);
-	}
-	if (str[i] == '>')
-	{
-		if (str[i + 1] != '>')
-			return (3);
-		else if (str[i + 1] == '>')
-			return (4);
-	}
-	return (0);
-}
+// int	check_redir(char *str, int i)
+// {
+// 	if (str[i] == '<')
+// 	{
+// 		if (str[i + 1] != '<')
+// 			return (1);
+// 		else if (str[i + 1] == '<')
+// 			return (2);
+// 	}
+// 	if (str[i] == '>')
+// 	{
+// 		if (str[i + 1] != '>')
+// 			return (3);
+// 		else if (str[i + 1] == '>')
+// 			return (4);
+// 	}
+// 	return (0);
+// }
 
 void	handle_token(char *str, int *index_l, t_token **tokenis)
 {
