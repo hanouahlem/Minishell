@@ -26,7 +26,6 @@ typedef struct t_token
 	int				index;
 	int				type;
 	char			*value_t;
-	// t_token_type		tokens;
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
