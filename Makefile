@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
+#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/01 14:39:51 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/01 14:39:53 by ahbey            ###   ########.fr        #
+#    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
+#    Updated: 2024/10/03 16:57:46 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS =	minishell.c \
 		get_path.c \
 		token.c  \
 		create_token.c \
+		token_check.c  \
 
 CC	=	cc
 

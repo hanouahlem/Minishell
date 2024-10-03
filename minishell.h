@@ -26,7 +26,6 @@ typedef struct t_token
 	int				index;
 	int				type;
 	char			*value_t;
-	// t_token_type		tokens;
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
@@ -47,7 +46,6 @@ typedef enum t_token_type
 	DBL_REDIR_OUT, // >>
 	PIPE,          //|
 	WORD,
-	// W_SPACE,
 }					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
@@ -68,5 +66,8 @@ char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
 
 int					ft_strcmp(const char *s1, const char *s2);
+char				*token_negation(char *str);
+
+char				*delete_quote(char *str);
 
 #endif

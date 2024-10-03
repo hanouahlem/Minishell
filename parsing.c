@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/01 14:40:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/03 17:01:05 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	ft_check_redir_pipe_begin(char *str)
 	int	len;
 
 	i = 0;
-	len = ft_strlen(str);
+	len = ft_strlen(str) - 1;
 	while (str[i] == W_SPACE || str[i] == W_TAB)
 		i++;
-	if (str[i] == '>' || str[i] == '|')
+	if (str[i] == '|')
 	{
 		return (1);
 	}
