@@ -18,13 +18,13 @@ t_env	*get_env(char **env)
 		ft_lstadd_back_env(&path, node);
 		i++;
 	}
-	return (path);
 	// while (path)
 	// {
 	// 	printf("%s\n", path->content);
 	// 	printf("%s\n", path->value);
 	// 	path = path->next;
 	// }
+	return (path);
 }
 
 char	*find_key_for_env(char *my_env)
