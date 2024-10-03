@@ -70,4 +70,5 @@ char				*token_negation(char *str);
 
 char				*delete_quote(char *str);
 
+char    *ft_get_key(char *str, t_mini *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/03 16:56:50 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:24:47 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	main(int ac, char **av, char **env)
 	t_mini	data;
 	char	*line;
 	t_token	*tokenis;
-	char	*test;
-	char	*test2;
 
 	(void)ac;
 	(void)av;
@@ -58,16 +56,10 @@ int	main(int ac, char **av, char **env)
 		syntax(line);
 		if (ft_quote(line))
 			continue ;
-		test2 = token_negation(line);
-		printf("test apres negation = %s\n", test2);
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
 		split_line(0, line, tokenis);
-		test2 = token_negation(test2);
-		printf("test apres posi = %s\n", test2);
-		test = delete_quote(line);
-		printf("%s\n", test);
-		split_line(0, line, tokenis);
+		ft_get_key(line, &data);
 	}
 	// free tout
 	return (0);
