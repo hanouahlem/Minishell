@@ -6,7 +6,11 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/03 17:01:05 by manbengh         ###   ########.fr       */
+<<<<<<<<< Temporary merge branch 1
+/*   Updated: 2024/09/18 18:59:19 by manbengh         ###   ########.fr       */
+=========
+/*   Updated: 2024/09/26 15:40:38 by ahbey            ###   ########.fr       */
+>>>>>>>>> Temporary merge branch 2
 /*                                                                            */
 /* ************************************************************************** */
 
