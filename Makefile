@@ -6,17 +6,17 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/03 17:41:38 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/03 17:44:01 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
-		parsing.c \
-		utils.c  \
-		get_path.c \
-		token.c  \
-		create_token.c \
-		token_check.c  \
+	parsing.c \
+	utils.c  \
+	get_path.c \
+	token.c  \
+	create_token.c \
+	token_check.c  \
 
 CC	=	cc
 
