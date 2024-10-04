@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/04 15:35:37 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/04 16:04:39 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_get_key(char *str, t_mini *data)
 // 		else
 // 		{
 // 			res = ft_strcat(str[i]);
-// 			// "manbenghlala"
+			// "manbenghlala"
 // 		}
 // 		i++;
 // 	}
