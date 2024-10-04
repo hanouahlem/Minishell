@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/04 16:01:54 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:08:22 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,27 @@ char    *ft_get_key(char *str, t_mini *data)
 // $USER"$USER" ---> manbenghmanbengh
 // $USER'$USER' ---> manbengh$USER
 
+
+// $USER"lala"$USER
+// int join_after_key()
+// {	
+// 	char *str;
+// 	char *res = NULL;
+// 	int i = 0;
+// 	while(str[i])
+// 	{
+// 		if(str[i] == '$')
+// 		{
+// 			res = ft_strjoin(res, ft_get_key());
+// 			res = "manbenghlalamanbengh";
+// 			while(str[i] = ft_isalnum)
+// 				i++;
+// 		}
+// 		else
+// 		{
+// 			res = ft_strcat(str[i]);
+// 			// "manbenghlala"
+// 		}
+// 		i++;
+// 	}
+// }
