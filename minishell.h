@@ -41,6 +41,7 @@ typedef struct t_token
 	struct t_token	*prev;
 }					t_token;
 
+
 typedef struct t_mini
 {
 	char			*data;
@@ -66,8 +67,9 @@ t_env				*ft_lstlast_env(t_env *lst);
 void				ft_lstadd_back_env(t_env **lst, t_env *new);
 
 t_token				*ft_lstnew_tok(void *values);
+t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
-void				split_line(char *line, t_token *tokenis);
+void				split_line(int i, char *line, t_token *tokenis);
 
 t_env				*get_env(char **env);
 char				*find_key_for_env(char *my_env);
@@ -79,4 +81,5 @@ char				*token_negation(char *str);
 
 char				*delete_quote(char *str);
 
+char    *ft_get_key(char *str, t_mini *data);
 #endif

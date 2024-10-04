@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:19:36 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/25 19:52:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/01 16:50:21 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ int	ft_tokenisation(char *tokens)
 		return (WORD);
 }
 
+t_token	*add_prev(t_token *new)
+{
+	t_token	*tmp1;
+	t_token	*tmp2;
+
+	if (new)
+	{
+		new->prev = NULL;
+		tmp1 = new;
+		tmp2 = new->next;
+		while (tmp1 && tmp2)
+		{
+			tmp2->prev = tmp1;
+			tmp1 = tmp1->next;
+			tmp2 = tmp2->next;
+		}
+	}
+	return (new);
+}
+
 t_token	*ft_lstnew_tok(void *values)
 {
 	t_token	*new;
@@ -40,7 +60,7 @@ t_token	*ft_lstnew_tok(void *values)
 	new->value_t = ft_strdup(values);
 	new->type = ft_tokenisation(values);
 	new->next = NULL;
-	// new->prev = new;
+	new->prev = NULL;
 	return (new);
 }
 
