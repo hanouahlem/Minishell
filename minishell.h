@@ -7,6 +7,9 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -29,7 +32,6 @@ typedef struct t_token
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
-
 
 typedef struct t_mini
 {
@@ -70,5 +72,6 @@ char				*token_negation(char *str);
 
 char				*delete_quote(char *str);
 
-char    *ft_get_key(char *str, t_mini *data);
+char				*ft_get_key(char *str, t_mini *data);
+char				*expand(char *input);
 #endif
