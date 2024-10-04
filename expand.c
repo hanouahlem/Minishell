@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/03 19:37:55 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:58:08 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,26 @@ char    *ft_get_key(char *str, t_mini *data)
 }
 
 
-$USER"lala"$USER
-
-char *res = NULL;
-while(str[i])
-{
-	if(str[i] == '$')
-	{
-		res = ft_strjoin(res, ft_get_key());
-		res = "manbenghlalamanbengh";
-		while(str[i] = alphanum + _)
-			i++;
-	}
-	else
-	{
-		res = ft_strcat(str[i])
-		"manbenghlala"
-	}
-	i++;
-	
-	
-}
+// $USER"lala"$USER
+// int join_after_key()
+// {	
+// 	char *str;
+// 	char *res = NULL;
+// 	int i = 0;
+// 	while(str[i])
+// 	{
+// 		if(str[i] == '$')
+// 		{
+// 			res = ft_strjoin(res, ft_get_key());
+// 			res = "manbenghlalamanbengh";
+// 			while(str[i] = ft_isalnum)
+// 				i++;
+// 		}
+// 		else
+// 		{
+// 			res = ft_strcat(str[i]);
+// 			// "manbenghlala"
+// 		}
+// 		i++;
+// 	}
+// }
