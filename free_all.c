@@ -36,5 +36,6 @@ void free_token(t_token *token)
 
 void	free_everything(t_mini *data)
 {
-	
+	free_env(data->env);
+	free_token(data->token);
 }

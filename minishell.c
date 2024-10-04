@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/02 20:47:24 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/04 14:21:19 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	main(int ac, char **av, char **env)
 		printf("%s\n", test);
 		split_line(line, tokenis);
 	}
-	// free tout
 	return (0);
 }
 
@@ -84,7 +83,7 @@ int	main(int ac, char **av, char **env)
 """ faux                       fait
 """"""" FAUX
 
-1 - expend
+1 - expand
 $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 
 2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS         faiiiiit
