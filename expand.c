@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/04 16:04:39 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/04 16:15:27 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,29 @@ char	*ft_get_key(char *str, t_mini *data)
 		&& !ft_isdigit(str[1]))
 		c[j++] = str[i++];
 	c[j] = '\0';
+	printf("str = %s\n", str);
 	return (ft_value_from_key(c, data));
 }
 
 // $USER"lala"$USER
-// int	join_after_key(char *str, t_mini *data)
-// {
-// 	char *res = NULL;
-// 	int i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$')
-// 		{
-// 			res = ft_strjoin(res, ft_get_key(str, data));
-// 			res = "manbenghlalamanbengh";
-// 			while (str[i] = ft_isalnum)
-// 				i++;
-// 		}
-// 		else
-// 		{
-// 			res = ft_strcat(str[i]);
-			// "manbenghlala"
-// 		}
-// 		i++;
-// 	}
-// }
+int	join_after_key(char *str, t_mini *data)
+{
+	char *res = NULL;
+	int i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			res = ft_strjoin(res, ft_get_key(str, data));
+			res = "manbenghlalamanbengh";
+			while (str[i] = ft_isalnum)
+				i++;
+		}
+		else
+		{
+			res = ft_strcat(str[i]);
+			"manbenghlala"
+		}
+		i++;
+	}
+}
