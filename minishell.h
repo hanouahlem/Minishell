@@ -7,6 +7,9 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -26,7 +29,6 @@ typedef struct t_token
 	int				index;
 	int				type;
 	char			*value_t;
-	// t_token_type		tokens;
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
@@ -46,7 +48,6 @@ typedef enum t_token_type
 	DBL_REDIR_OUT, // >>
 	PIPE,          //|
 	WORD,
-	// W_SPACE,
 }					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
@@ -57,8 +58,9 @@ t_env				*ft_lstlast_env(t_env *lst);
 void				ft_lstadd_back_env(t_env **lst, t_env *new);
 
 t_token				*ft_lstnew_tok(void *values);
+t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
-void				split_line(char *line, t_token *tokenis);
+void				split_line(int i, char *line, t_token *tokenis);
 
 t_env				*get_env(char **env);
 char				*find_key_for_env(char *my_env);
@@ -66,5 +68,10 @@ char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
 
 int					ft_strcmp(const char *s1, const char *s2);
+char				*token_negation(char *str);
 
+char				*delete_quote(char *str);
+
+char				*ft_get_key(char *str, t_mini *data);
+char				*expand(char *input);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:15:48 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:55:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
 	tokenis = NULL;
@@ -48,7 +47,7 @@ int	main(int ac, char **av, char **env)
 	data.env = get_env(env);
 	while (1)
 	{
-		line = readline("Minishell> ");
+		line = readline("Minishell $> ");
 		if (!line)
 			break ;
 		if (!*line)
@@ -59,27 +58,28 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
-		split_line(line, tokenis);
+		split_line(0, line, tokenis);
+		ft_get_key(line, &data);
 	}
-	// free env
+	// free tout
 	return (0);
 }
 
 /*
 
 1 - check les guillemets
-"'''''''''" vrai
+"'''''''''" vrai        fait
 "'" vrai
 """" vrai
 '"""""""""""""""' vrai
 ''' faux
-""" faux
+""" faux                       fait
 """"""" FAUX
 
 1 - expend
 $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 
-2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS
+2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS         faiiiiit
 "bonjour ||||| c moi"
 "*******************"
 
@@ -89,13 +89,13 @@ $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 >>> faux
 |       | faux
 command | faux
-| command |
+| command |                 fait
 >  > faux
 "|||||" vrai
 '<><><||||<><' vrai
 
 4 - remettre en positive
-"****************"
+"****************"         fait
 "bonjour || c moi"
 
 5 - tokenisation
