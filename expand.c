@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/04 20:29:40 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/07 21:29:51 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,120 +21,153 @@ char	*ft_value_from_key(char *str, t_mini *data)
 	{
 		if (!ft_strcmp(str, tmp->key))
 		{
-			// printf("%s = %s\n", str, tmp->value);
-			return (tmp->value);
+			printf("str = %s  value = %s\n", str, tmp->value);
+			return (ft_strdup(tmp->value));
 		}
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-char	*before_dollar(char *str, int *i)
+char	*ft_get_key(char *str, int *i)
 {
-	int		j;
-	char	*res;
-
-	j = 0;
-	res = malloc(sizeof(char) * ft_strlen(str) + 1);
-	while (str[*i] != '$' && str[*i])
-	{
-		res[j] = str[*i];
-		j++;
-		(*i)++;
-	}
-	res[j] = '\0';
-	return (res);
-}
-
-char	*ft_get_key(char *str, t_mini *data)
-{
-	int		i;
 	int		j;
 	char	*c;
-	char	*res;
 
-	i = 0;
 	j = 0;
-	res = NULL;
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!c)
-		return (NULL);
-	if (str)
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
+		&& !ft_isdigit(str[1]))
 	{
-		if (ft_strchr(str, '\'') != NULL)
-		{
-			str = delete_quote(str);
-			printf("str == %s\n", str);
-			return (str);
-		}
-		res = before_dollar(str, &i);
-		if (res == NULL)
-			i = 0;
-		if (str[i] == '$')
-		{
-			i++;
-			while (str[i] && (ft_isalnum(str[i]) || str[i] == '_')
-				&& !ft_isdigit(str[1]))
-				c[j++] = str[i++];
-			c[j] = '\0';
-			c = ft_value_from_key(c, data);
-			if (c)
-				res = ft_strjoin(res, c);
-		}
-		// printf("str[i] === %c\n", str[i]);
-		// i++;
+		c[j++] = str[(*i)++];
 	}
-	res = ft_strjoin(res, &str[i]);
-	res = delete_quote(res);
-	printf("res == %s\n", res);
-	free(str);
-	return (res);
+	c[j] = '\0';
+	return (c);
 }
 
-// $USER"lala"$USER
-
-// char *res = NULL;
-// while(str[i])
+// int	ft_expand_len(char *str, t_mini *data)
 // {
-// 	if(str[i] == '$')
+// 	int		i;
+// 	int		n;
+// 	char	*key;
+// 	char	*value;
+
+// 	i = 0;
+// 	n = 0;
+// 	while (str[i])
 // 	{
-// 		res = ft_strjoin(res, ft_get_key());
-// 		res = "manbenghlalamanbengh";
-// 		while(str[i] = alphanum + _)
+// 		while (str[i] && str[i] == SQUOTE)
+// 		{
+// 			printf("je suis [%c]{%i}\n", str[i], i);
 // 			i++;
-// 	}
-// 	else
-// 	{
-// 		res = ft_strcat(str[i])
-// 		"manbenghlala"
-// 	}
-// 	i++;
-
-// }
-
-// $USER"$USER" ---> manbenghmanbengh
-// $USER'$USER' ---> manbengh$USER
-
-// $USER"lala"$USER
-// int join_after_key()
-// {
-// 	char *str;
-// 	char *res = NULL;
-// 	int i = 0;
-// 	while(str[i])
-// 	{
-// 		if(str[i] == '$')
+// 			while (str[i] && str[i] != SQUOTE)
+// 			{
+// 				new[n++] = str[i++];
+// 			}
+// 			i++;
+// 		}
+// 		if (!str[i])
+// 			break ;
+// 		while (str[i] && str[i] == DQUOTE)
 // 		{
-// 			res = ft_strjoin(res, ft_get_key());
-// 			res = "manbenghlalamanbengh";
-// 			while(str[i] = ft_isalnum)
+// 			i++;
+// 			while (str[i] && str[i] != DQUOTE)
+// 			{
+// 				while (str[i] && str[i] == '$')
+// 				{
+// 					i++;
+// 					key = ft_get_key2(str, &i);
+// 					value = ft_value_from_key(key, data);
+// 					if (value)
+// 						n += ft_strlen(value);
+// 				}
+// 				if (!str[i])
+// 					break ;
 // 				i++;
+// 				n++;
+// 			}
+// 			if (!str[i])
+// 				break ;
+// 			while (str[i] && str[i] == '$')
+// 			{
+// 				i++;
+// 				key = ft_get_key2(str, &i);
+// 				value = ft_value_from_key(key, data);
+// 				if (value)
+// 					n += ft_strlen(value);
+// 			}
+// 			if (!str[i])
+// 				break ;
+// 			i++;
+// 			n++;
 // 		}
-// 		else
-// 		{
-// 			res = ft_strcat(str[i]);
-// 			// "manbenghlala"
-// 		}
-// 		i++;
+// 		return (n);
 // 	}
 // }
+
+char	*ft_expand(char *str, t_mini *data)
+{
+	int		i;
+	int		n;
+	char	*new;
+	char	*key;
+	char	*value;
+
+	i = 0;
+	n = 0;
+	new = ft_calloc(10000, 1);
+	while (str[i])
+	{
+		while (str[i] && str[i] == SQUOTE)
+		{
+			printf("je suis [%c]{%i}\n", str[i], i);
+			i++;
+			while (str[i] && str[i] != SQUOTE)
+				new[n++] = str[i++];
+			i++;
+		}
+		if (!str[i])
+			break ;
+		while (str[i] && str[i] == DQUOTE)
+		{
+			i++;
+			while (str[i] && str[i] != DQUOTE)
+			{
+				while (str[i] && str[i] == '$')
+				{
+					i++;
+					key = ft_get_key(str, &i);
+					value = ft_value_from_key(key, data);
+					if (value)
+					{
+						strcat(new, value);
+						n += ft_strlen(value);
+					}
+				}
+				if (str[i])
+					new[n++] = str[i++];
+			}
+			i++;
+		}
+		if (!str[i])
+			break ;
+		while (str[i] && str[i] == '$')
+		{
+			if (!str[++i])
+			{
+				printf("BACKSLASH ZERO\n");
+				break ;
+			}
+			key = ft_get_key(str, &i);
+			value = ft_value_from_key(key, data);
+			if (value)
+			{
+				strcat(new, value);
+				n += ft_strlen(value);
+			}
+		}
+		if (str[i] && str[i] != SQUOTE && str[i] != DQUOTE)
+			new[n++] = str[i++];
+	}
+	return (new);
+}

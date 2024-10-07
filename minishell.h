@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/03 12:39:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/07 20:12:08 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -83,6 +83,9 @@ char				*token_negation(char *str);
 
 char				*delete_quote(char *str);
 
-char				*ft_get_key(char *str, t_mini *data);
-char				*expand(char *input);
+char				*ft_get_key(char *str, int *i);
+char				*ft_expand(char *str, t_mini *data);
+char	*ft_value_from_key(char *str, t_mini *data);
+char *retirerquote(char *str);
+void token_positive(char *str);
 #endif

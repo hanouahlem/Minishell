@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/04 20:30:10 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/07 19:02:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ int	main(int ac, char **av, char **env)
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
 		split_line(0, line, tokenis);
-		ft_get_key(line, &data);
+		printf("AVANT:[%s]\n", line);
+		// line = token_negation(line);
+		line = ft_expand(line, &data);
+		// line = retirerquote(line);
+		// token_positive(line);
+		printf("APRES:[%s]\n", line);
 	}
 	return (0);
 }
-
 /*
 
 1 - check les guillemets

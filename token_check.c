@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/02 20:02:52 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/07 18:51:53 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ char	*token_negation(char *str)
 		i++;
 	}
 	return (str);
+}
+void token_positive(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < 0)
+			str[i] = -str[i];
+		i++;
+	}
 }
 
 char	*delete_quote(char *str)
