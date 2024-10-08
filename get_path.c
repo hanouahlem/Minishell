@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 19:31:28 by manbengh          #+#    #+#             */
+/*   Updated: 2024/10/08 19:31:39 by manbengh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -18,14 +29,14 @@ t_env	*get_env(char **env)
 		ft_lstadd_back_env(&path, node);
 		i++;
 	}
-	// while (path)
-	// {
-	// 	printf("KEY :  %s\n", path->key);
-	// 	printf("VALUE :  %s\n\n", path->value);
-	// 	path = path->next;
-	// }
 	return (path);
 }
+// while (path)
+// {
+// 	printf("KEY :  %s\n", path->key);
+// 	printf("VALUE :  %s\n\n", path->value);
+// 	path = path->next;
+// }
 
 char	*find_key_for_env(char *my_env)
 {
@@ -39,7 +50,8 @@ char	*find_value_for_env(char *my_env)
 {
 	char	*value;
 
-	value = ft_substr(my_env, ft_strlen_stop(my_env, '=') + 1, ft_strlen(my_env));
+	value = ft_substr(my_env, ft_strlen_stop(my_env, '=') + 1,
+			ft_strlen(my_env));
 	return (value);
 }
 

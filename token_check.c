@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/07 18:51:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/08 19:26:41 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ char	*token_negation(char *str)
 	}
 	return (str);
 }
-void token_positive(char *str)
+
+void	token_positive(char *str)
 {
 	int	i;
 
@@ -69,4 +70,30 @@ char	*delete_quote(char *str)
 	res[j] = '\0';
 	free(str);
 	return (res);
+}
+
+char	*retirerquote(char *str)
+{
+	char	*new;
+	int		i;
+	int		n;
+	char	c;
+
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		while (str[i] == SQUOTE || str[i] == DQUOTE)
+		{
+			c = str[i++];
+			while (str[i] != c)
+				new[n++] = str[i++];
+			i++;
+		}
+		if (str[i])
+			new[n++] = str[i++];
+	}
+	new[i] = '\0';
+	return (new);
 }

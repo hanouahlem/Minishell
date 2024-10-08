@@ -2,108 +2,189 @@
 
 // STR = $USER,moha,$TEST$SHLVL
 // retour = ahbey,moha,1
-char	*ft_get_key2(char *str, int *i)
-{
-	int		j;
-	char	*c;
 
-	j = 0;
-	c = malloc(sizeof(char) * ft_strlen(str) + 1);
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
-		&& !ft_isdigit(str[1]))
-	{
-		c[j++] = str[(*i)++];
-	}
-	c[j] = '\0';
-	return (c);
-}
-int	ft_expand_len2(char *str, t_mini *data)
+// char	*ft_value_from_key(char *str, t_mini *data)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = data->env;
+// 	while (tmp)
+// 	{
+// 		if (!ft_strcmp(str, tmp->key))
+// 		{
+// 			printf("str = %s  value = %s\n", str, tmp->value);
+// 			return (ft_strdup(tmp->value));
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	return (NULL);
+// }
+
+
+void	ft_expand_dollar(t_expand *exp)
 {
-	int		i;
-	int		n;
 	char	*key;
 	char	*value;
 
-	i = 0;
-	n = 0;
-	while (str[i])
+	while (exp->str[exp->i] == '$')
 	{
-		while (str[i] && str[i] == '$')
+		// exp->i++;
+		if (!exp->str[++exp->i])
+			return ;
+		key = ft_get_key(exp->str, &(exp->i));
+		printf("key --> %s\n", key);
+		value = ft_value_from_key(key, exp->data);
+		printf("value == %s\n", value);
+		if (value)
 		{
-			i++;
-			key = ft_get_key2(str, &i);
-			value = ft_value_from_key(key, data);
-			if (value)
-				n += ft_strlen(value);
+			ft_strcat(exp->new_str, value);
+			exp->n += ft_strlen(value);
 		}
-		if (!str[i])
-			break ;
-		i++;
-		n++;
 	}
-	return (n);
 }
 
-char	*ft_expand2(char *str, t_mini *data)
+
+void	ft_expand_squote(t_expand *exp)
 {
-	int i = 0;
-	int n = 0;
-	char *new;
-	char *key;
-	char *value;
-
-	new = ft_calloc(10000, 1);
-	while (str[i])
+	if (exp->str[exp->i] == SQUOTE)
 	{
-		while (str[i] && str[i] == SQUOTE)
-		{
-			printf("je suis [%c]{%i}\n", str[i], i);
-			i++;
-			while (str[i] && str[i] != SQUOTE)
-			{
-				new[n++] = str[i++];
-			}
-			i++;
-		}
-
-		if (!str[i])
-			break ;
-		while (str[i] && str[i] == DQUOTE)
-		{
-			i++;
-			while (str[i] && str[i] != DQUOTE)
-			{
-				while (str[i] && str[i] == '$')
-				{
-					i++;
-					key = ft_get_key2(str, &i);
-					value = ft_value_from_key(key, data);
-					if (value)
-					{
-						strcat(new, value);
-						n += ft_strlen(value);
-					}
-				}
-				new[n++] = str[i++];
-			}
-			i++;
-		}
-		if (!str[i])
-			break ;
-		while (str[i] && str[i] == '$')
-		{
-			i++;
-			key = ft_get_key2(str, &i);
-			value = ft_value_from_key(key, data);
-			if (value)
-			{
-				strcat(new, value);
-				n += ft_strlen(value);
-			}
-		}
-		if (str[i])
-			new[n++] = str[i++];
+		exp->i++;
+		while (exp->str[exp->i] && exp->str[exp->i] != SQUOTE)
+			exp->new_str[exp->n++] = exp->str[exp->i++];
+		exp->i++;
 	}
-	new[n] = '\0';
-	return (new);
+}
+
+
+void	ft_expand_dquote(t_expand *exp)
+{
+	char	*key;
+	char	*value;
+
+	if (exp->str[exp->i] == DQUOTE)
+	{
+		exp->i++;
+		while (exp->str[exp->i] && exp->str[exp->i] != DQUOTE)
+		{
+			if (exp->str[exp->i] == '$')
+			{
+				exp->i++;
+				key = ft_get_key(exp->str, &(exp->i));
+				value = ft_value_from_key(key, exp->data);
+				if (value)
+				{
+					ft_strcat(exp->new_str, value);
+					exp->n += ft_strlen(value);
+				}
+			}
+			else
+				exp->new_str[exp->n++] = exp->str[exp->i++];
+		}
+		exp->i++;
+	}
+}
+
+
+
+void	ft_expand_len_squote(t_expand *exp_l)
+{
+	if (exp_l->str[exp_l->i] == SQUOTE)
+	{
+		exp_l->i++;
+		while (exp_l->str[exp_l->i] && exp_l->str[exp_l->i] != SQUOTE)
+		{
+			exp_l->n++;
+			exp_l->i++;
+		}
+		exp_l->i++;
+	}
+}
+
+void	ft_expand_len_dquote(t_expand *exp_l)
+{
+	char	*key;
+	char	*value;
+
+	if (exp_l->str[exp_l->i] == DQUOTE)
+	{
+		exp_l->i++;
+		while (exp_l->str[exp_l->i] && exp_l->str[exp_l->i] != DQUOTE)
+		{
+			if (exp_l->str[exp_l->i] == '$')
+			{
+				exp_l->i++;
+				key = ft_get_key(exp_l->str, &(exp_l->i));
+				value = ft_value_from_key(key, exp_l->data);
+				if (value)
+					exp_l->n += ft_strlen(value);
+			}
+			else
+			{
+				exp_l->n++;
+				exp_l->i++;
+			}
+		}
+		exp_l->i++;
+	}
+}
+
+void	ft_expand_len_dollar(t_expand *exp_l)
+{
+	char	*key;
+	char	*value;
+
+	if (exp_l->str[exp_l->i] == '$')
+	{
+		exp_l->i++;
+		key = ft_get_key(exp_l->str, &(exp_l->i));
+		value = ft_value_from_key(key, exp_l->data);
+		if (value)
+			exp_l->n += ft_strlen(value);
+	}
+}
+
+int	ft_expand_len(char *str, t_mini *data)
+{
+	t_expand	exp_l;
+
+	exp_l.str = str;
+	exp_l.i = 0;
+	exp_l.n = 0;
+	exp_l.data = data;
+
+	while (exp_l.str[exp_l.i])
+	{
+		ft_expand_len_squote(&exp_l);
+		ft_expand_len_dquote(&exp_l);
+		ft_expand_len_dollar(&exp_l);
+		if (exp_l.str[exp_l.i] && exp_l.str[exp_l.i] != SQUOTE && exp_l.str[exp_l.i] != DQUOTE && exp_l.str[exp_l.i] != '$')
+		{
+			exp_l.n++;
+			exp_l.i++;
+		}
+	}
+	return (exp_l.n);
+}
+
+
+
+char	*ft_expand(char *str, t_mini *data)
+{
+	t_expand exp;
+
+	exp.str = str;
+	exp.i = 0;
+	exp.n = 0;
+	exp.data = data;
+	exp.new_str = ft_calloc(ft_expand_len(str, data) + 1, 1);
+
+	while (exp.str[exp.i])
+	{
+		ft_expand_squote(&exp);
+		ft_expand_dquote(&exp);
+		ft_expand_dollar(&exp);
+		if (exp.str[exp.i] && exp.str[exp.i] != SQUOTE && exp.str[exp.i] != DQUOTE)
+			exp.new_str[exp.n++] = exp.str[exp.i++];
+	}
+	return (exp.new_str);
 }
