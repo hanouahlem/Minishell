@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/07 21:29:51 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/08 15:50:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_get_key(char *str, int *i)
 // 	int		n;
 // 	char	*key;
 // 	char	*value;
+// 	char	*new = NULL;
 
 // 	i = 0;
 // 	n = 0;
@@ -76,7 +77,7 @@ char	*ft_get_key(char *str, int *i)
 // 				while (str[i] && str[i] == '$')
 // 				{
 // 					i++;
-// 					key = ft_get_key2(str, &i);
+// 					key = ft_get_key(str, &i);
 // 					value = ft_value_from_key(key, data);
 // 					if (value)
 // 						n += ft_strlen(value);
@@ -91,7 +92,7 @@ char	*ft_get_key(char *str, int *i)
 // 			while (str[i] && str[i] == '$')
 // 			{
 // 				i++;
-// 				key = ft_get_key2(str, &i);
+// 				key = ft_get_key(str, &i);
 // 				value = ft_value_from_key(key, data);
 // 				if (value)
 // 					n += ft_strlen(value);

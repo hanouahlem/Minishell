@@ -17,7 +17,7 @@ char	*ft_get_key2(char *str, int *i)
 	c[j] = '\0';
 	return (c);
 }
-int	ft_expand_len(char *str, t_mini *data)
+int	ft_expand_len2(char *str, t_mini *data)
 {
 	int		i;
 	int		n;
@@ -44,7 +44,7 @@ int	ft_expand_len(char *str, t_mini *data)
 	return (n);
 }
 
-char	*ft_expand(char *str, t_mini *data)
+char	*ft_expand2(char *str, t_mini *data)
 {
 	int i = 0;
 	int n = 0;
@@ -104,5 +104,6 @@ char	*ft_expand(char *str, t_mini *data)
 		if (str[i])
 			new[n++] = str[i++];
 	}
+	new[n] = '\0';
 	return (new);
 }
