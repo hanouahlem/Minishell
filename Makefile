@@ -6,7 +6,7 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/08 16:18:03 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/08 19:29:18 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS =	minishell.c \
 		token.c  \
 		create_token.c \
 		token_check.c  \
-		retirerquote.c \
+		expand_utils.c  \
 		expand.c \
 		# ce_que_moha_a_supp.c \
 		

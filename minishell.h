@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 16:55:54 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:22:39 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ typedef struct t_env
 typedef struct s_expand
 {
 	char			*str;
+	char			*str_len;
 	int				i;
+	int				i_len;
 	char			*new_str;
+	char			*new_str_len;
 	int				n;
-	t_mini			*data;
+	int				n_len;
+	struct t_mini	*data;
 }					t_expand;
 
 typedef struct t_token
@@ -64,11 +68,11 @@ typedef struct t_mini
 
 typedef enum t_token_type
 {
-	REDIR_IN,      // <
-	REDIR_OUT,     // >
-	DBL_REDIR_IN,  // <<
-	DBL_REDIR_OUT, // >>
-	PIPE,          //|
+	REDIR_IN,
+	REDIR_OUT,
+	DBL_REDIR_IN,
+	DBL_REDIR_OUT,
+	PIPE,
 	WORD,
 }					t_token_type;
 
@@ -99,5 +103,11 @@ char				*ft_get_key(char *str, int *i);
 char				*ft_value_from_key(char *str, t_mini *data);
 char				*retirerquote(char *str);
 void				token_positive(char *str);
+
+void				ft_expand_len_dollar(t_expand *exp_l);
+void				ft_expand_len_dquote(t_expand *exp_l);
+void				ft_expand_len_squote(t_expand *exp_l);
+
+int					ft_expand_len(char *str, t_mini *data);
 char				*ft_expand(char *str, t_mini *data);
 #endif
