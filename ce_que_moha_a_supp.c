@@ -2,6 +2,24 @@
 
 // STR = $USER,moha,$TEST$SHLVL
 // retour = ahbey,moha,1
+
+char	*ft_value_from_key(char *str, t_mini *data)
+{
+	t_env	*tmp;
+
+	tmp = data->env;
+	while (tmp)
+	{
+		if (!ft_strcmp(str, tmp->key))
+		{
+			printf("str = %s  value = %s\n", str, tmp->value);
+			return (ft_strdup(tmp->value));
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 char	*ft_get_key2(char *str, int *i)
 {
 	int		j;
@@ -16,93 +34,4 @@ char	*ft_get_key2(char *str, int *i)
 	}
 	c[j] = '\0';
 	return (c);
-}
-int	ft_expand_len(char *str, t_mini *data)
-{
-	int		i;
-	int		n;
-	char	*key;
-	char	*value;
-
-	i = 0;
-	n = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == '$')
-		{
-			i++;
-			key = ft_get_key2(str, &i);
-			value = ft_value_from_key(key, data);
-			if (value)
-				n += ft_strlen(value);
-		}
-		if (!str[i])
-			break ;
-		i++;
-		n++;
-	}
-	return (n);
-}
-
-char	*ft_expand(char *str, t_mini *data)
-{
-	int i = 0;
-	int n = 0;
-	char *new;
-	char *key;
-	char *value;
-
-	new = ft_calloc(10000, 1);
-	while (str[i])
-	{
-		while (str[i] && str[i] == SQUOTE)
-		{
-			printf("je suis [%c]{%i}\n", str[i], i);
-			i++;
-			while (str[i] && str[i] != SQUOTE)
-			{
-				new[n++] = str[i++];
-			}
-			i++;
-		}
-
-		if (!str[i])
-			break ;
-		while (str[i] && str[i] == DQUOTE)
-		{
-			i++;
-			while (str[i] && str[i] != DQUOTE)
-			{
-				while (str[i] && str[i] == '$')
-				{
-					i++;
-					key = ft_get_key2(str, &i);
-					value = ft_value_from_key(key, data);
-					if (value)
-					{
-						strcat(new, value);
-						n += ft_strlen(value);
-					}
-				}
-				new[n++] = str[i++];
-			}
-			i++;
-		}
-		if (!str[i])
-			break ;
-		while (str[i] && str[i] == '$')
-		{
-			i++;
-			key = ft_get_key2(str, &i);
-			value = ft_value_from_key(key, data);
-			if (value)
-			{
-				strcat(new, value);
-				n += ft_strlen(value);
-			}
-		}
-		if (str[i])
-			new[n++] = str[i++];
-	}
-	return (new);
 }

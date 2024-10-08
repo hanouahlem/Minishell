@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
+#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/07 21:44:58 by ahbey            ###   ########.fr        #
+#    Updated: 2024/10/08 16:18:03 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ SRCS =	minishell.c \
 		token.c  \
 		create_token.c \
 		token_check.c  \
-		expand.c \
 		retirerquote.c \
-		ce_que_moha_a_supp.c \
+		expand.c \
+		# ce_que_moha_a_supp.c \
 		
 CC	=	cc
 

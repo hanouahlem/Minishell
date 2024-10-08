@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/07 20:12:08 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/08 16:55:54 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct t_env
 	struct t_env	*next;
 }					t_env;
 
+typedef struct s_expand
+{
+	char			*str;
+	int				i;
+	char			*new_str;
+	int				n;
+	t_mini			*data;
+}					t_expand;
+
 typedef struct t_token
 {
 	int				index;
@@ -47,8 +56,10 @@ typedef struct t_token
 typedef struct t_mini
 {
 	char			*data;
+	char			msg_error;
 	t_token			*token;
 	t_env			*env;
+	t_expand		*expand;
 }					t_mini;
 
 typedef enum t_token_type
@@ -67,6 +78,7 @@ int					ft_quote(char *str);
 t_env				*ft_lstnew_env(void *content);
 t_env				*ft_lstlast_env(t_env *lst);
 void				ft_lstadd_back_env(t_env **lst, t_env *new);
+char				*ft_strcat(char *dest, char *src);
 
 t_token				*ft_lstnew_tok(void *values);
 t_token				*add_prev(t_token *new);
@@ -84,8 +96,8 @@ char				*token_negation(char *str);
 char				*delete_quote(char *str);
 
 char				*ft_get_key(char *str, int *i);
+char				*ft_value_from_key(char *str, t_mini *data);
+char				*retirerquote(char *str);
+void				token_positive(char *str);
 char				*ft_expand(char *str, t_mini *data);
-char	*ft_value_from_key(char *str, t_mini *data);
-char *retirerquote(char *str);
-void token_positive(char *str);
 #endif

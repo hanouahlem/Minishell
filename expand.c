@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/07 21:29:51 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/08 16:56:48 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,65 +45,64 @@ char	*ft_get_key(char *str, int *i)
 	return (c);
 }
 
-// int	ft_expand_len(char *str, t_mini *data)
-// {
-// 	int		i;
-// 	int		n;
-// 	char	*key;
-// 	char	*value;
+int	ft_expand_len(char *str, t_mini *data)
+{
+	int		i;
+	int		n;
+	char	*key;
+	char	*value;
 
-// 	i = 0;
-// 	n = 0;
-// 	while (str[i])
-// 	{
-// 		while (str[i] && str[i] == SQUOTE)
-// 		{
-// 			printf("je suis [%c]{%i}\n", str[i], i);
-// 			i++;
-// 			while (str[i] && str[i] != SQUOTE)
-// 			{
-// 				new[n++] = str[i++];
-// 			}
-// 			i++;
-// 		}
-// 		if (!str[i])
-// 			break ;
-// 		while (str[i] && str[i] == DQUOTE)
-// 		{
-// 			i++;
-// 			while (str[i] && str[i] != DQUOTE)
-// 			{
-// 				while (str[i] && str[i] == '$')
-// 				{
-// 					i++;
-// 					key = ft_get_key2(str, &i);
-// 					value = ft_value_from_key(key, data);
-// 					if (value)
-// 						n += ft_strlen(value);
-// 				}
-// 				if (!str[i])
-// 					break ;
-// 				i++;
-// 				n++;
-// 			}
-// 			if (!str[i])
-// 				break ;
-// 			while (str[i] && str[i] == '$')
-// 			{
-// 				i++;
-// 				key = ft_get_key2(str, &i);
-// 				value = ft_value_from_key(key, data);
-// 				if (value)
-// 					n += ft_strlen(value);
-// 			}
-// 			if (!str[i])
-// 				break ;
-// 			i++;
-// 			n++;
-// 		}
-// 		return (n);
-// 	}
-// }
+	i = 0;
+	n = 0;
+	while (str[i])
+	{
+		while (str[i] && str[i] == SQUOTE)
+		{
+			// printf("je suis [%c]{%i}\n", str[i], i);
+			i++;
+			while (str[i] && str[i] != SQUOTE)
+			{
+				n++;
+				i++;
+			}
+			i++;
+		}
+		while (str[i] && str[i] == DQUOTE)
+		{
+			i++;
+			while (str[i] && str[i] != DQUOTE)
+			{
+				while (str[i] && str[i] == '$')
+				{
+					i++;
+					key = ft_get_key(str, &i);
+					value = ft_value_from_key(key, data);
+					if (value)
+						n += ft_strlen(value);
+				}
+				if (!str[i])
+					break ;
+				i++;
+				n++;
+			}
+			i++;
+		}
+		while (str[i] && str[i] == '$')
+		{
+			i++;
+			key = ft_get_key(str, &i);
+			value = ft_value_from_key(key, data);
+			if (value)
+				n += ft_strlen(value);
+		}
+		if (!str[i])
+			break ;
+		i++;
+		n++;
+	}
+	printf("n == %d\n", n);
+	return (n);
+}
 
 char	*ft_expand(char *str, t_mini *data)
 {
@@ -115,12 +114,12 @@ char	*ft_expand(char *str, t_mini *data)
 
 	i = 0;
 	n = 0;
-	new = ft_calloc(10000, 1);
+	new = ft_calloc(ft_expand_len(str, data) + 1, 1);
 	while (str[i])
 	{
 		while (str[i] && str[i] == SQUOTE)
 		{
-			printf("je suis [%c]{%i}\n", str[i], i);
+			// printf("je suis [%c]{%i}\n", str[i], i);
 			i++;
 			while (str[i] && str[i] != SQUOTE)
 				new[n++] = str[i++];
@@ -144,7 +143,7 @@ char	*ft_expand(char *str, t_mini *data)
 						n += ft_strlen(value);
 					}
 				}
-				if (str[i])
+				if (str[i] && str[i] != DQUOTE)
 					new[n++] = str[i++];
 			}
 			i++;
@@ -155,14 +154,14 @@ char	*ft_expand(char *str, t_mini *data)
 		{
 			if (!str[++i])
 			{
-				printf("BACKSLASH ZERO\n");
+				// printf("BACKSLASH ZERO\n");
 				break ;
 			}
 			key = ft_get_key(str, &i);
 			value = ft_value_from_key(key, data);
 			if (value)
 			{
-				strcat(new, value);
+				ft_strcat(new, value);
 				n += ft_strlen(value);
 			}
 		}

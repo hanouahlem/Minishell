@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/09/30 18:16:04 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:53:10 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,24 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+char    *ft_strcat(char *dest, char *src)
+{
+    int    i;
+    int    j;
+
+    i = 0;
+    j = 0;
+    while (dest[i] != '\0')
+    {
+        i++;
+    }
+    while (src[j] != '\0')
+    {
+        dest[j + i] = src[j];
+        j++;
+    }
+    dest[j + i] = '\0';
+    return (dest);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/07 19:02:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/08 16:43:10 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int ac, char **av, char **env)
 		line = ft_expand(line, &data);
 		// line = retirerquote(line);
 		// token_positive(line);
-		printf("APRES:[%s]\n", line);
+		printf("APRES:[%s]\n", line); //cause un read of size
 	}
 	return (0);
 }
