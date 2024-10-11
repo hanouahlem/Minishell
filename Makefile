@@ -3,24 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/03 17:44:01 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/11 19:02:59 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
-	parsing.c \
-	utils.c  \
-	get_path.c \
-	token.c  \
-	create_token.c \
-	token_check.c  \
-
+		parsing.c \
+		get_path.c \
+		utils.c  \
+		token.c  \
+		create_token.c \
+		token_check.c  \
+		expand.c \
+		expand_utils.c  \
+		expand_utils_2.c
+		# ce_que_moha_a_supp.c \
+		
 CC	=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror 
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -31,7 +35,7 @@ LIBFT 	=	libft/libft.a
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)  -g3
 
 $(LIBFT):
 	make -C libft
