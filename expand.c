@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/08 19:40:58 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/11 16:13:00 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ int	ft_expand_len(char *str, t_mini *data)
 	return (exp_l.n);
 }
 
-void	ft_expand_dollar(t_expand *exp)
-{
-	char	*key;
-	char	*value;
-
-	while (exp->str[exp->i] == '$')
-	{
-		if (!exp->str[++exp->i])
-			return ;
-		key = ft_get_key(exp->str, &(exp->i));
-		value = ft_value_from_key(key, exp->data);
-		if (value)
-		{
-			ft_strcat(exp->new_str, value);
-			exp->n += ft_strlen(value);
-		}
-	}
-}
-
 void	ft_expand_squote(t_expand *exp)
 {
 	if (exp->str[exp->i] == SQUOTE)
@@ -73,12 +54,14 @@ void	ft_expand_dquote(t_expand *exp)
 	if (exp->str[exp->i] == DQUOTE)
 	{
 		exp->i++;
-		while (exp->str[exp->i] && exp->str[exp->i] != DQUOTE)
+		while (exp->str[++exp->i] && exp->str[++exp->i] != DQUOTE)
 		{
 			if (exp->str[exp->i] == '$')
 			{
 				exp->i++;
 				key = ft_get_key(exp->str, &(exp->i));
+				if (!key || !*key)
+					exp->new_str[exp->n++] = '$';
 				value = ft_value_from_key(key, exp->data);
 				if (value)
 				{
@@ -90,6 +73,26 @@ void	ft_expand_dquote(t_expand *exp)
 				exp->new_str[exp->n++] = exp->str[exp->i++];
 		}
 		exp->i++;
+	}
+}
+
+void	ft_expand_dollar(t_expand *exp)
+{
+	char	*key;
+	char	*value;
+
+	while (exp->str[exp->i] == '$')
+	{
+		exp->i++;
+		key = ft_get_key(exp->str, &(exp->i));
+		if (!key || !*key)
+			exp->new_str[exp->n++] = '$';
+		value = ft_value_from_key(key, exp->data);
+		if (value)
+		{
+			ft_strcat(exp->new_str, value);
+			exp->n += ft_strlen(value);
+		}
 	}
 }
 
@@ -113,6 +116,7 @@ char	*ft_expand(char *str, t_mini *data)
 	}
 	return (exp.new_str);
 }
+
 
 // int	ft_expand_len(char *str, t_mini *data)
 // {

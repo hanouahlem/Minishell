@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/08 19:08:29 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:19:33 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	ft_expand_len_dquote(t_expand *exp_l)
 			{
 				exp_l->i++;
 				key = ft_get_key(exp_l->str, &(exp_l->i));
+				if (!key || !*key)
+					exp_l->n += 1;
 				value = ft_value_from_key(key, exp_l->data);
 				if (value)
 					exp_l->n += ft_strlen(value);
@@ -91,6 +93,8 @@ void	ft_expand_len_dollar(t_expand *exp_l)
 
 	if (exp_l->str[exp_l->i] == '$')
 	{
+		if (!exp_l->str[exp_l->i + 1])
+			exp_l->n += 1;
 		exp_l->i++;
 		key = ft_get_key(exp_l->str, &(exp_l->i));
 		value = ft_value_from_key(key, exp_l->data);
