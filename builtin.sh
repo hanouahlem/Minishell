@@ -5,8 +5,6 @@ cd exit echo export pwd unset env
 
 
 env -> printf env max 10 lignes
-echo -> 
-exit -> fils de pute
 pwd -> printf getcwd() max 5 lignes
 cd -> YA RIEN A GERER
 	cd tout seul
@@ -17,7 +15,7 @@ cd -> YA RIEN A GERER
 		si chdir renvoie -1 printf access error
 	sinon c ok
 
-# unset export 
+# unset export
 echo max 2 fonctions 15 lignes chacune
 	si le premier argument est "-n"
 		pas de \n
@@ -40,6 +38,8 @@ echo
 		echo -
 		affiche -
 -n est valable que si ca commence par un tiret et que ya DES n
+
+exit -> fils de pute
 
 TOUTES LES FONCTIONS
 	renvoient 0 si c'est ok

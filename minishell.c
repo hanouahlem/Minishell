@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:32:03 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:33:44 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,29 @@ int	syntax(char *line)
 	(void)line;
 	return (0);
 }
+
+void	free_everything(t_mini *data)
+{
+	if (data->token)
+	{
+		// boucler sur token
+		free(data->token->value_t);
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_mini	data;
 	char	*line;
-	t_token	*tokenis;
+	// t_token	*tokenis;
 
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	tokenis = NULL;
-	data.token = tokenis;
+	// tokenis = NULL;
 	data.env = get_env(env);
+	data.token = NULL;
 	while (1)
 	{
 		line = readline("Minishell $> ");
@@ -58,14 +68,22 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
-		split_line(0, line, tokenis);
+		split_line(0, line, &data.token);
 		printf("AVANT:[%s]\n", line);
 		// line = token_negation(line);
 		line = ft_expand(line, &data);
+		// data.token = tokenis;
 		// line = retirerquote(line);
 		// token_positive(line);
-		printf("APRES:[%s]\n", line); // cause un read of size
+		// printf("APRES:[%s]\n", data->); // cause un read of size
+		// while(tokenis)
+		printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		if (ft_built_in_comp(&data) == 1)
+			printf("ERROR ENV !\n");
+		free(line);
+		// free_everything(&data);
 	}
+	free_everything(&data);
 	return (0);
 }
 /*

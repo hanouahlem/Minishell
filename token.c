@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:19:53 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:06:18 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	process_special_char(char *line, char *str, int *i, t_token **tokenis)
 	ft_lstadd_back_tok(tokenis, node_t);
 }
 
-void	split_line(int i, char *line, t_token *tokenis)
+void	split_line(int i, char *line, t_token **tokenis)
 {
-	int		index_l;
+	int	index_l = 0;
 	char	*str;
 
 	index_l = 0;
@@ -63,21 +63,22 @@ void	split_line(int i, char *line, t_token *tokenis)
 		if (line[i] == ' ')
 		{
 			if (index_l > 0)
-				handle_token(str, &index_l, &tokenis);
+				handle_token(str, &index_l, tokenis);
 		}
 		else if (line[i] == '|' || line[i] == '>' || line[i] == '<')
 		{
 			if (index_l > 0)
-				handle_token(str, &index_l, &tokenis);
-			process_special_char(line, str, &i, &tokenis);
+				handle_token(str, &index_l, tokenis);
+			process_special_char(line, str, &i, tokenis);
 		}
 		else
 			str[index_l++] = line[i];
 		i++;
 	}
 	if (index_l > 0)
-		handle_token(str, &index_l, &tokenis);
-	tokenis = add_prev(tokenis);
+		handle_token(str, &index_l, tokenis);
+	*tokenis = add_prev(*tokenis);
+	// free(str);
 }
 
 	// while (tokenis)
@@ -86,7 +87,7 @@ void	split_line(int i, char *line, t_token *tokenis)
 	// 	printf("type == %d\n", tokenis->type);
 	// 	if (tokenis->prev != NULL)
 	// 		printf("prev == %s\n\n", tokenis->prev->value_t);
-	// 	tokenis = tokenis->next;
+	// 	tokenis-> tokenis->next;
 	// }
 	// while (tokenis)
 	// {

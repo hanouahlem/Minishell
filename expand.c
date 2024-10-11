@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/11 16:13:00 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/11 16:24:26 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_expand_dquote(t_expand *exp)
 	if (exp->str[exp->i] == DQUOTE)
 	{
 		exp->i++;
-		while (exp->str[++exp->i] && exp->str[++exp->i] != DQUOTE)
+		while (exp->str[exp->i] && exp->str[exp->i] != DQUOTE)
 		{
 			if (exp->str[exp->i] == '$')
 			{

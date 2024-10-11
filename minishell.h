@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:22:39 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:34:00 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "Colors.h"
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -52,7 +53,7 @@ typedef struct t_token
 {
 	int				index;
 	int				type;
-	char			*value_t;
+	char				*value_t;
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
@@ -87,7 +88,7 @@ char				*ft_strcat(char *dest, char *src);
 t_token				*ft_lstnew_tok(void *values);
 t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
-void				split_line(int i, char *line, t_token *tokenis);
+void				split_line(int i, char *line, t_token **tokenis);
 
 t_env				*get_env(char **env);
 char				*find_key_for_env(char *my_env);
@@ -110,4 +111,10 @@ void				ft_expand_len_squote(t_expand *exp_l);
 
 int					ft_expand_len(char *str, t_mini *data);
 char				*ft_expand(char *str, t_mini *data);
+
+//BUILT_IN
+
+int	ft_env(t_mini *data);
+int	ft_built_in_comp(t_mini *data);
+
 #endif
