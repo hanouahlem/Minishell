@@ -166,8 +166,6 @@ int	ft_expand_len(char *str, t_mini *data)
 	return (exp_l.n);
 }
 
-
-
 char	*ft_expand(char *str, t_mini *data)
 {
 	t_expand exp;

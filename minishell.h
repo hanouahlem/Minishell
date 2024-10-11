@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:22:39 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:53:15 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,6 @@ void				ft_expand_len_squote(t_expand *exp_l);
 
 int					ft_expand_len(char *str, t_mini *data);
 char				*ft_expand(char *str, t_mini *data);
+void				ft_cat_value(t_expand *exp, char *value);
+void				ft_exp_plus_plus(t_expand *exp_l);
 #endif
