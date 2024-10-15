@@ -3,54 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/08 19:23:29 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:07:50 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_str(char *str)
+// void	free_env(t_env *env)
+// {
+// 	t_env	*tmp;
+
+// 	while (tmp)
+// 	{
+// 		tmp = env->next;
+// 		free(env);
+// 		env = tmp;
+// 	}
+// }
+
+void	free_token(t_mini *data)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	while(data->token)
 	{
-		free(str[i]);
-		i++;
-	}
-	free(str[i]);
-}
-
-void	free_env(t_env *env)
-{
-	t_env	*tmp;
-
-	while (tmp)
-	{
-		tmp = env->next;
-		free(env);
-		env = tmp;
+		free(data->token);
+		data->token = data->token->next;
 	}
 }
 
-void	free_token(t_token *token)
+void	free_inside(t_mini *data, char *line)
 {
-	t_token	*tmp;
-
-	while (tmp)
-	{
-		tmp = token->next;
-		free(token);
-		token = tmp;
-	}
+	if (line)
+		free(line);
+	if (data->token)
+		free_token(data);
+	
 }
 
-void	free_everything(t_mini *data)
-{
-	free_env(data->env);
-	free_token(data->token);
-}
+// void	free_everything(t_mini *data, t_token *tokenis)
+// {
+// 	// free_env(data->env);
+// 	(void)data;
+// 	free_token(tokenis);
+// }

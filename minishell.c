@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:32:03 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:17:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,18 @@
 // 	}
 // }
 
-int	syntax(char *line)
-{
-	// check_guim
-	// 	return (1)
-	// check syntax
-	// return (2)
-	(void)line;
-	return (0);
-}
 int	main(int ac, char **av, char **env)
 {
 	t_mini	data;
 	char	*line;
-	t_token	*tokenis;
 
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	tokenis = NULL;
-	data.token = tokenis;
+	// tokenis = NULL;
 	data.env = get_env(env);
+	data.token = NULL;
 	while (1)
 	{
 		line = readline("Minishell $> ");
@@ -53,18 +43,21 @@ int	main(int ac, char **av, char **env)
 		if (!*line)
 			continue ;
 		add_history(line);
-		syntax(line);
 		if (ft_quote(line))
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
-		split_line(0, line, tokenis);
+		split_line(0, line, &data.token);
 		printf("AVANT:[%s]\n", line);
-		// line = token_negation(line);
-		line = ft_expand(line, &data);
-		// line = retirerquote(line);
-		// token_positive(line);
-		printf("APRES:[%s]\n", line); // cause un read of size
+		// line = ft_expand(line, &data);
+		// printf("APRES:[%s]\n", data->); // cause un read of size
+		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		// if (ft_built_in_comp(&data) == 1)
+		// 	printf("ERROR ENV !\n");
+		ft_cmd_organis(&data);
+		printf("APRES:[%s]", line);
+		free_inside(&data, line);
+		printf("\n");
 	}
 	return (0);
 }
