@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/11 20:33:44 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:10:06 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,19 @@ int	main(int ac, char **av, char **env)
 		split_line(0, line, &data.token);
 		printf("AVANT:[%s]\n", line);
 		// line = token_negation(line);
-		line = ft_expand(line, &data);
+		data.token->value_t = ft_expand(line, &data);
 		// data.token = tokenis;
 		// line = retirerquote(line);
 		// token_positive(line);
 		// printf("APRES:[%s]\n", data->); // cause un read of size
 		// while(tokenis)
-		printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		// print_env(data.env);
+		print_token(data.token);
+		printf("%svalue_t ----> %s%s\n", RED, data.token->value_t, RESET);
 		if (ft_built_in_comp(&data) == 1)
 			printf("ERROR ENV !\n");
 		free(line);
-		// free_everything(&data);
+		free_everything(&data);
 	}
 	free_everything(&data);
 	return (0);

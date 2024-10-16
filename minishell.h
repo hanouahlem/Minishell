@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/11 20:34:00 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:07:58 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct t_mini
 {
 	char			*data;
 	char			msg_error;
+	char			**cmd;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
@@ -75,6 +76,7 @@ typedef enum t_token_type
 	DBL_REDIR_OUT,
 	PIPE,
 	WORD,
+	// FILE,
 }					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
@@ -116,5 +118,10 @@ char				*ft_expand(char *str, t_mini *data);
 
 int	ft_env(t_mini *data);
 int	ft_built_in_comp(t_mini *data);
+
+// PRINTS
+
+void	print_token(t_token *tokenis);
+void	print_env(t_env *env);
 
 #endif

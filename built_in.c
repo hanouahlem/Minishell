@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/11 20:07:32 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:15:24 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	ft_env(t_mini *data)
 
 int	ft_built_in_comp(t_mini *data)
 {
-	printf("value_t --> %s\n", data->token->value_t);
-	if (data->token->next)
-		printf("value_t --> %s\n", data->token->next->value_t);
+	// printf("value_t --> %s\n", data->token->value_t);
+	// if (data->token->next)
+	// 	printf("value_t --> %s\n", data->token->next->value_t);
 	if (ft_strcmp(data->token->value_t, "env") == 0)
 		return (ft_env(data));
 	return (0);
