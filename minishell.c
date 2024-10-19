@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/19 22:17:04 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/19 23:29:35 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
 			printf("\nERROR ! \n");
-		split_line(0, line, &                                                                                                               0);
+		split_line(0, line, &data.token);
 		printf("AVANT:[%s]\n", line);
 		// line = ft_expand(line, &data);
 		// printf("APRES:[%s]\n", data->); // cause un read of size
