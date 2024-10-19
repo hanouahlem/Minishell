@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:57:11 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/19 17:48:11 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/19 18:08:19 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_parse	*create_cmd(t_parse *new_cmd, t_mini *data)
 		return (NULL);
 	new_cmd->cmd = NULL;
 	new_cmd->args = NULL;
-	new_cmd->num_redir_in = 0;
-	new_cmd->num_redir_out = 0; 
+	// new_cmd->num_redir_in = 0;
+	// new_cmd->num_redir_out = 0; 
 	new_cmd->tok = data->token ;
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
