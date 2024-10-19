@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:57:11 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/19 19:24:25 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/19 21:43:45 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,17 @@ void	ft_organis_redir(t_mini *data, int *skip_arg)
 		&& data->token->next && data->token->next->type == WORD)
 	{
 		if (data->token->type == REDIR_IN)
-			data->token->type = IN_FILE;
+		{
+			data->token->next->type = IN_FILE;
+			printf("type == %d\n", data->token->next->type);
+			printf("value == %s\n", data->token->next->value_t);
+		}
 		else if (data->token->type == REDIR_OUT)
-			data->token->type = OUT_FILE;
+		{
+			data->token->next->type = OUT_FILE;
+			printf("type == %d\n", data->token->next->type);
+			printf("value == %s\n", data->token->next->value_t);
+		}
 		*skip_arg = 1;
 	}
 }
@@ -175,10 +183,14 @@ void	ft_cmd_organis(t_mini *data)
 			ft_organis_redir(data, &skip_arg);
 		}
 		else
-		{
+		{	printf("cmd===> {%s}\n", cmd->cmd);
+			printf("arg[0]===> {%s}\n", cmd->args[0]);
+			printf("arg[1]===> {%s}\n", cmd->args[1]);
+			printf("arg[2]===> {%s}\n", cmd->args[2]);
 			cmd = NULL;
 			printf("il y a un PIPE, on passe a la commande suivante\n");
 		}
 		data->token = data->token->next;
+		
 	}
 }
