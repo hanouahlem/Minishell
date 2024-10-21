@@ -6,30 +6,11 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/14 18:15:24 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:43:31 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	ft_strcmp_env(const char *s1, const char *s2)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	len;
-
-// 	i = 0;
-// 	len = ft_strlen(s1) - 1;
-// 	j = 0;
-// 	while (s1[i] == ' ' || s1[i] == '\t')
-// 		i++;
-// 	while (s1[len] == ' ' || s1[len] == '\t')
-// 		len--;
-// 	while (s1[i] == s2[j] && s1[i] && s2[j])
-// 		i++;
-// 	printf("s1 ---> %c\n", s1[i]);
-// 	return ((unsigned char)s1[i] - (unsigned char)s2[j]);
-// }
 
 int	ft_env(t_mini *data)
 {
@@ -47,13 +28,42 @@ int	ft_env(t_mini *data)
 	}
 	return (1);
 }
+int ft_pwd(t_mini *data)
+{
+	(void)data;
+	printf("hello pwd\n");
+	return(0);
+}
+
+int ft_cd(t_mini *data)
+{
+	(void)data;
+	printf("hello cd\n");
+	return(0);
+}
+
+int ft_echo (t_mini *data)
+{
+	(void)data;
+	printf("hello echo\n");
+	return(0);
+}
 
 int	ft_built_in_comp(t_mini *data)
 {
-	// printf("value_t --> %s\n", data->token->value_t);
-	// if (data->token->next)
-	// 	printf("value_t --> %s\n", data->token->next->value_t);
 	if (ft_strcmp(data->token->value_t, "env") == 0)
-		return (ft_env(data));
+		ft_env(data);
+	else if (ft_strcmp(data->token->value_t, "pwd"))
+		ft_pwd(data);
+	else if (ft_strcmp(data->token->value_t, "cd"))
+		ft_cd(data);
+	else if (ft_strcmp(data->token->value_t, "echo"))
+		ft_echo(data);
+	else if (ft_strcmp(data->token->value_t, "unset"))
+		ft_unset(data);
+	else if (ft_strcmp(data->token->value_t, "export"))
+		ft_export(data);
+	else if (ft_strcmp(data->token->value_t, "exit"))
+		ft_exit(data);
 	return (0);
 }

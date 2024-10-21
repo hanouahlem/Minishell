@@ -6,13 +6,14 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/14 20:07:58 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:04:06 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "Colors.h"
 # include "libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -21,7 +22,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "Colors.h"
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -53,7 +53,7 @@ typedef struct t_token
 {
 	int				index;
 	int				type;
-	char				*value_t;
+	char			*value_t;
 	struct t_token	*next;
 	struct t_token	*prev;
 }					t_token;
@@ -63,6 +63,7 @@ typedef struct t_mini
 	char			*data;
 	char			msg_error;
 	char			**cmd;
+	char			**cmd_opt;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
@@ -76,7 +77,8 @@ typedef enum t_token_type
 	DBL_REDIR_OUT,
 	PIPE,
 	WORD,
-	// FILE,
+	IN_FILE,
+	OUT_FILE,
 }					t_token_type;
 
 int					ft_check_redir_in_out(char *str);
@@ -96,6 +98,7 @@ t_env				*get_env(char **env);
 char				*find_key_for_env(char *my_env);
 char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
+void				ft_cmd_organis(t_mini *data);
 
 int					ft_strcmp(const char *s1, const char *s2);
 char				*token_negation(char *str);
@@ -106,7 +109,14 @@ char				*ft_get_key(char *str, int *i);
 char				*ft_value_from_key(char *str, t_mini *data);
 char				*retirerquote(char *str);
 void				token_positive(char *str);
+// void	free_everything(t_mini *data, t_token *tokenis);
 
+
+void	free_inside(t_mini *data, char *line);
+void	print_token(t_token *tokenis);
+
+
+// Expand
 void				ft_expand_len_dollar(t_expand *exp_l);
 void				ft_expand_len_dquote(t_expand *exp_l);
 void				ft_expand_len_squote(t_expand *exp_l);
@@ -114,14 +124,15 @@ void				ft_expand_len_squote(t_expand *exp_l);
 int					ft_expand_len(char *str, t_mini *data);
 char				*ft_expand(char *str, t_mini *data);
 
-//BUILT_IN
+void				ft_cat_value(t_expand *exp, char *value);
+void				ft_exp_plus_plus(t_expand *exp_l);
 
-int	ft_env(t_mini *data);
-int	ft_built_in_comp(t_mini *data);
+// BUILT_IN
 
-// PRINTS
-
-void	print_token(t_token *tokenis);
-void	print_env(t_env *env);
+int					ft_env(t_mini *data);
+int					ft_built_in_comp(t_mini *data);
+int					ft_exit(t_mini *data);
+int					ft_export(t_mini *data);
+int					ft_unset(t_mini *data);
 
 #endif

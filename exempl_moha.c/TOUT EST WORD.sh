@@ -36,3 +36,14 @@ cmd = NULL
 arg = NULL
 type <
 file Makefile
+
+
+
+cmd1 > file1 > file2 cmd2 -opt1 -op2 | cmd3 < file3 < file4 cmd4 -opt3 cmd5 -opt4
+
+**cmd =   cmd[[cmd1][cmd2][cmd3][cmd4][cmd5]]
+**opt =   options[[-opt1 -op2][-opt3][-opt4][]]
+
+
+**cmd ==      [[cmd1][cmd2][cmd3][cmd4][cmd5]]
+**cmd_opt ==  [[cmd1][cmd2 -opt1 -opt2][cmd3][cmd4 -opt3][cmd5 -opt4]]
