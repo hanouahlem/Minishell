@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/15 18:29:54 by ahbey            ###   ########.fr        #
+#    Updated: 2024/10/22 17:56:41 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS =	minishell.c \
 		tokenise/token.c  \
 		tokenise/create_token.c \
 		tokenise/token_check.c  \
-		tokenise/organis_token.c \
+		tokenise/modif_organis.c \
 		expand/expand.c \
 		expand/expand_utils.c  \
 		expand/expand_utils_2.c \
@@ -26,6 +26,7 @@ SRCS =	minishell.c \
 		bultins/ft_exit.c \
 		bultins/unset_export.c \
 		prints.c \
+		# tokenise/organis_token.c \
 		
 CC	=	cc
 

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/19 23:29:35 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/22 20:02:00 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@
 // 	}
 // }
 
+void	ft_init(t_mini *data)
+{
+	data->args = NULL;
+	data->cmd = NULL;
+	data->token = NULL;
+}
+
 int	main(int ac, char **av, char **env)
 {
-	t_mini	data;
+	static	t_mini data = {0};
 	char	*line;
 
 	(void)ac;
@@ -34,9 +41,9 @@ int	main(int ac, char **av, char **env)
 	// signal(SIGQUIT, sig_management);
 	// tokenis = NULL;
 	data.env = get_env(env);
-	data.token = NULL;
 	while (1)
 	{
+		ft_init(&data);
 		line = readline("Minishell $> ");
 		if (!line)
 			break ;
@@ -46,19 +53,27 @@ int	main(int ac, char **av, char **env)
 		if (ft_quote(line))
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
+		{
 			printf("\nERROR ! \n");
+			continue ;
+		}
 		split_line(0, line, &data.token);
 		printf("AVANT:[%s]\n", line);
-		// line = ft_expand(line, &data);
+		if(syntax_redir(data.token) == 1)
+		{
+			continue ;
+		}
+		line = ft_expand(line, &data);
 		// printf("APRES:[%s]\n", data->); // cause un read of size
 		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		// ft_cmd_organis(&data);
+		table_struct(&data);
 		// if (ft_built_in_comp(&data) == 1)
 		// 	printf("ERROR ENV !\n");
-		ft_cmd_organis(&data);
-		printf("APRES:[%s]", line);
+		printf("APRES:[%s]\n", line);
 		free_inside(&data, line);
-		printf("\n");
 	}
+	
 	return (0);
 }
 /*

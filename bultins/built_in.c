@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/15 15:42:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/21 18:52:10 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ int ft_echo (t_mini *data)
 
 int	ft_built_in_comp(t_mini *data)
 {
-	if (ft_strcmp(data->token->value_t, "env") == 0)
-		ft_env(data);
-	else if (ft_strcmp(data->token->value_t, "pwd"))
-		ft_pwd(data);
-	else if (ft_strcmp(data->token->value_t, "cd"))
-		ft_cd(data);
-	else if (ft_strcmp(data->token->value_t, "echo"))
-		ft_echo(data);
-	else if (ft_strcmp(data->token->value_t, "unset"))
-		ft_unset(data);
-	else if (ft_strcmp(data->token->value_t, "export"))
-		ft_export(data);
-	else if (ft_strcmp(data->token->value_t, "exit"))
-		ft_exit(data);
-	return (0);
+	(void)data;
+	// printf("cmd=============>> %s",data->parse->cmd);
+	// if (ft_strcmp(data->parse->cmd, "env") == 0)
+	// 	return(printf("hello"),ft_env(data),0);
+	// else if (ft_strcmp(data->token->value_t, "pwd")== 0)
+	// 	ft_pwd(data);
+	// else if (ft_strcmp(data->token->value_t, "cd"))
+	// 	ft_cd(data);
+	// else if (ft_strcmp(data->token->value_t, "echo"))
+	// 	ft_echo(data);
+	// else if (ft_strcmp(data->token->value_t, "unset"))
+	// 	ft_unset(data);
+	// else if (ft_strcmp(data->token->value_t, "export"))
+	// 	ft_export(data);
+	// else if (ft_strcmp(data->token->value_t, "exit"))
+	// 	ft_exit(data);
+	return (1);
 }

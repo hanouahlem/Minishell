@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/03 17:01:05 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:03:11 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,28 @@ int	ft_check_redir_in_out(char *str)
 			return (printf("Error : syntax"), 1);
 		if (str[i] == str[i + 1] && str[i] == '|')
 			return (printf("Error : syntax"), 1);
-		if (str[i] == '<' && str[i + 2] == '<')
+		if (str[i] == '<' && str[i + 2] == '<' && str[i + 1] == '>')
 			return (printf("Error : syntax"), 1);
-		if (str[i] == '>' && str[i + 2] == '>')
+		if (str[i] == '>' && str[i + 2] == '>' && str[i + 1] == '<')
 			return (printf("Error : syntax"), 1);
 		i++;
+	}
+	return (0);
+}
+
+int	syntax_redir(t_token *token)
+{
+	while (token)
+	{
+		if (if_is_redir(token->type) == 0)
+		{
+			token = token->next;
+			if (token->type != WORD)
+			{
+				return (printf("Error : syntax\n"), 1);
+			}
+		}
+		token = token->next;
 	}
 	return (0);
 }
