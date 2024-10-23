@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/11 18:53:45 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/16 16:57:36 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void	ft_expand_len_dollar(t_expand *exp_l)
 		value = ft_value_from_key(key, exp_l->data);
 		if (value)
 			exp_l->n += ft_strlen(value);
+		else
+			exp_l->n++;
 	}
 }

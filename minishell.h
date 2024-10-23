@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/16 16:04:06 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:17:31 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,19 @@ typedef struct t_token
 	struct t_token	*prev;
 }					t_token;
 
+typedef struct s_parse
+{
+	char *cmd;
+	char **args;
+	int file;
+	t_token *tok;
+	struct s_parse	*next;
+	struct s_parse	*prev;
+}					t_parse;
+
 typedef struct t_mini
 {
+	
 	char			*data;
 	char			msg_error;
 	char			**cmd;
@@ -67,6 +78,7 @@ typedef struct t_mini
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
+	t_parse			*parse;
 }					t_mini;
 
 typedef enum t_token_type
@@ -111,10 +123,8 @@ char				*retirerquote(char *str);
 void				token_positive(char *str);
 // void	free_everything(t_mini *data, t_token *tokenis);
 
-
-void	free_inside(t_mini *data, char *line);
-void	print_token(t_token *tokenis);
-
+void				free_inside(t_mini *data, char *line);
+void				print_token(t_token *tokenis);
 
 // Expand
 void				ft_expand_len_dollar(t_expand *exp_l);
