@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/23 15:11:11 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:20:53 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,11 @@ int	main(int ac, char **av, char **env)
 		if (ft_quote(line))
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
-		{
-			printf("\nERROR ! \n");
 			continue ;
-		}
-		split_line(0, line, &data.token);
+		split_line(-1, line, &data.token);
 		printf("AVANT:[%s]\n", line);
-		if(syntax_redir(data.token) == 1)
-		{
-			continue ;
-		}
+		// if(syntax_redir(data.token) == 1)
+		// 	continue ;
 		line = ft_expand(line, &data);
 		// printf("APRES:[%s]\n", data->); // cause un read of size
 		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);

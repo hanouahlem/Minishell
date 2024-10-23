@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/22 20:18:55 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/23 19:02:03 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	pipe_nbr(t_mini data)
 			i++;
 		data.token = data.token->next;
 	}
+	i++;
 	return (i);
 }
 
@@ -34,7 +35,7 @@ int	if_is_redir(int type)
 	return (1);
 }
 
-void	parse(t_parse *tab, t_token *tokenis)
+void	ft_parse(t_parse *tab, t_token *tokenis)
 {
 	if (if_is_redir(tokenis->type) == 0)
 	{
@@ -48,7 +49,6 @@ void	parse(t_parse *tab, t_token *tokenis)
 		// stocker les arg
 		tab->args[tab->argslen++] = strdup(tokenis->value_t);
 	}
-	// printf("je suis DANS PARSE AVEC ce tableau %p\n", tab);
 }
 
 void	print_parse(t_parse *tab, int size)
@@ -91,19 +91,21 @@ t_parse	*table_struct(t_mini *data)
 	i = 0;
 	size = pipe_nbr(*data);
 	print_token(data->token);
+	printf("\n");
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
+	if (!tab)
+		return (NULL);
 	while (data->token)
 	{
 		if (data->token->type != PIPE)
-			parse(&tab[i], data->token);
+			ft_parse(&tab[i], data->token);
 		if (if_is_redir(data->token->type) == 0)
 			data->token = data->token->next;
 		if (data->token->type == PIPE)
 			i++;
-		// printf("je suis ce tableau %p -> %i\n", &tab[i], i);
-		data->token = data->token->next;
+		if (data->token)
+			data->token = data->token->next;
 	}
-	// tab[i].cmd = tab[i].args[0];
 	print_parse(tab, size);
 	return (tab);
 }
@@ -111,13 +113,13 @@ t_parse	*table_struct(t_mini *data)
 // ls -l | cat -re | echo asd  asd
 
 // tab[0]
-// // cmd = ls
+// cmd = ls
 // arg = ls -l
 
 // tab[1]
-// // cmd = cat
+// cmd = cat
 // arg = cat -re
 
 // tab[2]
-// // cmd = echo
+// cmd = echo
 // arg = echo asd asd
