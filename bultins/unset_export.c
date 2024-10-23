@@ -1,13 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_error.c                                     :+:      :+:    :+:   */
+/*   unset_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 17:13:20 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 13:08:40 by ahbey            ###   ########.fr       */
+/*   Created: 2024/10/15 15:33:03 by ahbey             #+#    #+#             */
+/*   Updated: 2024/10/15 15:42:18 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int ft_export(t_mini *data)
+{
+	(void)data;
+	printf("hello export\n");
+	return(0);
+}
+
+int	ft_unset(t_mini *data)
+{
+	(void)data;
+	printf("hello unset\n");
+	return(0);
+}

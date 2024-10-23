@@ -6,20 +6,30 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/09/30 15:03:44 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/16 15:42:14 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		parsing.c \
-		utils.c  \
 		get_path.c \
-		token.c  \
-		create_token.c \
-
+		free_all.c \
+		utils.c  \
+		tokenise/token.c  \
+		tokenise/create_token.c \
+		tokenise/token_check.c  \
+		tokenise/organis_token.c \
+		expand/expand.c \
+		expand/expand_utils.c  \
+		expand/expand_utils_2.c \
+		bultins/built_in.c \
+		bultins/ft_exit.c \
+		bultins/unset_export.c \
+		prints.c \
+		
 CC	=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror 
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -30,7 +40,7 @@ LIBFT 	=	libft/libft.a
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)  -g3
 
 $(LIBFT):
 	make -C libft
