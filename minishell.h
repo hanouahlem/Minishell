@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/21 18:17:31 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:16:44 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,28 @@ typedef struct t_token
 typedef struct s_parse
 {
 	char *cmd;
-	char **args;
-	int file;
-	t_token *tok;
-	struct s_parse	*next;
-	struct s_parse	*prev;
+	char *args[1024];
+	int	typefile[1024];
+	char *filename[1024];
+	int argslen;
+	int typelen;
 }					t_parse;
 
 typedef struct t_mini
 {
 	
-	char			*data;
-	char			msg_error;
-	char			**cmd;
-	char			**cmd_opt;
+	char			**args;
+	char			*cmd;
+	int				index;
+	struct t_mini	*next;
+	struct t_mini	*prev;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
-	t_parse			*parse;
+	// t_parse			*parse;
 }					t_mini;
+
+
 
 typedef enum t_token_type
 {
@@ -93,7 +96,10 @@ typedef enum t_token_type
 	OUT_FILE,
 }					t_token_type;
 
+t_parse *table_struct(t_mini *data);
+
 int					ft_check_redir_in_out(char *str);
+int	syntax_redir(t_token *token);
 int					ft_quote(char *str);
 
 t_env				*ft_lstnew_env(void *content);
@@ -110,7 +116,6 @@ t_env				*get_env(char **env);
 char				*find_key_for_env(char *my_env);
 char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
-void				ft_cmd_organis(t_mini *data);
 
 int					ft_strcmp(const char *s1, const char *s2);
 char				*token_negation(char *str);
@@ -119,7 +124,7 @@ char				*delete_quote(char *str);
 
 char				*ft_get_key(char *str, int *i);
 char				*ft_value_from_key(char *str, t_mini *data);
-char				*retirerquote(char *str);
+char				*delete_quote(char *str);
 void				token_positive(char *str);
 // void	free_everything(t_mini *data, t_token *tokenis);
 
@@ -145,4 +150,9 @@ int					ft_exit(t_mini *data);
 int					ft_export(t_mini *data);
 int					ft_unset(t_mini *data);
 
+int if_is_redir(int type);
+// organis
+// void				ft_lstadd_back_org(t_mini **lst, t_mini *new);
+// t_mini				*ft_lstnew_org(void *values);
+// t_mini				*add_prev_org(t_mini *new);
 #endif

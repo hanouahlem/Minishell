@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/16 15:48:47 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:12:24 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ void	process_special_char(char *line, char *str, int *i, t_token **tokenis)
 {
 	t_token	*node_t;
 
+
 	str[0] = line[*i];
-	str[1] = '\0';
+	if (line[(*i) + 1] == '>' || line[(*i) + 1] == '<')
+	{
+		*i += 1;
+		str[1] = line[*i];
+		str[2] = '\0';
+	}
+	else
+		str[1] = '\0';
 	node_t = ft_lstnew_tok(str);
 	ft_lstadd_back_tok(tokenis, node_t);
 }
