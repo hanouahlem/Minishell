@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/23 18:58:29 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/23 20:00:36 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct t_mini
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
+	t_parse			*parser;
 }					t_mini;
 
 typedef enum t_token_type
@@ -136,7 +137,7 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
 
-int					ft_built_in_comp(t_mini *data);
+int	ft_built_in_comp(t_mini *data, t_parse *tab);
 int					ft_env(t_mini *data);
 int					ft_exit(t_mini *data);
 int					ft_export(t_mini *data);

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/23 19:00:00 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/24 12:17:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	ft_init(t_mini *data)
 	data->args = NULL;
 	data->cmd = NULL;
 	data->token = NULL;
+	data->parser = NULL;
 }
 
 int	main(int ac, char **av, char **env)
 {
 	static	t_mini data = {0};
 	char	*line;
-
+	t_parse	*tab = NULL;
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
@@ -61,12 +62,11 @@ int	main(int ac, char **av, char **env)
 		line = ft_expand(line, &data);
 		// printf("APRES:[%s]\n", data->); // cause un read of size
 		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
-		// ft_cmd_organis(&data);
-		table_struct(&data);
-		// if (ft_built_in_comp(&data) == 1)
-		// 	printf("ERROR ENV !\n");
+		tab = table_struct(&data);
+		if (ft_built_in_comp(&data, tab) == 1)
+			printf("ERROR ENV !\n");
 		printf("APRES:[%s]\n", line);
-		free_inside(&data, line);
+		// free_inside(&data, line);
 	}
 	
 	return (0);

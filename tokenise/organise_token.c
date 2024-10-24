@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/23 19:02:03 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/23 19:53:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_parse	*table_struct(t_mini *data)
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
+	printf("%p\n", tab);
 	while (data->token)
 	{
 		if (data->token->type != PIPE)
