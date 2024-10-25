@@ -6,21 +6,26 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/11 19:02:59 by ahbey            ###   ########.fr        #
+#    Updated: 2024/10/25 15:04:40 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	minishell.c \
 		parsing.c \
 		get_path.c \
+		free_all.c \
 		utils.c  \
-		token.c  \
-		create_token.c \
-		token_check.c  \
-		expand.c \
-		expand_utils.c  \
-		expand_utils_2.c
-		# ce_que_moha_a_supp.c \
+		tokenise/token.c  \
+		tokenise/create_token.c \
+		tokenise/token_check.c  \
+		tokenise/organise_token.c \
+		expand/expand.c \
+		expand/expand_utils.c  \
+		expand/expand_utils_2.c \
+		bultins/built_in.c \
+		bultins/ft_exit.c \
+		bultins/unset_export.c \
+		prints.c \
 		
 CC	=	cc
 

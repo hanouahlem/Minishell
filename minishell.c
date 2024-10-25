@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/08 19:32:03 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:17:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,49 +23,52 @@
 // 	}
 // }
 
-int	syntax(char *line)
+void	ft_init(t_mini *data)
 {
-	// check_guim
-	// 	return (1)
-	// check syntax
-	// return (2)
-	(void)line;
-	return (0);
+	data->args = NULL;
+	data->cmd = NULL;
+	data->token = NULL;
+	data->parser = NULL;
 }
+
 int	main(int ac, char **av, char **env)
 {
-	t_mini	data;
+	static	t_mini data = {0};
 	char	*line;
-	t_token	*tokenis;
-
+	t_parse	*tab = NULL;
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	tokenis = NULL;
-	data.token = tokenis;
+	// tokenis = NULL;
 	data.env = get_env(env);
 	while (1)
 	{
+		ft_init(&data);
 		line = readline("Minishell $> ");
 		if (!line)
 			break ;
 		if (!*line)
 			continue ;
 		add_history(line);
-		syntax(line);
 		if (ft_quote(line))
 			continue ;
 		if (ft_check_redir_in_out(line) == 1)
-			printf("\nERROR ! \n");
-		split_line(0, line, tokenis);
+			continue ;
+		split_line(-1, line, &data.token);
 		printf("AVANT:[%s]\n", line);
-		// line = token_negation(line);
+		// if(syntax_redir(data.token) == 1)
+		// 	continue ;
 		line = ft_expand(line, &data);
-		// line = retirerquote(line);
-		// token_positive(line);
-		printf("APRES:[%s]\n", line); // cause un read of size
+		// printf("APRES:[%s]\n", data->); // cause un read of size
+		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		tab = table_struct(&data);
+		if (ft_built_in_comp(&data, tab) == 1)
+			printf("ERROR ENV !\n");
+		printf("APRES:[%s]\n", line);
+		// free_inside(&data, line);
 	}
+	
 	return (0);
 }
 /*

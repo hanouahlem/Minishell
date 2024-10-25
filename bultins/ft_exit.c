@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:06:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/21 19:57:54 by ahbey            ###   ########.fr       */
+/*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
+/*   Updated: 2024/10/15 15:42:23 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+int ft_exit(t_mini *data)
 {
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
+	(void)data;
+	printf("hello exit\n");
+	return(0);
 }
