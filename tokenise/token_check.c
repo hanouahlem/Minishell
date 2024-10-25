@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/22 15:17:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/24 14:43:56 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,23 @@ char	*token_negation(char *str)
 		{
 			flag_quote = str[i];
 			i++;
-			while (str[i] != flag_quote)
+			while (str[i] && str[i] != flag_quote)
 			{
 				str[i] = -str[i];
 				i++;
 			}
+			// if (!str[i])
+			// {
+			// 	printf("Error: Unmatched quote\n");
+			// 	return (str);
+			// }
 		}
 		i++;
 	}
 	return (str);
 }
 
-void	token_positive(char *str)
+char	*token_positive(char *str)
 {
 	int	i;
 
@@ -46,6 +51,7 @@ void	token_positive(char *str)
 			str[i] = -str[i];
 		i++;
 	}
+	return(str);
 }
 
 // char	*delete_quote(char *str)

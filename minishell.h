@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/23 20:00:36 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/25 19:40:26 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ typedef struct t_token
 typedef struct s_parse
 {
 	char			*cmd;
-	char			*args[1024];
-	int				typefile[1024];
-	char			*filename[1024];
+	char			**args;
+	int				*typefile;
+	char			**filename;
 	int				argslen;
 	int				typelen;
 }					t_parse;
 
 typedef struct t_mini
 {
-	char			**args;
-	char			*cmd;
-	int				index;
+	int args_count;
+	int typefile_count;
+	int filename_count;
 	struct t_mini	*next;
 	struct t_mini	*prev;
 	t_token			*token;
@@ -119,7 +119,7 @@ char				*delete_quote(char *str);
 char				*ft_get_key(char *str, int *i);
 char				*ft_value_from_key(char *str, t_mini *data);
 char				*delete_quote(char *str);
-void				token_positive(char *str);
+char				*token_positive(char *str);
 
 void				free_inside(t_mini *data, char *line);
 void				print_token(t_token *tokenis);
@@ -137,14 +137,18 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
 
-int	ft_built_in_comp(t_mini *data, t_parse *tab);
+int					ft_built_in_comp(t_mini *data, t_parse *tab);
 int					ft_env(t_mini *data);
 int					ft_exit(t_mini *data);
 int					ft_export(t_mini *data);
 int					ft_unset(t_mini *data);
+int					ft_echo(t_mini *data, t_parse *tab);
+
+void				print_parse(t_parse *tab, int size);
 
 // organis
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
+void	ft_count_elem(t_mini *data);
 #endif
