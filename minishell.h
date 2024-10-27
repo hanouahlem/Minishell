@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/25 19:40:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/27 00:06:26 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ typedef struct s_parse
 	char			**filename;
 	int				argslen;
 	int				typelen;
+	int				args_count;
+	int				typefile_count;
+	int				filename_count;
 }					t_parse;
 
 typedef struct t_mini
 {
-	int args_count;
-	int typefile_count;
-	int filename_count;
 	struct t_mini	*next;
 	struct t_mini	*prev;
 	t_token			*token;
@@ -150,5 +150,5 @@ void				print_parse(t_parse *tab, int size);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
-void	ft_count_elem(t_mini *data);
+void				ft_count_elem(t_mini *data);
 #endif

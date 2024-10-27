@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/25 19:37:30 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/26 22:45:32 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	// tokenis = NULL;
 	data.env = get_env(env);
 	while (1)
 	{
@@ -61,7 +60,6 @@ int	main(int ac, char **av, char **env)
 		split_line(-1, line, &data.token);
 		printf("AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
-		ft_count_elem(&data);
 		tab = table_struct(&data);
 		// if (ft_built_in_comp(&data, tab) == 1)
 		// 	continue ;

@@ -34,3 +34,16 @@ cmd = NULL
 arg = NULL
 type <
 file Makefile
+
+
+
+<====     ORGANISE TOKEN     ====>
+POUR LE MALLOC DE CMD ARGS REDIRR :
+etape 1
+	connaitre le nb de t_parse
+etape 2
+	boucler sur ce nombre
+		et compter chaque parse cmb
+			d'arg il a
+			de redir il a
+etape
