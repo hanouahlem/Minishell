@@ -6,6 +6,8 @@ cd exit echo export pwd unset env
 
 env -> printf env max 10 lignes
 pwd -> printf getcwd() max 5 lignes
+
+
 cd -> YA RIEN A GERER
 	cd tout seul
 		-> cd $HOME
@@ -16,6 +18,7 @@ cd -> YA RIEN A GERER
 	sinon c ok
 
 # unset export
+
 echo max 2 fonctions 15 lignes chacune
 	si le premier argument est "-n"
 		pas de \n
