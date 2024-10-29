@@ -24,11 +24,13 @@ cmd = ls
 arg = ls -R -l
 type <
 file infile1
+
 COMMANDE 2:
 cmd = echo
 arg = echo bonjour
 type < > > >>
-file infile1 outfile1 outfile2 append1  
+file infile1 outfile1 outfile2 append1 
+
 COMMANDE 3:
 cmd = NULL
 arg = NULL

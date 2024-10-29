@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 15:24:33 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 16:30:21 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 // 		rl_replace_line("", 0);
 // 		rl_redisplay();
 // 	}
-// }
-
-// void	ft_init(t_mini *data)
-// {
-// 	data->args = NULL;
-// 	data->cmd = NULL;
-// 	data->token = NULL;
-// 	data->parser = NULL;
 // }
 
 int	main(int ac, char **av, char **env)
@@ -64,9 +56,9 @@ int	main(int ac, char **av, char **env)
 		if (ft_built_in_comp(&data, tab) == 1)
 			continue ;
 		printf("APRES:[%s]\n", line);
-		free_inside(&data, line);
+		free_inside(&data, line, tab);
 	}
-	free_inside(&data, line);
+	
 	return (0);
 }
 /*

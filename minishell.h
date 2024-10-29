@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/28 18:02:12 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 16:31:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_parse
 	int				args_count;
 	int				typefile_count;
 	int				filename_count;
+	int				size_cmd;
 }					t_parse;
 
 typedef struct t_mini
@@ -108,7 +109,7 @@ char				*find_value_for_env(char *my_env);
 int					ft_strlen_stop(char *str, char c);
 char				*ft_strcat(char *dest, char *src);
 
-// Tokenisation
+// TOKENISATION
 t_token				*ft_lstnew_tok(void *values);
 t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
@@ -122,10 +123,12 @@ char				*ft_value_from_key(char *str, t_mini *data);
 char				*delete_quote(char *str);
 char				*token_positive(char *str);
 
-void				free_inside(t_mini *data, char *line);
+
+//FREE
+void	free_inside(t_mini *data, char *line, t_parse *tab);
 void				print_token(t_token *tokenis);
 
-// Expand
+// EXPAND
 void				ft_expand_len_dollar(t_expand *exp_l);
 void				ft_expand_len_dquote(t_expand *exp_l);
 void				ft_expand_len_squote(t_expand *exp_l);
@@ -147,7 +150,10 @@ int					ft_echo(t_mini *data, t_parse *tab);
 
 void				print_parse(t_parse *tab, int size);
 
-// organis
+int if_is_redir(int type);
+
+// ORGANIS
+int	pipe_nbr(t_mini data);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
