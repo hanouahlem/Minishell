@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 15:39:59 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:29:07 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int ac, char **av, char **env)
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
 	data.env = get_env(env);
+	line = NULL;
 	while (1)
 	{
 		line = readline("Minishell $> ");
@@ -58,6 +59,7 @@ int	main(int ac, char **av, char **env)
 		free_inside(&data, line, tab);
 	}
 	free_env(&data);
+	rl_clear_history();
 	return (0);
 }
 /*

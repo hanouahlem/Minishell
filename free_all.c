@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 15:40:41 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:36:10 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_token(t_mini *data)
+void	free_token(t_token *token)
 {
 	t_token	*temp;
 
 	printf("Free Token !\n");
-	while (data->token)
+	while (token)
 	{
-		temp = data->token->next;
-		free(data->token->value_t);
-		free(data->token);
-		data->token = temp;
+		printf("token in free_token : %s\n", token->value_t);
+		temp = token->next;
+		free(token->value_t);
+		free(token);
+		token = temp;
 	}
 }
 
@@ -63,7 +64,6 @@ void	free_parser(t_mini *data, t_parse *tab)
 	i = 0;
 	(void)data;
 	printf("Free parser !!!\n");
-	printf("size ----> %i\n", tab->size_cmd);
 	while (i < tab->size_cmd)
 	{
 		if (tab[i].cmd)
@@ -89,18 +89,33 @@ void	free_parser(t_mini *data, t_parse *tab)
 		printf("i ------> %i\n", i);
 		i++;
 	}
-	free(tab); 
+	free(tab);
+}
+
+
+void	free_expand(t_expand *exp)
+{
+	if (exp)
+	{
+		if (exp->new_str)
+			free(exp->new_str);
+		if (exp->new_str)
+			free(exp->new_str);
+		free(exp);
+	}
 }
 
 void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
 	// printf("---> PARSER IN MAINS \n");
 	// print_parse(tab, pipe_nbr(*data));
-	// (void)tab;
+	// (void)line;
 	if (line)
 		free(line);
 	if (data->token)
-		free_token(data);
+		free_token(data->token);
 	if (tab)
 		free_parser(data, tab);
+	if (data->expand)
+		free_expand(data->expand);
 }

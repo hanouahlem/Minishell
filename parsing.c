@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/28 15:06:56 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:37:48 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_quote(char *str)
 
 	i = 0;
 	flag = 0;
-	if (!str)  // Vérification pour éviter un accès à un pointeur NULL
+	if (!str)  // Vérification pour éviteraccès à pointeur NULL
 		return (printf("error : null string\n"), 1);
 	while (str[i])
 	{

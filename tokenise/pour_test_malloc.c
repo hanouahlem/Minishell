@@ -45,14 +45,11 @@ void	print_parse(t_parse *tab, int size)
 	int	j;
 
 	i = 0;
-	// (void)size;
 	while (i < size)
 	{
 		printf("MY COMMAND {%s}\n", tab[i].args[0]);
 		j = 0;
 		printf("MY ARG ");
-		// if(!tab)
-		// 	return(printf(""))
 		while (tab[i].args[j])
 		{
 			printf("{%s}", tab[i].args[j]);
@@ -86,7 +83,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 			tab->typefile_count++;
 			if (token->next && token->next->type == WORD)
 				tab->filename_count++;
-			token = token->next;  // Avancer d’un token si redirection
+			token = token->next;  // Avancer si redirection
 		}
 		else if (token->type == WORD)
 		{
@@ -120,7 +117,6 @@ t_parse	*table_struct(t_mini *data)
 	original_token = data->token;
 	tab = NULL;
 	size = pipe_nbr(*data);
-	printf("SIZE ---> %i\n", size);
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);

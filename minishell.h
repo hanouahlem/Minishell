@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 15:37:33 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:33:52 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ typedef struct t_env
 typedef struct s_expand
 {
 	char			*str;
-	char			*str_len;
 	int				i;
 	int				i_len;
 	char			*new_str;
-	char			*new_str_len;
 	int				n;
 	int				n_len;
 	struct t_mini	*data;
@@ -74,8 +72,8 @@ typedef struct s_parse
 
 typedef struct t_mini
 {
-	struct t_mini	*next;
-	struct t_mini	*prev;
+	// struct t_mini	*next;
+	// struct t_mini	*prev;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
@@ -126,6 +124,8 @@ char				*token_positive(char *str);
 //FREE
 void	free_inside(t_mini *data, char *line, t_parse *tab);
 void	free_env(t_mini *data);
+void	free_token(t_token *token);
+
 void				print_token(t_token *tokenis);
 
 // EXPAND

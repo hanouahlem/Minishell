@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/16 16:41:47 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 18:20:12 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	ft_expand_dquote(t_expand *exp)
 				exp->new_str[exp->n++] = exp->str[exp->i++];
 		}
 		exp->i++;
+	if (value)
+		free(value);
+	if (key)
+		free(key);
 	}
 }
 
@@ -91,6 +95,10 @@ void	ft_expand_dollar(t_expand *exp)
 			exp->n += ft_strlen(value);
 		}
 	}
+	// if (value)
+	// 	free(value);
+	// if (key)
+	// 	free(key);
 }
 
 char	*ft_expand(char *str, t_mini *data)
