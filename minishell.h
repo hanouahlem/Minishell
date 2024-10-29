@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 16:31:41 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 18:50:23 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,8 @@ char				*ft_value_from_key(char *str, t_mini *data);
 char				*delete_quote(char *str);
 char				*token_positive(char *str);
 
-
-//FREE
-void	free_inside(t_mini *data, char *line, t_parse *tab);
+// FREE
+void				free_inside(t_mini *data, char *line, t_parse *tab);
 void				print_token(t_token *tokenis);
 
 // EXPAND
@@ -150,12 +149,12 @@ int					ft_echo(t_mini *data, t_parse *tab);
 
 void				print_parse(t_parse *tab, int size);
 
-int if_is_redir(int type);
+int					if_is_redir(int type);
 
 // ORGANIS
-int	pipe_nbr(t_mini data);
+int					pipe_nbr(t_mini data);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
-void				ft_count_elem(t_mini *data);
+void				ft_count_elements(t_mini *data, t_parse *tab);
 #endif

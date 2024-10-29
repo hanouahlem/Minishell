@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 16:38:04 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 18:51:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	free_parse(t_parse *tab, t_mini *data)
 	free(tab);
 }
 
-void	free_inside(t_mini *data, char *line)
+void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
 	// printf("---> PARSER IN MAINS \n");
 	// print_parse(tab, pipe_nbr(*data));
@@ -83,6 +83,6 @@ void	free_inside(t_mini *data, char *line)
 	if (data->token)
 		free_token(data);
 	if(data->parser)
-		free_parse(data->parser, data);
+		free_parse(tab, data);
 }
 
