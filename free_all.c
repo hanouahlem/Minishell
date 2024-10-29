@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 15:26:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 15:37:03 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@
 // 	}
 // }
 
-// void	free_token(t_mini *data)
-// {
-// 	while (data->token)
-// 	{
-// 		free(data->token);
-// 		data->token = data->token->next;
-// 	}
-// }
 
 void	free_token(t_mini *data)
 {
