@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/26 22:38:42 by ahbey            ###   ########.fr        #
+#    Updated: 2024/10/29 14:36:04 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS =	minishell.c \
 		tokenise/token.c  \
 		tokenise/create_token.c \
 		tokenise/token_check.c  \
-		tokenise/pour_test_malloc.c\
+		tokenise/organise_token.c \
 		expand/expand.c \
 		expand/expand_utils.c  \
 		expand/expand_utils_2.c \
@@ -27,7 +27,7 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
-		# tokenise/organise_token.c \
+		# tokenise/pour_test_malloc.c\
 		
 CC	=	cc
 

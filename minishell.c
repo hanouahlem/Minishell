@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/26 22:45:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 15:24:33 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		// ft_init(&data);
-		line = readline("Minishell $> ");
+		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
 		if (!*line)
@@ -61,11 +61,12 @@ int	main(int ac, char **av, char **env)
 		printf("AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
-		// if (ft_built_in_comp(&data, tab) == 1)
-		// 	continue ;
+		if (ft_built_in_comp(&data, tab) == 1)
+			continue ;
 		printf("APRES:[%s]\n", line);
 		free_inside(&data, line);
 	}
+	free_inside(&data, line);
 	return (0);
 }
 /*

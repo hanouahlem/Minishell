@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/27 00:06:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:02:12 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ typedef struct s_parse
 
 typedef struct t_mini
 {
-	struct t_mini	*next;
-	struct t_mini	*prev;
+	// struct t_mini	*next;
+	// struct t_mini	*prev;
+	int				size;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
