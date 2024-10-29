@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/28 17:26:41 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:37:33 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char				*token_positive(char *str);
 
 //FREE
 void	free_inside(t_mini *data, char *line, t_parse *tab);
+void	free_env(t_mini *data);
 void				print_token(t_token *tokenis);
 
 // EXPAND

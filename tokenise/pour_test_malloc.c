@@ -104,7 +104,6 @@ void	ft_allocate_parse(t_parse *tab)
 
 	if (!tab->args || !tab->typefile || !tab->filename)
 	{
-		// Gérer l’erreur d’allocation ici
 		perror("Allocation error");
 		exit(EXIT_FAILURE);
 	}
