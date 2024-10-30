@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 18:36:10 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:51:23 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_token(t_token *token)
 	printf("Free Token !\n");
 	while (token)
 	{
-		printf("token in free_token : %s\n", token->value_t);
+		printf("free_token ====> %s\n", token->value_t);
 		temp = token->next;
 		free(token->value_t);
 		free(token);
@@ -73,12 +73,10 @@ void	free_parser(t_mini *data, t_parse *tab)
 		}
 		if (tab[i].args)
 		{
-			printf("args[0] -> %s\n", tab[i].args[0]);
 			free_tab(tab[i].args);
 		}
 		if (tab[i].filename)
 		{
-			printf("filename[0] -> %s\n", tab[i].filename[0]);
 			free_tab(tab[i].filename);
 		}
 		if (tab[i].typefile)
@@ -109,7 +107,7 @@ void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
 	// printf("---> PARSER IN MAINS \n");
 	// print_parse(tab, pipe_nbr(*data));
-	// (void)line;
+	(void)tab;
 	if (line)
 		free(line);
 	if (data->token)

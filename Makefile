@@ -6,7 +6,7 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/28 15:06:17 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/30 15:08:16 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS =	minishell.c \
 		tokenise/token.c  \
 		tokenise/create_token.c \
 		tokenise/token_check.c  \
-		tokenise/pour_test_malloc.c\
+		tokenise/organise_token.c \
 		expand/expand.c \
 		expand/expand_utils.c  \
 		expand/expand_utils_2.c \
@@ -27,7 +27,6 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
-		# tokenise/organise_token.c \
 		
 CC	=	cc
 

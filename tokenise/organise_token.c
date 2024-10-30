@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   organise_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/26 22:45:10 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/30 15:07:52 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,11 @@ void	print_parse(t_parse *tab, int size)
 	int	j;
 
 	i = 0;
-	// (void)size;
 	while (i < size)
 	{
 		printf("MY COMMAND {%s}\n", tab[i].args[0]);
 		j = 0;
 		printf("MY ARG ");
-		// if(!tab)
-		// 	return(printf(""))
 		while (tab[i].args[j])
 		{
 			printf("{%s}", tab[i].args[j]);
@@ -84,115 +81,74 @@ void	print_parse(t_parse *tab, int size)
 	}
 }
 
-void	ft_count_elem(t_mini *data)
+void	ft_count_elements(t_mini *data, t_parse *tab)
 {
-	t_token *tmp;
-	
-	data->parser->args_count = 0;
-	data->parser->filename_count = 0;
-	data->parser->typefile_count = 0;
-	
-	tmp = data->token;
-	while (tmp && tmp->type != PIPE)
+	t_token	*token = data->token;
+
+	tab->args_count = 0;
+	tab->typefile_count = 0;
+	tab->filename_count = 0;
+	while (token && token->type != PIPE)
 	{
-		if (if_is_redir(tmp->type) == 0)
+		if (if_is_redir(token->type) == 0)
 		{
-			data->parser->typefile_count++;
-			if (tmp->next && tmp->next->type == WORD)
-				data->parser->filename_count++;
-			tmp = tmp->next;
+			tab->typefile_count++;
+			if (token->next && token->next->type == WORD)
+				tab->filename_count++;
+			token = token->next;  // Avancer si redirection
 		}
-		else if (tmp->type == WORD)
+		else if (token->type == WORD)
 		{
-			data->parser->args_count++;
+			tab->args_count++;
 		}
-		tmp = tmp->next;
+		token = token->next;
 	}
-	// printf("hellooooooo1");
 }
 
-// void	ft_malloc(t_mini data)
-// {
-// tab[i].args = ft_calloc(sizeof(char *), (data->args_count + 1));
-// tab[i].typefile = ft_calloc(sizeof(int), (data->typefile_count + 1));
-// tab[i].filename = ft_calloc(sizeof(char *), (data->filename_count + 1));
-// }
+void	ft_allocate_parse(t_parse *tab)
+{
+	tab->args = ft_calloc(sizeof(char *), (tab->args_count + 1));
+	tab->typefile = ft_calloc(sizeof(int), (tab->typefile_count + 1));
+	tab->filename = ft_calloc(sizeof(char *), (tab->filename_count + 1));
+
+	if (!tab->args || !tab->typefile || !tab->filename)
+	{
+		perror("Allocation error");
+		exit(EXIT_FAILURE);
+	}
+}
 
 t_parse	*table_struct(t_mini *data)
 {
 	int		i;
 	int		size;
 	t_parse	*tab;
+	t_token	*original_token;
 
 	i = 0;
+	original_token = data->token;
+	tab = NULL;
 	size = pipe_nbr(*data);
-	print_token(data->token);
-	printf("\n");
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
+	tab->size_cmd = size;
 	while (data->token)
 	{
-		printf("hello\n");
-		// ft_count_elem(data);
-		// ft_malloc();
-		// printf("nbr filename ==> %d", data->parser->filename_count);
-		// printf("nbr args ==> %d", data->parser->args_count);
-		// printf("nbr filetype  ==> %d", data->parser->typefile_count);
-		tab[i].args = ft_calloc(sizeof(char *), (tab->args_count));
-		tab[i].typefile = ft_calloc(sizeof(int), (tab->typefile_count));
-		tab[i].filename = ft_calloc(sizeof(char *), (tab->filename_count));
-		if (!tab->args || !tab->typefile || !tab->filename)
-			return (0);
-		if (data->token->type != PIPE)
+		ft_count_elements(data, &tab[i]);
+		ft_allocate_parse(&tab[i]);
+		while (data->token && data->token->type != PIPE)
+		{
 			ft_parse(&tab[i], data->token);
-		if (if_is_redir(data->token->type) == 0)
+			if (if_is_redir(data->token->type) == 0)
+				data->token = data->token->next;
 			data->token = data->token->next;
-		if (data->token->type == PIPE)
-			i++;
-		if (data->token)
+		}
+		if (data->token && data->token->type == PIPE)
 			data->token = data->token->next;
+		i++;
 	}
+	data->token = original_token;
 	print_parse(tab, size);
 	return (tab);
 }
-
-// ls -l | cat -re | echo asd  asd
-
-// tab[0]
-// cmd = ls
-// arg = ls -l
-
-// tab[1]
-// cmd = cat
-// arg = cat -re
-
-// tab[2]
-// cmd = echo
-// arg = echo asd asd
-
-// int	nbr_token_after(t_token *token)
-// {
-// 	int	count_last_pipe;
-// 	int	found_pipe;
-
-// 	count_last_pipe = 0;
-// 	found_pipe = 0;
-// 	while (token)
-// 	{
-// 		if (token->type == PIPE)
-// 		{
-// 			found_pipe = 1;
-// 			count_last_pipe = 0;
-// 		}
-// 		else
-// 		{
-// 			count_last_pipe++;
-// 		}
-// 		token = token->next;
-// 	}
-// 	if (found_pipe)
-// 		return (count_last_pipe);
-// 	else
-// 		return (count_last_pipe);
-// }
