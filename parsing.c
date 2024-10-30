@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/28 15:06:56 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:56:28 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_quote(char *str)
 
 	i = 0;
 	flag = 0;
-	if (!str)  // Vérification pour éviter un accès à un pointeur NULL
+	if (!str) // Vérification pour éviter un accès à un pointeur NULL
 		return (printf("error : null string\n"), 1);
 	while (str[i])
 	{
@@ -88,7 +88,7 @@ int	ft_check_redir(char *str, int *i)
 			return (printf("Error : syntax 3\n"), 1);
 	}
 	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i
-				+ 1] == '>'))
+			+ 1] == '>'))
 		return (printf("Error : syntax 4\n"), 1);
 	if (str[*i] == '>' && str[*i + 1] == '>')
 		(*i)++;
