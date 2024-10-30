@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 15:25:40 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/30 15:19:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ void	print_parse(t_parse *tab, int size)
 
 void	ft_count_elements(t_mini *data, t_parse *tab)
 {
-	t_token	*token = data->token;
+	t_token	*token;
 
+	token = data->token;
 	tab->args_count = 0;
 	tab->typefile_count = 0;
 	tab->filename_count = 0;
@@ -98,7 +99,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 			tab->typefile_count++;
 			if (token->next && token->next->type == WORD)
 				tab->filename_count++;
-			token = token->next;  // Avancer d’un token si redirection
+			token = token->next; // Avancer d’un token si redirection
 		}
 		else if (token->type == WORD)
 		{
@@ -113,7 +114,6 @@ void	ft_allocate_parse(t_parse *tab)
 	tab->args = ft_calloc(sizeof(char *), (tab->args_count + 1));
 	tab->typefile = ft_calloc(sizeof(int), (tab->typefile_count + 1));
 	tab->filename = ft_calloc(sizeof(char *), (tab->filename_count + 1));
-
 	if (!tab->args || !tab->typefile || !tab->filename)
 	{
 		// Gérer l’erreur d’allocation ici
@@ -125,17 +125,19 @@ void	ft_allocate_parse(t_parse *tab)
 t_parse	*table_struct(t_mini *data)
 {
 	int		i;
-	// int		size;
+	int		size;
 	t_parse	*tab;
 	t_token	*original_token;
 
 	i = 0;
+	tab = NULL;
 	original_token = data->token;
-	data->size = pipe_nbr(*data);
-	printf("SIZE ==>> %d\n", data->size);
-	tab = ft_calloc(sizeof(t_parse), (data->size + 1));
+	size = pipe_nbr(*data);
+	printf("SIZE ==>> %d\n", size);
+	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
+	tab->size_cmd = size;
 	while (data->token)
 	{
 		ft_count_elements(data, &tab[i]);
@@ -151,12 +153,10 @@ t_parse	*table_struct(t_mini *data)
 			data->token = data->token->next;
 		i++;
 	}
-
 	data->token = original_token;
-	print_parse(tab, data->size);
+	print_parse(tab, size);
 	return (tab);
 }
-
 
 // ls -l | cat -re | echo asd  asd
 

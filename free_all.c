@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/30 13:09:29 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/30 15:03:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,8 @@ void	free_inside(t_mini *data, char *line, t_parse *tab)
 		free(line);
 	if (data->token)
 		free_token(data);
-	// if (tab)
-	// {
-	// 	free_parser(data, tab);
-	// }
-		
+	if (tab)
+	{
+		free_parser(data, tab);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 20:28:54 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/30 14:46:11 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct t_mini
 {
 	// struct t_mini	*next;
 	// struct t_mini	*prev;
-	int				size;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
