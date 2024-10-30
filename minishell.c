@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 16:30:21 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/30 13:02:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **env)
 		printf("APRES:[%s]\n", line);
 		free_inside(&data, line, tab);
 	}
-	
+	free_env(&data);
 	return (0);
 }
 /*

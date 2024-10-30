@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 18:50:23 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/29 20:28:54 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,7 @@ void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
+
+// Free
+void	free_env(t_mini *data);
 #endif
