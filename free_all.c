@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/30 15:24:45 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:37:20 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ void	free_inside(t_mini *data, char *line, t_parse *tab)
 		free(line);
 	if (data->token)
 		free_token(data->token);
-	if (tab)
-		free_parser(data, tab);
-	if (data->expand)
-		free_expand(data->expand);
+	// if (tab)
+	// 	free_parser(data, tab);
+	// if (data->expand)
+	// 	free_expand(data->expand);
 }
