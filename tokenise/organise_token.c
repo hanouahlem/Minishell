@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 15:07:52 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:23:22 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void	print_parse(t_parse *tab, int size)
 
 void	ft_count_elements(t_mini *data, t_parse *tab)
 {
-	t_token	*token = data->token;
+	t_token	*token;
 
+	token = data->token;
 	tab->args_count = 0;
 	tab->typefile_count = 0;
 	tab->filename_count = 0;
@@ -95,7 +96,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 			tab->typefile_count++;
 			if (token->next && token->next->type == WORD)
 				tab->filename_count++;
-			token = token->next;  // Avancer si redirection
+			token = token->next; // Avancer d’un token si redirection
 		}
 		else if (token->type == WORD)
 		{
@@ -110,9 +111,9 @@ void	ft_allocate_parse(t_parse *tab)
 	tab->args = ft_calloc(sizeof(char *), (tab->args_count + 1));
 	tab->typefile = ft_calloc(sizeof(int), (tab->typefile_count + 1));
 	tab->filename = ft_calloc(sizeof(char *), (tab->filename_count + 1));
-
 	if (!tab->args || !tab->typefile || !tab->filename)
 	{
+		// Gérer l’erreur d’allocation ici
 		perror("Allocation error");
 		exit(EXIT_FAILURE);
 	}
@@ -126,9 +127,10 @@ t_parse	*table_struct(t_mini *data)
 	t_token	*original_token;
 
 	i = 0;
-	original_token = data->token;
 	tab = NULL;
+	original_token = data->token;
 	size = pipe_nbr(*data);
+	printf("SIZE ==>> %d\n", size);
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
@@ -152,3 +154,17 @@ t_parse	*table_struct(t_mini *data)
 	print_parse(tab, size);
 	return (tab);
 }
+
+// ls -l | cat -re | echo asd  asd
+
+// tab[0]
+// cmd = ls
+// arg = ls -l
+
+// tab[1]
+// cmd = cat
+// arg = cat -re
+
+// tab[2]
+// cmd = echo
+// arg = echo asd asd

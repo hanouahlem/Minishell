@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/30 14:51:23 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:24:45 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+	free(tab);
 }
 
 void	free_token(t_token *token)
@@ -71,6 +72,11 @@ void	free_parser(t_mini *data, t_parse *tab)
 			printf("cmd --> %s\n", tab[i].cmd);
 			free(tab[i].cmd);
 		}
+		if (tab[i].cmd)
+		{
+			printf("cmd --> %s\n", tab[i].cmd);
+			free(tab[i].cmd);
+		}
 		if (tab[i].args)
 		{
 			free_tab(tab[i].args);
@@ -78,6 +84,11 @@ void	free_parser(t_mini *data, t_parse *tab)
 		if (tab[i].filename)
 		{
 			free_tab(tab[i].filename);
+		}
+		if (tab[i].typefile)
+		{
+			// printf("typefile -> %i\n", tab[i].typefile);
+			free(tab[i].typefile);
 		}
 		if (tab[i].typefile)
 		{
@@ -107,6 +118,7 @@ void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
 	// printf("---> PARSER IN MAINS \n");
 	// print_parse(tab, pipe_nbr(*data));
+	(void)tab;
 	(void)tab;
 	if (line)
 		free(line);

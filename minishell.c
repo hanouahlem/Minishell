@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 15:09:33 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:22:53 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	main(int ac, char **av, char **env)
 	line = NULL;
 	while (1)
 	{
-		line = readline("Minishell $> ");
+		// ft_init(&data);
+		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
 		if (!*line)
@@ -53,9 +54,8 @@ int	main(int ac, char **av, char **env)
 		printf("AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
-		// if (ft_built_in_comp(&data, tab) == 0)
-		// 	continue ;
-		printf("SIZE -----> %i\n", tab->size_cmd);
+		if (ft_built_in_comp(&data, tab) == 1)
+			continue ;
 		printf("APRES:[%s]\n", line);
 		// free(line);
 		// free_token(data.token);

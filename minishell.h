@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 14:51:29 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:24:13 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct t_mini
 {
 	// struct t_mini	*next;
 	// struct t_mini	*prev;
+	// struct t_mini	*next;
+	// struct t_mini	*prev;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
@@ -120,6 +122,8 @@ char				*ft_value_from_key(char *str, t_mini *data);
 char				*delete_quote(char *str);
 char				*token_positive(char *str);
 
+// FREE
+void				free_inside(t_mini *data, char *line, t_parse *tab);
 
 //FREE
 void	free_inside(t_mini *data, char *line, t_parse *tab);
@@ -153,12 +157,15 @@ int					ft_echo(t_mini *data, t_parse *tab);
 
 void				print_parse(t_parse *tab, int size);
 
-int if_is_redir(int type);
+int					if_is_redir(int type);
 
 // ORGANIS
-int	pipe_nbr(t_mini data);
+int					pipe_nbr(t_mini data);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
-void				ft_count_elem(t_mini *data);
+void				ft_count_elements(t_mini *data, t_parse *tab);
+
+// Free
+void	free_env(t_mini *data);
 #endif

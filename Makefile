@@ -6,7 +6,7 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/30 15:08:16 by manbengh         ###   ########.fr        #
+#    Updated: 2024/10/30 15:23:29 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
+		# tokenise/pour_test_malloc.c\
 		
 CC	=	cc
 
