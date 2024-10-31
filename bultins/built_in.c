@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 18:53:17 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:08:27 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int ft_cd(t_mini *data)
 
 int	ft_built_in_comp(t_mini *data, t_parse *tab)
 {
-	printf("tab->arg[0] =====>>>> [%s]\n", tab->args[0]);
+	// printf("tab->arg[0] =====>>>> [%s]\n", tab->args[0]);
 	if (ft_strcmp(tab->args[0], "env") == 0)
 		return(ft_env(data),0);
 	if (ft_strcmp(tab->args[0], "pwd") == 0)
