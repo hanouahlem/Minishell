@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/31 17:14:43 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:27:01 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,17 @@ int ft_echo(t_mini *data, t_parse *tab)
 		if (check_n(tab->args[i]) == 0 /*&& tab->args[i + 1]*/)
 		{
 			while (tab->args[i])
-			{
-				printf("%s ", tab->args[i]);
-				i++;
-			}
+				printf("%s ", tab->args[i++]);
 			printf("\n");
 		}
 		else if (check_n(tab->args[i]) == 1 /*&& tab->args[i + 1]*/)
 		{
-			i++;
-			while (tab->args[i])
+			while (tab->args[++i])
 			{
-				printf("%s ", tab->args[i]);
-				i++;
+				if (!tab->args[i + 1])
+					printf("%s", tab->args[i]);
+				else
+					printf("%s ", tab->args[i]);
 			}
 		}
 	}
