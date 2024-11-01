@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/01 20:42:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/01 22:04:19 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	ft_expand_dquote(t_expand *exp)
 	char	*key;
 	char	*value;
 
-	// key = NULL;
-	// value = NULL;
+	key = NULL;
+	value = NULL;
 	if (exp->str[exp->i] == DQUOTE)
 	{
 		exp->i++;
