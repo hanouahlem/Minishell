@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 18:53:17 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:11:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int ft_cd(t_mini *data)
 int	ft_built_in_comp(t_mini *data, t_parse *tab)
 {
 	printf("tab->arg[0] =====>>>> [%s]\n", tab->args[0]);
+	if(!tab->args[0])
+		return(1);
 	if (ft_strcmp(tab->args[0], "env") == 0)
 		return(ft_env(data),0);
 	if (ft_strcmp(tab->args[0], "pwd") == 0)
@@ -73,3 +75,11 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 		return (ft_cd(data), 0);
 	return (1);
 }
+
+// env = fait
+// pwd = fait
+// echo = a finir
+// cd = a faire
+// unset = a faire
+// export = a faire
+// exit = a faire

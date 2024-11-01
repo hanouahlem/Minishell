@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 15:31:17 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:31:17 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		if (ft_built_in_comp(&data, tab) == 1)
 		{
+			printf("APRES:[%s]\n", line);
 			free_inside(&data, line, tab);
 			continue ;
 		}
 		printf("APRES:[%s]\n", line);
 		free_inside(&data, line, tab);
 	}
+	free(line);
 	free_env(&data);
 	return (0);
 }

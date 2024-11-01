@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 15:19:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:29:38 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	ft_parse(t_parse *tab, t_token *tokenis)
 	{
 		// stocker les redir ET fichiers
 		tab->typefile[tab->typelen] = tokenis->type;
-		tab->filename[tab->typelen] = strdup(tokenis->next->value_t);
+		tab->filename[tab->typelen] = ft_strdup(tokenis->next->value_t);
 		tab->typelen++;
 	}
 	else
 	{
 		// stocker les arg
-		tab->args[tab->argslen++] = strdup(tokenis->value_t);
+		tab->args[tab->argslen++] = ft_strdup(tokenis->value_t);
 	}
 }
 
@@ -122,6 +122,19 @@ void	ft_allocate_parse(t_parse *tab)
 	}
 }
 
+void while_token(t_mini *data, t_parse *tab, int *i)
+{
+		while (data->token && data->token->type != PIPE)
+		{
+			ft_parse(&tab[*i], data->token);
+			if (if_is_redir(data->token->type) == 0)
+				data->token = data->token->next;
+			data->token = data->token->next;
+		}
+		if (data->token && data->token->type == PIPE)
+			data->token = data->token->next;
+}
+
 t_parse	*table_struct(t_mini *data)
 {
 	int		i;
@@ -133,7 +146,6 @@ t_parse	*table_struct(t_mini *data)
 	tab = NULL;
 	original_token = data->token;
 	size = pipe_nbr(*data);
-	printf("SIZE ==>> %d\n", size);
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
@@ -142,21 +154,50 @@ t_parse	*table_struct(t_mini *data)
 	{
 		ft_count_elements(data, &tab[i]);
 		ft_allocate_parse(&tab[i]);
-		while (data->token && data->token->type != PIPE)
-		{
-			ft_parse(&tab[i], data->token);
-			if (if_is_redir(data->token->type) == 0)
-				data->token = data->token->next;
-			data->token = data->token->next;
-		}
-		if (data->token && data->token->type == PIPE)
-			data->token = data->token->next;
+		while_token(data, tab, &i);
 		i++;
 	}
 	data->token = original_token;
 	print_parse(tab, size);
 	return (tab);
 }
+
+
+// t_parse	*table_struct(t_mini *data)
+// {
+// 	int		i;
+// 	int		size;
+// 	t_parse	*tab;
+// 	t_token	*original_token;
+
+// 	i = 0;
+// 	tab = NULL;
+// 	original_token = data->token;
+// 	size = pipe_nbr(*data);
+// 	printf("SIZE ==>> %d\n", size);
+// 	tab = ft_calloc(sizeof(t_parse), (size + 1));
+// 	if (!tab)
+// 		return (NULL);
+// 	tab->size_cmd = size;
+// 	while (data->token)
+// 	{
+// 		ft_count_elements(data, &tab[i]);
+// 		ft_allocate_parse(&tab[i]);
+// 		while (data->token && data->token->type != PIPE)
+// 		{
+// 			ft_parse(&tab[i], data->token);
+// 			if (if_is_redir(data->token->type) == 0)
+// 				data->token = data->token->next;
+// 			data->token = data->token->next;
+// 		}
+// 		if (data->token && data->token->type == PIPE)
+// 			data->token = data->token->next;
+// 		i++;
+// 	}
+// 	data->token = original_token;
+// 	print_parse(tab, size);
+// 	return (tab);
+// }
 
 // ls -l | cat -re | echo asd  asd
 
