@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 15:51:13 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:49:49 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ typedef struct s_parse
 
 typedef struct t_mini
 {
-	// struct t_mini	*next;
-	// struct t_mini	*prev;
-	// struct t_mini	*next;
-	// struct t_mini	*prev;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
@@ -109,6 +105,10 @@ int					ft_strlen_stop(char *str, char c);
 char				*ft_strcat(char *dest, char *src);
 
 // TOKENISATION
+int					pipe_nbr(t_mini data);
+int					if_is_redir(int type);
+void				ft_count_elements(t_mini *data, t_parse *tab);
+
 t_token				*ft_lstnew_tok(void *values);
 t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
@@ -124,16 +124,14 @@ char				*token_positive(char *str);
 
 // FREE
 void				free_inside(t_mini *data, char *line, t_parse *tab);
-
-//FREE
-void	free_inside(t_mini *data, char *line, t_parse *tab);
-void	free_env(t_mini *data);
+void				free_env(t_mini *data);
 // void	free_token(t_token *token);
 // void	free_expand(t_expand *exp);
 // void	free_parser(t_mini *data, t_parse *tab);
 
-
+// MY_PRINTS
 void				print_token(t_token *tokenis);
+void				print_parse(t_parse *tab, int size);
 
 // EXPAND
 void				ft_expand_len_dollar(t_expand *exp_l);
@@ -153,8 +151,7 @@ int					ft_env(t_mini *data);
 int					ft_exit(t_mini *data);
 int					ft_export(t_mini *data);
 int					ft_unset(t_mini *data);
-int					ft_echo(t_mini *data, t_parse *tab);
-
+int					ft_echo(t_parse *tab);
 void				print_parse(t_parse *tab, int size);
 
 int					if_is_redir(int type);
@@ -167,5 +164,5 @@ t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
-void	free_env(t_mini *data);
+void				free_env(t_mini *data);
 #endif

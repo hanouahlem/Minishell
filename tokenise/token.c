@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/29 19:39:19 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:46:14 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	split_line(int i, char *line, t_token **tokenis)
 	char	*str;
 
 	index_l = 0;
-	index_l = 0;
 	str = ft_strdup(line);
 	while (line[++i])
 	{
@@ -68,5 +67,3 @@ void	split_line(int i, char *line, t_token **tokenis)
 	*tokenis = add_prev(*tokenis);
 	free(str);
 }
-
-//687 allocs, 224 frees, 238,024 bytes allocated

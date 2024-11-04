@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/31 18:27:01 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:39:48 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // 	PAS OUBLIER
 // 		echo -
 // 		affiche -
-// -n est valable que si ca commence par un tiret et que ya DES net export 
+// -n est valable que si ca commence par un tiret et que ya DES net export
 // echo
 // 	si le premier argument est "-n"
 // 		pas de \n
@@ -34,7 +34,6 @@
 // 		echo -
 // 		affiche -
 // -n est valable que si ca commence par un tiret et que ya DES n
-
 
 int	check_n(char *str)
 {
@@ -54,23 +53,22 @@ int	check_n(char *str)
 	return (0);
 }
 
-int ft_echo(t_mini *data, t_parse *tab)
+int	ft_echo(t_parse *tab)
 {
 	int	i;
 
 	i = 1;
-	(void)data;
 	if (!tab->args[i])
 		printf("\n");
 	if (tab->args[i])
 	{
-		if (check_n(tab->args[i]) == 0 /*&& tab->args[i + 1]*/)
+		if (check_n(tab->args[i]) == 0)
 		{
 			while (tab->args[i])
 				printf("%s ", tab->args[i++]);
 			printf("\n");
 		}
-		else if (check_n(tab->args[i]) == 1 /*&& tab->args[i + 1]*/)
+		else if (check_n(tab->args[i]) == 1)
 		{
 			while (tab->args[++i])
 			{
@@ -81,5 +79,8 @@ int ft_echo(t_mini *data, t_parse *tab)
 			}
 		}
 	}
-	return(0);
+	return (0);
 }
+
+// bash-5.1$ echo bonjour > /dev/full
+// bash: echo: write error: No space left on device

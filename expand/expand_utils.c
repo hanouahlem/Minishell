@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/29 16:52:04 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:36:56 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ char	*ft_get_key(char *str, int *i)
 	char	*c;
 
 	j = 0;
+	if(!str)
+		return(NULL);
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!c)
+		return (NULL);
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
 		&& !ft_isdigit(str[1]))
 	{
@@ -71,10 +75,15 @@ void	ft_expand_len_dquote(t_expand *exp_l)
 				exp_l->i++;
 				key = ft_get_key(exp_l->str, &(exp_l->i));
 				if (!key || !*key)
+				{
 					exp_l->n += 1;
+					free(key);
+				}
 				value = ft_value_from_key(key, exp_l->data);
 				if (value)
 					exp_l->n += ft_strlen(value);
+				// (free(key), free(value));
+				
 			}
 			else
 				ft_exp_plus_plus(exp_l);
@@ -103,9 +112,6 @@ void	ft_expand_len_dollar(t_expand *exp_l)
 			exp_l->n += ft_strlen(value);
 		else
 			exp_l->n++;
-	if (value)
-		free(value);
-	if (key)
-		free(key);
+		(free(key), free(value));
 	}
 }
