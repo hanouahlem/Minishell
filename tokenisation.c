@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prints.c                                           :+:      :+:    :+:   */
+/*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/16 15:51:40 by manbengh         ###   ########.fr       */
+/*   Created: 2024/10/14 18:24:52 by manbengh          #+#    #+#             */
+/*   Updated: 2024/10/14 18:45:17 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_token(t_token *tokenis)
+void	tokenisation(t_token **tokenis)
 {
-	while (tokenis)
-	{
-		printf("value_t == %s\n", tokenis->value_t);
-		// printf("type == %d\n", tokenis->type);
-		// if (tokenis->prev != NULL)
-		// 	printf("prev == %s\n\n", tokenis->prev->value_t);
-		tokenis = tokenis->next;
-	}
+	//parcour tokenis 
+	// if redir_in || redir_out 
+		// next is type=FILE
+	// if |
+		//if next == WORD
+			// cmd[i] == next
+	// else
+		// cmd[i] == tokenis
+	
 }

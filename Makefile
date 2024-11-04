@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/10/25 15:04:40 by ahbey            ###   ########.fr        #
+#    Updated: 2024/11/04 19:05:42 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRCS =	minishell.c \
 		bultins/built_in.c \
 		bultins/ft_exit.c \
 		bultins/unset_export.c \
+		bultins/ft_echo.c \
 		prints.c \
+		# tokenise/pour_test_malloc.c\
 		
 CC	=	cc
 
@@ -59,6 +61,6 @@ fclean: clean
 re:		fclean all
 
 leak: all
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt  ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt ./minishell
 
 .PHONY: all clean fclean re/

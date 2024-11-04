@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/16 16:57:36 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:50:02 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ char	*ft_get_key(char *str, int *i)
 	char	*c;
 
 	j = 0;
+	if(!str)
+		return(NULL);
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!c)
+		return (NULL);
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
 		&& !ft_isdigit(str[1]))
 	{
@@ -75,6 +79,10 @@ void	ft_expand_len_dquote(t_expand *exp_l)
 				value = ft_value_from_key(key, exp_l->data);
 				if (value)
 					exp_l->n += ft_strlen(value);
+				free(value);
+				if (key)
+					free(key);
+				
 			}
 			else
 				ft_exp_plus_plus(exp_l);
@@ -99,5 +107,6 @@ void	ft_expand_len_dollar(t_expand *exp_l)
 			exp_l->n += ft_strlen(value);
 		else
 			exp_l->n++;
+		(free(key), free(value));
 	}
 }

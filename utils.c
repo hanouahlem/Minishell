@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/11 19:45:28 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:33:38 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_env	*ft_lstnew_env(void *my_env)
 	t_env	*new;
 
 	new = malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
 	new->content = ft_strdup(my_env);
+	if (!new || !new->content)
+		return (NULL);
 	new->key = find_key_for_env(my_env);
 	new->value = find_value_for_env(my_env);
 	new->next = NULL;

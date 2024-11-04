@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/24 12:17:41 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:31:17 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,57 @@
 // 	}
 // }
 
-void	ft_init(t_mini *data)
-{
-	data->args = NULL;
-	data->cmd = NULL;
-	data->token = NULL;
-	data->parser = NULL;
-}
-
 int	main(int ac, char **av, char **env)
 {
 	static	t_mini data = {0};
 	char	*line;
 	t_parse	*tab = NULL;
+	// char *str = NULL;
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	// tokenis = NULL;
 	data.env = get_env(env);
 	while (1)
 	{
-		ft_init(&data);
-		line = readline("Minishell $> ");
+		// ft_init(&data);
+		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
 		if (!*line)
 			continue ;
 		add_history(line);
+		// line = token_negation(line);
 		if (ft_quote(line))
+		{
+			free(line);
 			continue ;
+		}
 		if (ft_check_redir_in_out(line) == 1)
+		{
+			free(line);
 			continue ;
+		}
+		// line = token_positive(line);
 		split_line(-1, line, &data.token);
 		printf("AVANT:[%s]\n", line);
-		// if(syntax_redir(data.token) == 1)
-		// 	continue ;
-		line = ft_expand(line, &data);
-		// printf("APRES:[%s]\n", data->); // cause un read of size
-		// printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
+		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
 		if (ft_built_in_comp(&data, tab) == 1)
-			printf("ERROR ENV !\n");
+		{
+			printf("APRES:[%s]\n", line);
+			free_inside(&data, line, tab);
+			continue ;
+		}
 		printf("APRES:[%s]\n", line);
-		// free_inside(&data, line);
+		free_inside(&data, line, tab);
 	}
-	
+	free(line);
+	free_env(&data);
 	return (0);
 }
 /*
+printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
 
 1 - check les guillemets
 "'''''''''" vrai        fait
