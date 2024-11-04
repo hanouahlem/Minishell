@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/01 16:29:38 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:51:30 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,43 +161,6 @@ t_parse	*table_struct(t_mini *data)
 	print_parse(tab, size);
 	return (tab);
 }
-
-
-// t_parse	*table_struct(t_mini *data)
-// {
-// 	int		i;
-// 	int		size;
-// 	t_parse	*tab;
-// 	t_token	*original_token;
-
-// 	i = 0;
-// 	tab = NULL;
-// 	original_token = data->token;
-// 	size = pipe_nbr(*data);
-// 	printf("SIZE ==>> %d\n", size);
-// 	tab = ft_calloc(sizeof(t_parse), (size + 1));
-// 	if (!tab)
-// 		return (NULL);
-// 	tab->size_cmd = size;
-// 	while (data->token)
-// 	{
-// 		ft_count_elements(data, &tab[i]);
-// 		ft_allocate_parse(&tab[i]);
-// 		while (data->token && data->token->type != PIPE)
-// 		{
-// 			ft_parse(&tab[i], data->token);
-// 			if (if_is_redir(data->token->type) == 0)
-// 				data->token = data->token->next;
-// 			data->token = data->token->next;
-// 		}
-// 		if (data->token && data->token->type == PIPE)
-// 			data->token = data->token->next;
-// 		i++;
-// 	}
-// 	data->token = original_token;
-// 	print_parse(tab, size);
-// 	return (tab);
-// }
 
 // ls -l | cat -re | echo asd  asd
 

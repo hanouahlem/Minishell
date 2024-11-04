@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/01 22:04:19 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:40:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,18 @@ void	ft_expand_dquote(t_expand *exp)
 				exp->i++;
 				key = ft_get_key(exp->str, &(exp->i));
 				if (!key || !*key)
-				{
 					exp->new_str[exp->n++] = '$';
-					free(key);
-				}
 				value = ft_value_from_key(key, exp->data);
 				if (value)
+				{
 					ft_cat_value(exp, value);
+					free(value);
+				}
+				free(key);
+				key = NULL;
 			}
 			else
 				exp->new_str[exp->n++] = exp->str[exp->i++];
-			if(key)
-				free(key);
-			if(value)
-				free(value);
 		}
 		exp->i++;
 	}
