@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/24 14:43:56 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:40:39 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ char	*token_negation(char *str)
 				str[i] = -str[i];
 				i++;
 			}
-			// if (!str[i])
-			// {
-			// 	printf("Error: Unmatched quote\n");
-			// 	return (str);
-			// }
 		}
 		i++;
 	}
@@ -51,7 +46,7 @@ char	*token_positive(char *str)
 			str[i] = -str[i];
 		i++;
 	}
-	return(str);
+	return (str);
 }
 
 // char	*delete_quote(char *str)

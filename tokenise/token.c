@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 20:52:56 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 18:46:14 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	split_line(int i, char *line, t_token **tokenis)
 
 	index_l = 0;
 	str = ft_strdup(line);
-	// if(!str)
-	// 	return(NULL);
 	while (line[++i])
 	{
 		if (line[i] == ' ')
@@ -66,8 +64,6 @@ void	split_line(int i, char *line, t_token **tokenis)
 	}
 	if (index_l > 0)
 		handle_token(str, &index_l, tokenis);
-	free(str);
 	*tokenis = add_prev(*tokenis);
+	free(str);
 }
-
-//687 allocs, 224 frees, 238,024 bytes allocated

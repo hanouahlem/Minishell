@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 20:39:24 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:22:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int ac, char **av, char **env)
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
 	data.env = get_env(env);
+	line = NULL;
 	while (1)
 	{
 		// ft_init(&data);
@@ -66,11 +67,12 @@ int	main(int ac, char **av, char **env)
 			free_inside(&data, line, tab);
 			continue ;
 		}
-		printf("APRES:[%s]\n", line);
+		printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, line, tab);
 	}
 	free(line);
 	free_env(&data);
+	// rl_clear_history();
 	return (0);
 }
 /*
