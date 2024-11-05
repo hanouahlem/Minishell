@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/01 16:31:17 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/04 20:39:24 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (!*line)
 			continue ;
+		// check si ligne espace ou tab only;
 		add_history(line);
 		// line = token_negation(line);
 		if (ft_quote(line))
