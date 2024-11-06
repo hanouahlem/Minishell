@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:49:49 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:26:43 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,11 @@ void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
-
 int					ft_built_in_comp(t_mini *data, t_parse *tab);
 int					ft_env(t_mini *data);
 int					ft_exit(t_mini *data);
 int					ft_export(t_mini *data);
-int					ft_unset(t_mini *data);
+int	ft_unset(t_mini *data, t_parse *tab);
 int					ft_echo(t_parse *tab);
 void				print_parse(t_parse *tab, int size);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/04 18:39:25 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:53:04 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	ft_cd(t_mini *data, t_parse *tab)
 
 int	ft_built_in_comp(t_mini *data, t_parse *tab)
 {
-	printf("tab->arg[0] =====>>>> [%s]\n", tab->args[0]);
 	if (!tab->args[0])
 		return (1);
 	if (ft_strcmp(tab->args[0], "env") == 0)
@@ -86,7 +85,7 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 	if (ft_strcmp(tab->args[0], "pwd") == 0)
 		return (ft_pwd(data), 0);
 	if (ft_strcmp(tab->args[0], "unset") == 0)
-		return (ft_unset(data), 0);
+		return (ft_unset(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "export") == 0)
 		return (ft_export(data), 0);
 	if (ft_strcmp(tab->args[0], "exit") == 0)
@@ -98,10 +97,11 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 	return (1);
 }
 
-// env = fait
-// pwd = fait
-// echo = a finir
-// cd = a faire
-// unset = a faire
-// export = a faire
-// exit = a faire
+
+// env    = fini
+// pwd    = fini
+// echo   = fini
+// cd     = normalement fini
+// unset  = en cours
+// export = en cours
+// exit   = a faire

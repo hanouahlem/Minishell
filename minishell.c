@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 15:36:36 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:22:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (!*line)
 			continue ;
+		// check si ligne espace ou tab only;
 		add_history(line);
 		// line = token_negation(line);
 		if (ft_quote(line))
@@ -57,7 +58,7 @@ int	main(int ac, char **av, char **env)
 		}
 		// line = token_positive(line);
 		split_line(-1, line, &data.token);
-		// printf("AVANT:[%s]\n", line);
+		printf("AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
 		if (ft_built_in_comp(&data, tab) == 1)
@@ -66,11 +67,7 @@ int	main(int ac, char **av, char **env)
 			free_inside(&data, line, tab);
 			continue ;
 		}
-		// printf("\nAPRES:[%s]\n", line);
-		// free(line);
-		// free_token(data.token);
-		// free_expand(data.expand);
-		// free_parser(&data, tab);
+		printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, line, tab);
 	}
 	free(line);

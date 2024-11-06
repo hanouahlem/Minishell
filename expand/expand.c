@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/04 15:55:12 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:28:38 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,20 @@ void	ft_expand_dquote(t_expand *exp)
 				exp->i++;
 				key = ft_get_key(exp->str, &(exp->i));
 				if (!key || !*key)
-				{
 					exp->new_str[exp->n++] = '$';
-					free(key);
-				}
 				value = ft_value_from_key(key, exp->data);
 				if (value)
+				{
 					ft_cat_value(exp, value);
+					free(value);
+				}
+				free(key);
+				key = NULL;
 			}
 			else
 				exp->new_str[exp->n++] = exp->str[exp->i++];
-			if(key)
-				free(key);
-			if(value)
-				free(value);
 		}
 		exp->i++;
-	if (value)
-		free(value);
-	if (key)
-		free(key);
 	}
 }
 
@@ -105,10 +99,6 @@ void	ft_expand_dollar(t_expand *exp)
 		}
 		(free(key), free(value));
 	}
-	// if (value)
-	// 	free(value);
-	// if (key)
-	// 	free(key);
 }
 
 char	*ft_expand(char *str, t_mini *data)
