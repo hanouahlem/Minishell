@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/05 14:22:13 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:48:17 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		// ft_init(&data);
+		data.exit_status = 0;
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
@@ -58,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		}
 		// line = token_positive(line);
 		split_line(-1, line, &data.token);
-		printf("AVANT:[%s]\n", line);
+		printf(	"AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
 		if (ft_built_in_comp(&data, tab) == 1)

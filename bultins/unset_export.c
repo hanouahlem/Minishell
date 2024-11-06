@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:33:03 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/05 21:12:02 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/06 15:46:18 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 int	ft_export(t_mini *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
 	(void)data;
 	printf("hello export\n");
-	
 	return (0);
+}
+
+void	unset_free(t_mini *data)
+{
+	free(data->env->key);
+	free(data->env->value);
+	free(data->env->content);
 }
 
 int	ft_unset(t_mini *data, t_parse *tab)
 {
-	t_env *tmp;
-	t_env *prev;
+	t_env	*tmp;
+	t_env	*prev;
 
 	if (tab->args[1])
 	{
@@ -37,10 +42,7 @@ int	ft_unset(t_mini *data, t_parse *tab)
 		{
 			if (ft_strcmp(data->env->key, tab->args[1]) == 0)
 			{
-				printf("args[1] ---> %s\n", tab->args[1]);
-				free(data->env->key);
-				free(data->env->value);
-				free(data->env->content);
+				unset_free(data);
 				if (prev)
 					prev->next = data->env->next;
 				else

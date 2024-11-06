@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/05 19:53:04 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:55:19 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_pwd(t_mini *data)
 	if (!pwd)
 	{
 		perror("getcwd failed\n");
+		data->exit_status = 1;
+		free(pwd);
 		// --> afficher la valeur de retour pour exit  <--
 		return (1);
 	}
@@ -89,14 +91,13 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 	if (ft_strcmp(tab->args[0], "export") == 0)
 		return (ft_export(data), 0);
 	if (ft_strcmp(tab->args[0], "exit") == 0)
-		return (ft_exit(data), 0);
+		return (ft_exit(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "echo") == 0)
 		return (ft_echo(tab), 0);
 	if (ft_strcmp(tab->args[0], "cd") == 0)
-		return (ft_cd(data, tab), 0);
+		return (data->exit_status = ft_cd(data, tab), 0);
 	return (1);
 }
-
 
 // env    = fini
 // pwd    = fini

@@ -57,3 +57,10 @@ echo --> fait
 unset --> NON
 export --> NON
 exit --> NON
+
+
+$?
+command not found = 127
+ls : no such file or directory = 2
+(cat, cd) : no such file or directory = 1
+success = 0
