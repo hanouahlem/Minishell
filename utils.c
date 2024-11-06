@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/30 18:33:38 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/06 20:30:17 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ t_env	*ft_lstlast_env(t_env *lst)
 	if (!lst)
 		return (NULL);
 	while (lst->next != NULL)
+	{
 		lst = lst->next;
+	}
 	return (lst);
 }
 
@@ -40,7 +42,9 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	if (!lst || !new)
 		return ;
 	if (*lst)
+	{
 		ft_lstlast_env(*lst)->next = new;
+	}
 	else
 		*lst = new;
 }
