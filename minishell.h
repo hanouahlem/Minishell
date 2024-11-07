@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/06 18:00:58 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:29:25 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void				free_token(t_mini *data);
 void				free_parser(t_mini *data, t_parse *tab);
 void				free_tab(char **tab);
 
-
 // MY_PRINTS
+void	print_env(t_env *env);
 void				print_token(t_token *tokenis);
 void				print_parse(t_parse *tab, int size);
 
@@ -150,7 +150,7 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 int					ft_built_in_comp(t_mini *data, t_parse *tab);
 int					ft_env(t_mini *data);
 int					ft_exit(t_mini *data, t_parse *tab);
-int					ft_export(t_mini *data);
+int					ft_export(t_mini *data, t_parse *tab);
 int					ft_unset(t_mini *data, t_parse *tab);
 int					ft_echo(t_parse *tab);
 void				print_parse(t_parse *tab, int size);

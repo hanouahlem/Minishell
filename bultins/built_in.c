@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/06 17:55:19 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:50:44 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_env(t_mini *data)
 	tmp = data->env;
 	if (tmp)
 	{
-		while (tmp->next)
+		while (tmp)
 		{
-			printf("%s\n", tmp->content);
+			printf("%s\n",tmp->content);
 			tmp = tmp->next;
 		}
 		return (0);
@@ -50,11 +50,10 @@ int	ft_pwd(t_mini *data)
 	return (0);
 }
 
-int	ft_cd(t_mini *data, t_parse *tab)
+int	ft_cd(t_parse *tab)
 {
 	char	*my_home;
 
-	(void)data;
 	my_home = getenv("HOME");
 	if (!my_home)
 		return (printf("Error : can't get HOME.\n"), 1);
@@ -89,13 +88,13 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 	if (ft_strcmp(tab->args[0], "unset") == 0)
 		return (ft_unset(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "export") == 0)
-		return (ft_export(data), 0);
+		return (ft_export(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "exit") == 0)
 		return (ft_exit(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "echo") == 0)
 		return (ft_echo(tab), 0);
 	if (ft_strcmp(tab->args[0], "cd") == 0)
-		return (data->exit_status = ft_cd(data, tab), 0);
+		return (data->exit_status = ft_cd(tab), 0);
 	return (1);
 }
 

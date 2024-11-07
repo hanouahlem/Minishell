@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:42:27 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:29:05 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ void	print_token(t_token *tokenis)
 		// if (tokenis->prev != NULL)
 		// 	printf("prev == %s\n\n", tokenis->prev->value_t);
 		tokenis = tokenis->next;
+	}
+}
+
+void	print_env(t_env *env)
+{
+	while (env)
+	{
+		// printf("KEY :  %s\n", env->key);
+		// printf("VALUE :  %s\n\n", env->value);
+                printf("%s\n", env->content);
+		env = env->next;
 	}
 }
 
