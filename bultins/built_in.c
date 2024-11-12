@@ -6,19 +6,19 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/06 20:35:33 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/12 19:14:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_mini *data)
+int	ft_env(t_env *env)
 {
 	int		i;
 	t_env	*tmp;
 
 	i = 0;
-	tmp = data->env;
+	tmp = env;
 	if (tmp)
 	{
 		while (tmp)
@@ -75,12 +75,12 @@ int	ft_cd(t_parse *tab)
 	return (0);
 }
 
-int	ft_built_in_comp(t_mini *data, t_parse *tab)
+int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line)
 {
 	if (!tab->args[0])
 		return (1);
 	if (ft_strcmp(tab->args[0], "env") == 0)
-		return (ft_env(data), 0);
+		return (ft_env(data->env), 0);
 	if (ft_strcmp(tab->args[0], "pwd") == 0)
 		return (ft_pwd(data), 0);
 	if (ft_strcmp(tab->args[0], "unset") == 0)
@@ -88,7 +88,7 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 	if (ft_strcmp(tab->args[0], "export") == 0)
 		return (ft_export(data, tab), 0);
 	if (ft_strcmp(tab->args[0], "exit") == 0)
-		return (ft_exit(data), 0);
+		return (ft_exit(data, tab, line), 0);
 	if (ft_strcmp(tab->args[0], "echo") == 0)
 		return (ft_echo(tab), 0);
 	if (ft_strcmp(tab->args[0], "cd") == 0)

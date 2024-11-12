@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/06 20:13:23 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/12 19:24:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 // 	}
 // }
 
+int	is_space_or_tab(char *str)
+{
+	if (str[0] == SPACE || str[0] == TAB)
+		return (1);
+	return (0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	static	t_mini data = {0};
@@ -33,6 +40,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
+	
 	data.env = get_env(env);
 	line = NULL;
 	while (1)
@@ -44,6 +52,11 @@ int	main(int ac, char **av, char **env)
 		if (!*line)
 			continue ;
 		// check si ligne espace ou tab only;
+		if (is_space_or_tab(line) == 1)
+		{
+			free_inside(&data, line, tab);
+			continue;
+		}
 		add_history(line);
 		// line = token_negation(line);
 		if (ft_quote(line))
@@ -61,7 +74,7 @@ int	main(int ac, char **av, char **env)
 		printf("AVANT:[%s]\n", line);
 		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
-		if (ft_built_in_comp(&data, tab) == 1)
+		if (ft_built_in_comp(&data, tab, line) == 1)
 			;
 		printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, line, tab);

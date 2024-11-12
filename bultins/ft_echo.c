@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/05 19:09:11 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/12 19:00:34 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ int	check_n(char *str)
 	return (0);
 }
 
+void	echo_if_n(t_parse *tab, int i)
+{
+	while (check_n(tab->args[i]) == 1)
+		i++;
+	while (tab->args[i])
+	{
+		if (!tab->args[i + 1])
+			printf("%s", tab->args[i]);
+		else
+			printf("%s ", tab->args[i]);
+		i++;
+	}
+}
+
 int	ft_echo(t_parse *tab)
 {
 	int	i;
@@ -70,13 +84,7 @@ int	ft_echo(t_parse *tab)
 		}
 		else if (check_n(tab->args[i]) == 1)
 		{
-			while (tab->args[++i])
-			{
-				if (!tab->args[i + 1])
-					printf("%s", tab->args[i]);
-				else
-					printf("%s ", tab->args[i]);
-			}
+			echo_if_n(tab, i);
 		}
 	}
 	return (0);
@@ -84,3 +92,8 @@ int	ft_echo(t_parse *tab)
 
 // bash-5.1$ echo bonjour > /dev/full
 // bash: echo: write error: No space left on device
+
+
+//echo :
+// retirer les quotes
+// si $a (donc une key qui existe pas) il faut echo rien et pas le "$a" a lecran
