@@ -6,42 +6,11 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:33:03 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/07 17:12:24 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:49:36 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	ft_export(t_mini *data)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	(void)data;
-// 	printf("hello export\n");
-	
-// 	return (0);
-// }
-
-int	add_export_env(t_mini *data, t_parse tab)
-{
-	int		i;
-	t_env	*node;
-	// t_env	*path;
-
-	i = 1;
-	node = NULL;
-	// path = NULL;
-	// while (tab->args[i])
-	// {
-		node = ft_lstnew_env(tab.args[i]);
-		if (!node)
-			return (1);
-		ft_lstadd_back_env(&data->env, node);
-		// i++;
-	// }
-	return (0);
-}
 
 int	check_key_export(char *key)
 {
@@ -62,69 +31,82 @@ int	check_key_export(char *key)
 	return (0);
 }
 
-int	is_key_in_env(t_mini *data, char *str, t_parse *tab, int i)
+int	is_key_in_env(t_mini *data, char *str)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = data->env;
-	while (data->env)
+	while (tmp)
 	{
-		if (ft_strcmp(data->env->key, str) == 0)
-		{
-			printf("la key existe deja\n");
-			free(data->env->value);
-			data->env->value = find_value_for_env(tab->args[i]);
-			printf("value =====> %s\n", data->env->value);
-			data->env = tmp;
+		if (ft_strcmp(tmp->key, str) == 0)
 			return (1);
-		}
-		data->env = data->env->next;
+		tmp = tmp->next;
 	}
-	data->env = tmp;
 	return (0);
 }
+
+void	change_value_in_env(t_env **env, char *str, char *new_value,
+		char *content)
+{
+	t_env	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, str) == 0)
+		{
+			free(tmp->value);
+			free(tmp->content);
+			tmp->value = ft_strdup(new_value);
+			tmp->content = ft_strdup(content);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+}
+
 int	ft_export(t_mini *data, t_parse *tab)
 {
-	int i;
-	char *key;
+	int		i;
+	char	*key;
+	char	*value;
 	t_env	*node;
-	
+
 	i = 1;
 	node = NULL;
 	while (tab->args[i])
 	{
 		key = find_key_for_env(tab->args[i]);
-		if(check_key_export(key) == 1)
-			return(1);
-		if (is_key_in_env(data, key, tab, i) == 1)
+		if (check_key_export(key) == 1)
+			return (free(key), 1);
+		value = find_value_for_env(tab->args[i]);
+		if (is_key_in_env(data, key) == 1)
 		{
-			printf("tete env ---------> %s\n", data->env->content);
-			// printf("la key existe deja\n");
-			// free(data->env->value);
-			// data->env->value = find_value_for_env(tab->args[1]);
-			// printf("value =====> %s\n", data->env->value);
+			change_value_in_env(&data->env, key, value, tab->args[i]);
 		}
 		else
 		{
 			node = ft_lstnew_env(tab->args[i]);
 			if (!node)
+			{
+				free(key);
+				free(value);
 				return (1);
+			}
 			ft_lstadd_back_env(&data->env, node);
 		}
 		i++;
+		free(value);
+		free(key);
 	}
 	return (0);
 }
 
-// data->env->value = ft_substr(tab->args[i], ft_strlen_stop(tab->args[i], '=') + 1,
-// 			ft_strlen(tab->args[i]));
-
-
-void	unset_free(t_mini *data)
+void	free_unset(t_env *env)
 {
-	free(data->env->key);
-	free(data->env->value);
-	free(data->env->content);
+	free(env->key);
+	free(env->value);
+	free(env->content);
 }
 
 int	ft_unset(t_mini *data, t_parse *tab)
@@ -142,7 +124,7 @@ int	ft_unset(t_mini *data, t_parse *tab)
 		{
 			if (ft_strcmp(data->env->key, tab->args[i]) == 0)
 			{
-				unset_free(data);
+				free_unset(data->env);
 				if (prev)
 					prev->next = data->env->next;
 				else

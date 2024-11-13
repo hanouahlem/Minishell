@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/06 17:12:44 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:19:09 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int	ft_check_redir_in_out(char *str)
 				|| str[j] == '<')
 				return (printf("Error : syntax 5\n"), 1);
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/06 17:36:01 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:37:50 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,8 @@ int	ft_echo(t_parse *tab)
 
 // bash-5.1$ echo bonjour > /dev/full
 // bash: echo: write error: No space left on device
+
+
+//echo :
+// retirer les quotes
+// si $a (donc une key qui existe pas) il faut echo rien et pas le "$a" a lecran
