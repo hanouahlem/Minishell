@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/12 19:24:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 19:40:43 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,27 @@
 
 int	is_space_or_tab(char *str)
 {
-	if (str[0] == SPACE || str[0] == TAB)
+	int	i;
+
+	i = 0;
+	while ((str[i] && str[i] == ' ') || str[i] == '\t')
+		i++;
+	if (i == (int)ft_strlen(str))
 		return (1);
 	return (0);
 }
-
 int	main(int ac, char **av, char **env)
 {
-	static	t_mini data = {0};
-	char	*line;
-	t_parse	*tab = NULL;
+	static t_mini	data = {0};
+	char			*line;
+	t_parse			*tab;
+
+	tab = NULL;
 	// char *str = NULL;
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	
 	data.env = get_env(env);
 	line = NULL;
 	while (1)
@@ -55,10 +60,10 @@ int	main(int ac, char **av, char **env)
 		if (is_space_or_tab(line) == 1)
 		{
 			free_inside(&data, line, tab);
-			continue;
+			continue ;
 		}
 		add_history(line);
-		// line = token_negation(line);
+		line = token_negation(line);
 		if (ft_quote(line))
 		{
 			free(line);
@@ -69,13 +74,15 @@ int	main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
-		// line = token_positive(line);
+		line = token_positive(line);
+		line = ft_expand(line, &data);
+		fprintf(stderr, "LINE>>>> [%s]\n", line);
 		split_line(-1, line, &data.token);
+		line = token_positive(line);
+		print_token(data.token);
 		printf("AVANT:[%s]\n", line);
-		line  = ft_expand(line, &data);
 		tab = table_struct(&data);
-		if (ft_built_in_comp(&data, tab, line) == 1)
-			;
+		ft_built_in_comp(&data, tab, line);
 		printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, line, tab);
 	}

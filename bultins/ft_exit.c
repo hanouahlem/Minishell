@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/12 19:07:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 19:57:47 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	one_arg(t_mini *data, char *args)
 	int	val;
 
 	flag = 0;
-	val = 0;
 	val = ft_atoi_flag(args, &flag);
 	if (flag == 1)
 	{

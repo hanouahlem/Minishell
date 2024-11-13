@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:50:19 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:55:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_check_redir(char *str, int *i)
 {
 	int	j;
 
-	j = 0;
 	while (str[*i] == ' ')
 		(*i)++;
 	if (str[*i] == '|')
@@ -100,14 +99,12 @@ int	ft_check_redir(char *str, int *i)
 int	ft_check_redir_in_out(char *str)
 {
 	int	i;
-	int	len;
 	int	j;
 
 	i = 0;
-	len = ft_strlen(str);
 	if (ft_check_redir_pipe_begin(str) == 1)
 		return (printf("Error : syntax 5\n"), 1);
-	while (str[i] && i < len && str)
+	while (str[i])
 	{
 		if (ft_check_redir(str, &i))
 			return (1);
@@ -120,7 +117,8 @@ int	ft_check_redir_in_out(char *str)
 				|| str[j] == '<')
 				return (printf("Error : syntax 5\n"), 1);
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }
