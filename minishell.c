@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 19:40:43 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/14 20:41:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int ac, char **av, char **env)
 	t_parse			*tab;
 
 	tab = NULL;
-	// char *str = NULL;
 	(void)ac;
 	(void)av;
 	// signal(SIGINT, sig_management);
@@ -50,7 +49,7 @@ int	main(int ac, char **av, char **env)
 	line = NULL;
 	while (1)
 	{
-		// ft_init(&data);
+		data.exit_status = 0;
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
@@ -75,12 +74,12 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		line = token_positive(line);
+		printf("AVANT:[%s]\n", line);
 		line = ft_expand(line, &data);
 		fprintf(stderr, "LINE>>>> [%s]\n", line);
 		split_line(-1, line, &data.token);
 		line = token_positive(line);
 		print_token(data.token);
-		printf("AVANT:[%s]\n", line);
 		tab = table_struct(&data);
 		ft_built_in_comp(&data, tab, line);
 		printf("\nAPRES:[%s]\n", line);

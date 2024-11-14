@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 20:04:40 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/14 20:40:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	split_line(int i, char *line, t_token **tokenis)
 
 	index_l = 0;
 	str = ft_strdup(line);
-	printf("STR = [%s]\n", str);
 	while (line[++i])
 	{
 		if (line[i] == ' ')
@@ -56,18 +55,16 @@ void	split_line(int i, char *line, t_token **tokenis)
 		}
 		else if (line[i] == '|' || line[i] == '>' || line[i] == '<')
 		{
-			printf("je rentre ici mec !!! [%c]\n", line[i]);
 			if (index_l > 0)
 				handle_token(str, &index_l, tokenis);
 			process_special_char(line, str, &i, tokenis);
 		}
 		else
-			str[index_l++] = (((line[i] > 0) && line[i]) || - line[i]);
+			str[index_l++] = (line[i] ^ (line[i] >> 31)) - (line[i] >> 31);
 	}
 	if (index_l > 0)
 		handle_token(str, &index_l, tokenis);
-	*tokenis =
-	add_prev(*tokenis);
+	*tokenis = add_prev(*tokenis);
 	free(str);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prints.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:42:27 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:23:15 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	print_token(t_token *tokenis)
 {
 	while (tokenis)
 	{
-		printf("value_t == %s\n", tokenis->value_t);
+		printf("value == %s\n", tokenis->value_t);
 		// printf("type == %d\n", tokenis->type);
-		// if (tokenis->prev != NULL)
-		// 	printf("prev == %s\n\n", tokenis->prev->value_t);
+	// 	if (tokenis->prev != NULL)
+	// 		printf("prev == %s\n\n", tokenis->prev->value_t);
 		tokenis = tokenis->next;
 	}
 }
@@ -32,10 +32,11 @@ void	print_parse(t_parse *tab, int size)
 	i = 0;
 	while (i < size)
 	{
-		printf("MY COMMAND {%s}\n", tab[i].args[0]);
+		if(tab[i].args)
+			printf("MY COMMAND {%s}\n", tab[i].args[0]);
 		j = 0;
 		printf("MY ARG ");
-		while (tab[i].args[j])
+		while (tab[i].args && tab[i].args[j])
 		{
 			printf("{%s}", tab[i].args[j]);
 			j++;
@@ -43,7 +44,7 @@ void	print_parse(t_parse *tab, int size)
 		j = 0;
 		printf("\n");
 		printf("MY FILES | REDIR\n");
-		while (tab[i].filename[j])
+		while (tab[i].filename && tab[i].filename[j])
 		{
 			printf("{%i}", tab[i].typefile[j]);
 			printf("{%s}\n", tab[i].filename[j]);
