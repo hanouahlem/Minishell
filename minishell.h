@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/14 16:22:49 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:21:02 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ typedef struct s_parse
 	pid_t				pid;
 }					t_parse;
 
+typedef struct t_exec
+{
+	int				fd[2];
+	int				infile;
+	int				outfile;
+	int				pid[1024];
+	char			**env_exec;
+	char			*path;
+}					t_exec;
+
 typedef struct t_mini
 {
 	int				exit_status;
@@ -81,6 +91,7 @@ typedef struct t_mini
 	t_env			*env;
 	t_expand		*expand;
 	t_parse			*parser;
+	t_exec			*exec;
 }					t_mini;
 
 typedef enum t_token_type
