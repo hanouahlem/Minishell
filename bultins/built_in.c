@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/14 18:38:11 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:24:19 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_pwd(t_mini *data)
 		perror("getcwd failed\n");
 		data->exit_status = 1;
 		free(pwd);
-		// --> afficher la valeur de retour pour exit  <--
+		// --> afficher la valeur de retour pour exit  <-- //
 		return (1);
 	}
 	printf("%s\n", pwd);
@@ -78,7 +78,7 @@ int	ft_cd(t_parse *tab)
 
 int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line)
 {
-	if (!tab->args[0])
+	if (!tab->args || !tab->args[0])
 		return (1);
 	if (ft_strcmp(tab->args[0], "env") == 0)
 		return (ft_env(data->env), 0);

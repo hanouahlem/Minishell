@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/14 15:41:04 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:26:10 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	split_line(int i, char *line, t_token **tokenis)
 			process_special_char(line, str, &i, tokenis);
 		}
 		else
-			str[index_l++] = (((line[i] > 0) && line[i]) || - line[i]);
+			str[index_l++] = (line[i] ^ (line[i] >> 31)) - (line[i] >> 31);
 	}
 	if (index_l > 0)
 		handle_token(str, &index_l, tokenis);
