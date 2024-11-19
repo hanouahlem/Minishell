@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/07 16:29:05 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:29:36 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 void	print_token(t_token *tokenis)
 {
-	while (tokenis)
+	t_token *tmp;
+
+	tmp = tokenis;
+	while (tmp)
 	{
-		printf("value_t == %s\n", tokenis->value_t);
-		// printf("type == %d\n", tokenis->type);
-		// if (tokenis->prev != NULL)
-		// 	printf("prev == %s\n\n", tokenis->prev->value_t);
-		tokenis = tokenis->next;
+		printf("value == %s\n", tmp->value_t);
+		printf("type == %d\n", tmp->type);
+		// printf("content env : ")
+		if (tmp->prev != NULL)
+			printf("prev == %s\n\n", tmp->prev->value_t);
+		tmp = tmp->next;
 	}
 }
 

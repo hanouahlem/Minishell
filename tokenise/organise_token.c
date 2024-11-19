@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   organise_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/05 14:21:20 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:36:39 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_parse(t_parse *tab, t_token *tokenis)
 {
-	if (if_is_redir(tokenis->type) == 0)
+	if (if_is_redir(tokenis->type) == 0 && tab->typelen < tab->typefile_count)
 	{
 		tab->typefile[tab->typelen] = tokenis->type;
-		tab->filename[tab->typelen] = ft_strdup(tokenis->next->value_t);
+		if (tokenis->next)
+			tab->filename[tab->typelen] = ft_strdup(tokenis->next->value_t);
 		tab->typelen++;
 	}
 	else
@@ -45,6 +46,7 @@ void	while_token(t_mini *data, t_parse *tab, int *i)
 		ft_parse(&tab[*i], data->token);
 		if (if_is_redir(data->token->type) == 0)
 			data->token = data->token->next;
+		// else
 		data->token = data->token->next;
 	}
 	if (data->token && data->token->type == PIPE)
@@ -77,16 +79,4 @@ t_parse	*table_struct(t_mini *data)
 	return (tab);
 }
 
-// ls -l | cat -re | echo asd  asd
 
-// tab[0]
-// cmd = ls
-// arg = ls -l
-
-// tab[1]
-// cmd = cat
-// arg = cat -re
-
-// tab[2]
-// cmd = echo
-// arg = echo asd asd

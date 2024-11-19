@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 15:39:20 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:22:49 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -68,6 +70,8 @@ typedef struct s_parse
 	int				typefile_count;
 	int				filename_count;
 	int				size_cmd;
+	int				fd;
+	pid_t				pid;
 }					t_parse;
 
 typedef struct t_mini
@@ -166,4 +170,6 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
 void				free_env(t_mini *data);
+
+
 #endif

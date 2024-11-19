@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 15:37:59 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:54:35 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	one_arg(t_mini *data, char *args)
 	int	val;
 
 	flag = 0;
-	val = 0;
 	val = ft_atoi_flag(args, &flag);
 	if (flag == 1)
 	{
@@ -78,6 +77,7 @@ int	ft_exit(t_mini *data, t_parse *tab, char *line)
 	{
 		data->exit_status = 1;
 		printf("minishell: exit: %s: too many arguments !\n", tab->args[1]);
+		return (1);
 	}
 	else if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
@@ -93,3 +93,4 @@ int	ft_exit(t_mini *data, t_parse *tab, char *line)
 	exit(1);
 	return (0);
 }
+

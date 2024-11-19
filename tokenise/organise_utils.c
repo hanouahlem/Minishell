@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:36:41 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:46:40 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:34:06 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 		{
 			tab->args_count++;
 		}
+		// if (token)
 		token = token->next;
 	}
 }

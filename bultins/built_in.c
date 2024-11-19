@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/13 15:38:51 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:38:11 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	ft_env(t_env *env)
 {
-	int		i;
 	t_env	*tmp;
 
-	i = 0;
 	tmp = env;
 	if (tmp)
 	{
@@ -54,6 +52,7 @@ int	ft_cd(t_parse *tab)
 {
 	char	*my_home;
 
+	// changer OLDPWD dans env
 	my_home = getenv("HOME");
 	if (!my_home)
 		return (printf("Error : can't get HOME.\n"), 1);
@@ -95,7 +94,7 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line)
 		return (ft_echo(tab), 0);
 	if (ft_strcmp(tab->args[0], "cd") == 0)
 		return (data->exit_status = ft_cd(tab), 0);
-	return (1);
+	return (0);
 }
 
 // env    = fini
