@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/19 15:28:20 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:20:52 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_parse	*table_struct(t_mini *data)
 		i++;
 	}
 	data->token = original_token;
-	// print_parse(tab, size);
+	print_parse(tab, size);
 	return (tab);
 }
 

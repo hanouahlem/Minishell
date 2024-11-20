@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/19 20:21:02 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:23:20 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 # include "libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/wait.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -79,6 +81,7 @@ typedef struct t_exec
 	int				fd[2];
 	int				infile;
 	int				outfile;
+	int				fd_tmp;
 	int				pid[1024];
 	char			**env_exec;
 	char			*path;
@@ -181,6 +184,10 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
 void				free_env(t_mini *data);
+
+// EXEC
+int	init_exec(t_mini *data, t_parse *tab, int i);
+int	ft_exec(t_mini *data, t_parse *tab, char *line);
 
 
 #endif
