@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:36:41 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/14 20:59:14 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:32:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 		{
 			tab->args_count++;
 		}
-		if(token)
+		if (token)
 			token = token->next;
 	}
 }

@@ -5,43 +5,24 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/11/20 18:07:04 by ahbey            ###   ########.fr        #
+#    Created: 2024/06/04 17:05:23 by ahbey             #+#    #+#              #
+#    Updated: 2024/09/04 15:26:45 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	minishell.c \
-		parsing.c \
-		get_path.c \
-		free_all.c \
-		utils.c  \
-		tokenise/token.c  \
-		tokenise/create_token.c \
-		tokenise/token_check.c  \
-		tokenise/organise_token.c \
-		tokenise/organise_utils.c \
-		expand/expand.c \
-		expand/expand_utils.c  \
-		expand/expand_utils_2.c \
-		bultins/built_in.c \
-		bultins/ft_exit.c \
-		bultins/unset_export.c \
-		bultins/ft_echo.c \
-		prints.c \
-		exec/pipex.c\
-		exec/take_path.c\
-		exec/make_child.c\
-		exec/utils.c\
-		exec/free_all.c\
-		# tokenise/pour_test_malloc.c\
-		
+SRCS =  pipex.c\
+		take_path.c\
+		make_child.c\
+		utils.c\
+		free_all.c\
+
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3
 
 OBJS	=	$(SRCS:.c=.o)
 
-NAME	=	minishell
+NAME	=	pipex
 
 LIBFT 	=	libft/libft.a
 
@@ -50,15 +31,15 @@ PRINTF  =   printf/libftprintf.a
 all: ${NAME}
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -lreadline -o $(NAME)  -g3
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -o $(NAME) 
 
 $(LIBFT):
 	make -C libft
-
+	
 $(PRINTF):
 	make -C printf
 
-%.o: %.c minishell.h
+%.o: %.c pipex.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
@@ -72,8 +53,5 @@ fclean: clean
 		make -C printf fclean
 
 re:		fclean all
-
-leak: all
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt ./minishell
 
 .PHONY: all clean fclean re/
