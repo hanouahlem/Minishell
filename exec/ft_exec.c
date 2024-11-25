@@ -86,13 +86,19 @@ void	print_exec_env(t_exec *exec)
 	}
 }
 
-void    close_file(int *fd)
+void	close_file(t_mini *data)
 {
-    if (*fd >= 0)
-    {
-        close(*fd);
-        *fd = -1;
-    }
+	if (data->exec->fd_tmp >= 0)
+		close(data->exec->fd_tmp);
+	if (data->exec->infile >= 0)
+		close(data->exec->infile);
+	if (data->exec->outfile >= 0)
+		close(data->exec->outfile);
+	// if (*fd >= 0)
+	// {
+	// 	close(*fd);
+	// 	*fd = -1;
+	// }
 }
 
 int	init_exec(t_mini *data, t_parse *tab, int i)
@@ -104,38 +110,36 @@ int	init_exec(t_mini *data, t_parse *tab, int i)
 	{
 		data->exec->fd_tmp = 0;
 		data->exec->fd_tmp = open(tab[i].filename[j], O_RDONLY, 0777);
+		// printf("data->exec->ft_tmp ===> %i\n", data->exec->fd_tmp);
 		if (data->exec->fd_tmp < 0)
-        {
-            printf("data->exec->ft_tmp ===> %i\n", data->exec->fd_tmp);
-            close_file(&data->exec->fd_tmp);
+		{
+			close_file(data);
 			return (printf("Open Fail 1!\n"), 1);
-        }
-
-		if ((tab[i].typefile[j + 1] != 2 && tab[i].typefile[j + 1] != 0)
+		}
+		if (!(tab[i].typefile[j + 1] == 2 && tab[i].typefile[j + 1] == 0)
 			&& (tab[i].typefile[j] == 2 || tab[i].typefile[j] == 0))
 		{
-			printf("infile : {%s}\n", tab[i].filename[j]);
+			// printf("infile : {%s}\n", tab[i].filename[j]);
 			data->exec->infile = open(tab[i].filename[j], O_RDONLY, 0777);
+			// printf("infile : {%d}\n", data->exec->infile);
 			if (data->exec->infile < 0)
-            {
-                close_file(&data->exec->fd_tmp);
-                close_file(&data->exec->infile);
-                return (printf("Open Fail !\n"), 1);
-            }
+			{
+				close_file(data);
+				return (printf("Open Fail !\n"), 1);
+			}
 		}
 		else if (!tab[i].filename[j + 1] && (tab[i].typefile[j] == 1
 				|| tab[i].typefile[j] == 3))
 		{
-			printf("outfile : {%s}\n", tab[i].filename[j]);
+			// printf("outfile : {%s}\n", tab[i].filename[j]);
 			data->exec->outfile = open(tab[i].filename[j],
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			// printf("outfile : {%d}\n", data->exec->outfile);
 			if (data->exec->outfile < 0)
-            {
-                close_file(&data->exec->fd_tmp);
-                close_file(&data->exec->infile);
-                close_file(&data->exec->outfile);
-                return (printf("Open Fail !\n"), 1);
-            }
+			{
+				close_file(data);
+				return (printf("Open Fail !\n"), 1);
+			}
 			break ;
 		}
 		j++;
@@ -154,6 +158,8 @@ int	ft_exec(t_mini *data, t_parse *tab, char *line)
 	{
 		if (init_exec(data, tab, i) == 1)
 			return (1);
+		printf("infile ---> {%d}\n", data->exec->infile);
+		printf("outfile ---> {%d}\n", data->exec->outfile);
 		// if (pipe(data->exec->fd) == -1)
 		// {
 		//     perror("Pipe Error !\n");

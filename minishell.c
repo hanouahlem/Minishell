@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/20 19:22:03 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/22 15:16:11 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int ac, char **av, char **env)
 		// printf("MY LINE -----> %s\n", line);
 		split_line(-1, line, &data.token);
 		line = token_positive(line);
-		print_token(data.token);
+		// print_token(data.token);
 		tab = table_struct(&data);
 		if (ft_built_in_comp(&data, tab, line) == 1)
 			printf("BUILTIN FAIL !\n");
