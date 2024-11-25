@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:07:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/25 18:22:05 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/25 19:35:10 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,16 @@ void	ft_exec_ve(t_mini *data)
 {
 	char	**way;
 
+	printf("je suis la \n");
 	way = get_path_exec(data->exec->env_exec);
+	
 	data->parser->cmd = give_way_cmd(way, data->parser->args[0]);
 	if (!data->parser->cmd)
+	{
+		// ft_printf("=========================================== %s\n", data->parser->cmd);
 		return (free_tab(way), free_tab(data->parser->args), exit(1));
-	ft_printf("data->parser->args[0] : %s\nway : %s\n", data->parser->args[0], way);
+	}
+	ft_printf("data->parser->args[0] : %s\ncmd : %s\n", data->parser->args[0], data->parser->cmd);
 	execve(data->parser->cmd, data->parser->args, data->exec->env_exec);
 	free(data->parser->cmd);
 	free_tab(data->parser->args);
@@ -47,7 +52,6 @@ void	close_pipes(t_mini *data, t_parse *tab)
 	i = 0;
 	while (i < tab->size_cmd - 1)
 	{
-		printf("hello1\n");
 		close(data->exec->pipes[i][0]);
 		close(data->exec->pipes[i][1]);
 		i++;
@@ -101,6 +105,7 @@ int	child_outfile(t_mini *data, int	i, t_parse *tab)
 {
 	int	outfile_fd;
 
+	printf("je suis dans outfile\n");
 	outfile_fd = open(tab->filename[1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (outfile_fd == -1)
 	{
@@ -118,10 +123,12 @@ int	child_outfile(t_mini *data, int	i, t_parse *tab)
 int	child_infile(t_mini *data, int i, t_parse *tab)
 {
 	int	infile_fd;
-
+	
+	printf("je suis dans infile\n");
 	infile_fd = open(tab->filename[0], O_RDONLY, 0777);
 	if (infile_fd == -1)
 	{
+		printf("je suis la igo\n");
 		perror(tab->filename[0]);
 		return (1);
 	}
@@ -135,9 +142,12 @@ int	child_infile(t_mini *data, int i, t_parse *tab)
 
 void	child(t_mini *data, int i, t_parse *tab)
 {
+	printf("je suis dans child\n");
 	dup2(data->exec->pipes[i - 1][0], STDIN_FILENO);
 	dup2(data->exec->pipes[i][1], STDOUT_FILENO);
-	close_pipes(data, tab);
+	close(data->exec->pipes[i][0]);
+	close(data->exec->pipes[i - 1][1]);
+	// close_pipes(data, tab);
 	ft_exec_ve(data);
 }
 
@@ -167,7 +177,8 @@ int	forking(t_mini *data, int i, t_parse *tab)
 		else if (i == tab->size_cmd - 1)
 			child_outfile(data, i, tab);
 		else
-			child(data, i, tab);
+		child(data, i, tab);
+		printf("je suis dans forking\n");
 	}
 	return(0);
 }
@@ -214,7 +225,7 @@ int	ft_exec_hm(t_mini *data, t_parse *tab)
 		i++;
 	}
 	i = 0;
-	while (i < tab->size_cmd - 1)
+	while (i < tab->size_cmd)
 	{
 		if (forking(data, i, tab) == EXIT_FAILURE)
 		{
@@ -223,13 +234,13 @@ int	ft_exec_hm(t_mini *data, t_parse *tab)
 		}
 		i++;
 	}
-	close_pipes(data, tab);
 	i = 0;
 	while (i < tab->size_cmd - 1)
 	{
 		waitpid(*data->exec->pipes[i], NULL, 0);
 		i++;
 	}
+	close_pipes(data, tab);      
 	// if(data || tab)
 	// 	free_everything(data, tab);
 	return (0);

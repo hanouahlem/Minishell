@@ -69,7 +69,7 @@ void	env_in_tab(t_mini *data)
 	while (tmp)
 	{
 		data->exec->env_exec[i] = tmp->content;
-		// printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
+		printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
 		i++;
 		tmp = tmp->next;
 	}
