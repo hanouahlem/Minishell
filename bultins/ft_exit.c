@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 21:30:43 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/19 15:25:54 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_exit(t_mini *data, t_parse *tab, char *line)
 	{
 		data->exit_status = 1;
 		printf("minishell: exit: %s: too many arguments !\n", tab->args[1]);
+		return (1);
 	}
 	else if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
@@ -92,3 +93,4 @@ int	ft_exit(t_mini *data, t_parse *tab, char *line)
 	exit(1);
 	return (0);
 }
+

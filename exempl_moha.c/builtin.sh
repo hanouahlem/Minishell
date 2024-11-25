@@ -47,3 +47,20 @@ exit -> fils de pute
 TOUTES LES FONCTIONS
 	renvoient 0 si c'est ok
 	renvoient 1 si PAS c'est ok
+
+
+pwd --> fait
+env --> fait
+cd --> fait
+echo --> fait
+
+unset --> NON
+export --> NON
+exit --> NON
+
+
+$?
+command not found = 127
+ls : no such file or directory = 2
+(cat, cd) : no such file or directory = 1
+success = 0

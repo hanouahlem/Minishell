@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/11/20 18:07:04 by ahbey            ###   ########.fr        #
+#    Updated: 2024/11/25 17:02:28 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,10 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
-		exec/pipex.c\
-		exec/take_path.c\
-		exec/make_child.c\
-		exec/utils.c\
-		exec/free_all.c\
-		# tokenise/pour_test_malloc.c\
-		
+		exec_hanou/ft_exec_hm.c \
+		exec_hanou/ft_path.c \
+		# exec/ft_exec.c \
+
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3

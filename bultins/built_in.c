@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/14 21:17:02 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/22 16:05:18 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	ft_cd(t_parse *tab)
 {
 	char	*my_home;
 
+	// changer OLDPWD dans env
 	my_home = getenv("HOME");
 	if (!my_home)
 		return (printf("Error : can't get HOME.\n"), 1);
@@ -75,27 +76,47 @@ int	ft_cd(t_parse *tab)
 	return (0);
 }
 
+int	ft_is_builtin(t_parse *tab)
+{
+	if (!tab->args || !tab->args[0])
+		return (1);
+	if (ft_strcmp(tab->args[0], "env") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "pwd") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "unset") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "export") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "exit") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "echo") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "cd") == 0)
+		return (0);
+	return (1);
+}
+
 int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line)
 {
 	if (!tab->args || !tab->args[0])
 		return (1);
 	if (ft_strcmp(tab->args[0], "env") == 0)
-		return (ft_env(data->env), 0);
+		return (ft_env(data->env));
 	if (ft_strcmp(tab->args[0], "pwd") == 0)
-		return (ft_pwd(data), 0);
+		return (ft_pwd(data));
 	if (ft_strcmp(tab->args[0], "unset") == 0)
-		return (ft_unset(data, tab), 0);
+		return (ft_unset(data, tab));
 	if (ft_strcmp(tab->args[0], "export") == 0)
-		return (ft_export(data, tab), 0);
+		return (ft_export(data, tab));
 	if (ft_strcmp(tab->args[0], "exit") == 0)
-		return (ft_exit(data, tab, line), 0);
+		return (ft_exit(data, tab, line));
 	if (ft_strcmp(tab->args[0], "echo") == 0)
-		return (ft_echo(tab), 0);
+		return (ft_echo(tab));
 	if (ft_strcmp(tab->args[0], "cd") == 0)
-		return (ft_cd(tab), 0);
+		return (data->exit_status = ft_cd(tab));
 	return (1);
 }
-
 
 // env    = fini
 // pwd    = fini

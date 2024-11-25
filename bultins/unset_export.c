@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:33:03 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/12 18:23:33 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:49:36 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,17 @@ int	ft_unset(t_mini *data, t_parse *tab)
 {
 	t_env	*tmp;
 	t_env	*prev;
+	int	i;
 
-	if (tab->args[1])
+	tmp = data->env;
+	prev = NULL;
+	i = 0;
+	while (tab->args[++i])
 	{
-		tmp = data->env;
-		prev = NULL;
 		while (data->env)
 		{
-			if (ft_strcmp(data->env->key, tab->args[1]) == 0)
+			if (ft_strcmp(data->env->key, tab->args[i]) == 0)
 			{
-				printf("args[1] ---> [%s]\n", tab->args[1]);
 				free_unset(data->env);
 				if (prev)
 					prev->next = data->env->next;

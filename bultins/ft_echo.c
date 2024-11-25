@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/12 19:00:34 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:37:50 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	ft_echo(t_parse *tab)
 	}
 	return (0);
 }
+
 
 // bash-5.1$ echo bonjour > /dev/full
 // bash: echo: write error: No space left on device

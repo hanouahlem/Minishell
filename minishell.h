@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/12 19:15:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/25 17:16:06 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 
 # include "Colors.h"
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <unistd.h>
 
 # define SQUOTE '\''
@@ -68,7 +73,21 @@ typedef struct s_parse
 	int				typefile_count;
 	int				filename_count;
 	int				size_cmd;
+	int				fd;
+	pid_t				pid;
 }					t_parse;
+
+typedef struct t_exec
+{
+	int				fd[2];
+	int				infile;
+	int				outfile;
+	int				fd_tmp;
+	int				*pipes[1024];
+	pid_t			*pid;
+	char			**env_exec;
+	char			*path;
+}					t_exec;
 
 typedef struct t_mini
 {
@@ -77,6 +96,7 @@ typedef struct t_mini
 	t_env			*env;
 	t_expand		*expand;
 	t_parse			*parser;
+	t_exec			*exec;
 }					t_mini;
 
 typedef enum t_token_type
@@ -126,11 +146,12 @@ char				*token_positive(char *str);
 // FREE
 void				free_inside(t_mini *data, char *line, t_parse *tab);
 void				free_env(t_mini *data);
-// void	free_token(t_token *token);
-// void	free_expand(t_expand *exp);
-// void	free_parser(t_mini *data, t_parse *tab);
+void				free_token(t_mini *data);
+void				free_parser(t_mini *data, t_parse *tab);
+void				free_tab(char **tab);
 
 // MY_PRINTS
+void	print_env(t_env *env);
 void				print_token(t_token *tokenis);
 void				print_parse(t_parse *tab, int size);
 
@@ -146,6 +167,7 @@ void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
+int	ft_is_builtin(t_parse *tab);
 int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line);
 int					ft_env(t_env *env);
 int					ft_exit(t_mini *data, t_parse *tab, char *line);
@@ -165,4 +187,17 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
 void				free_env(t_mini *data);
+
+// EXEC
+// int	ft_exec(t_mini *data, t_parse *tab, char *line);
+int	ft_exec_hm(t_mini *data, t_parse *tab);
+// void	find_path(t_mini *data, t_parse *tab, char *my_cmd);
+// int	ft_exec(t_parse *cmds, int cmd_count, char **env);
+void	env_in_tab_exec(t_mini *data);
+void	free_resources(t_mini *data);
+// int	concatene_command(t_parse *tab, char **s_path, char *my_cmd);
+char	**get_path_exec(char **env);
+// void	exec_ve(char *cmd, char **env);
+char *give_way_cmd(char **path, char *cmd);
+void	exec_ve(t_mini *data);
 #endif
