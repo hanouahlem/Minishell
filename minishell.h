@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 18:10:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/26 18:57:25 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
 int	ft_is_builtin(t_parse *tab);
-int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line);
+int	ft_built_in_comp(t_mini *data, t_parse *tab);
 int					ft_env(t_env *env);
-int					ft_exit(t_mini *data, t_parse *tab, char *line);
+int					ft_exit(t_mini *data, t_parse *tab);
 int					ft_export(t_mini *data, t_parse *tab);
 int					ft_unset(t_mini *data, t_parse *tab);
 int					ft_echo(t_parse *tab);
@@ -189,13 +189,10 @@ void				free_env(t_mini *data);
 
 // EXEC
 
-int	ft_exec_hm(t_mini *data, t_parse *tab);
 void	env_in_tab_exec(t_mini *data);
-void	free_resources(t_mini *data);
 char	**get_path_exec(char **env);
 char *give_way_cmd(char **path, char *cmd);
-// void	exec_ve(t_mini *data);
-int	ft_exec38(t_mini *data, t_parse *tab);
+int	ft_exec(t_mini *data, t_parse *tab);
 
 
 
