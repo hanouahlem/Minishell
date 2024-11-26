@@ -6,7 +6,7 @@
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/11/26 14:14:26 by manbengh         ###   ########.fr        #
+#    Updated: 2024/11/26 18:38:56 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
-		exec_hanou/ft_exec_hm.c \
-		exec_hanou/ft_path.c \
-		# exec/ft_exec.c \
+		exec/ft_path.c \
+		exec/ft_exec.c \
+		# exec_hanou/ft_exec_hm.c \
 
 CC	=	cc
 

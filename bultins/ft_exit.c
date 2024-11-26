@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/19 15:25:54 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:54:49 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	one_arg(t_mini *data, char *args)
 		data->exit_status = val % 256;
 }
 
-int	ft_exit(t_mini *data, t_parse *tab, char *line)
+int	ft_exit(t_mini *data, t_parse *tab)
 {
 	printf("exit\n");
 	if (tab->args[1] && tab->args[2])
@@ -88,7 +88,7 @@ int	ft_exit(t_mini *data, t_parse *tab, char *line)
 		one_arg(data, tab->args[1]);
 	else
 		data->exit_status = 0;
-	free_inside(data, line, tab);
+	free_inside(data, NULL, tab);
 	free_env(data);
 	exit(1);
 	return (0);
