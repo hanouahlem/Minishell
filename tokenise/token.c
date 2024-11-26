@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 20:52:56 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/20 20:07:42 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	split_line(int i, char *line, t_token **tokenis)
 
 	index_l = 0;
 	str = ft_strdup(line);
-	// if(!str)
-	// 	return(NULL);
 	while (line[++i])
 	{
 		if (line[i] == ' ')
@@ -62,12 +60,16 @@ void	split_line(int i, char *line, t_token **tokenis)
 			process_special_char(line, str, &i, tokenis);
 		}
 		else
-			str[index_l++] = line[i];
+			str[index_l++] = (line[i] ^ (line[i] >> 31)) - (line[i] >> 31);
 	}
 	if (index_l > 0)
 		handle_token(str, &index_l, tokenis);
-	free(str);
 	*tokenis = add_prev(*tokenis);
+	free(str);
 }
-
-//687 allocs, 224 frees, 238,024 bytes allocated
+// else
+// {
+// 	str[index_l++] = line[i];
+// 	if (str[index_l - 1] < 0)
+// 		str[index_l - 1] *= -1;
+// }

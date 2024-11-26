@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:57:08 by ahbey             #+#    #+#             */
-/*   Updated: 2023/11/29 15:40:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/25 15:32:24 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
-/*int	main(void)
-{
-	const char s[] = "hello world";
-
-	rintf("%s", ft_strchr(s, 'c'));
-	printf("%s", strchr(s, 'c'));
-}*/
+// int	main(void)
+// {
+	// const char s[] = "hello world";
+// 	char const s[]= "//je su//is la///";
+// 	printf("%s\n", ft_strchr(s, '/'));
+// 	printf("%s", strchr(s, '/'));
+// }

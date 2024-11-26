@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 20:58:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/26 18:10:53 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 
 # include "Colors.h"
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <unistd.h>
 
 # define SQUOTE '\''
@@ -39,11 +44,9 @@ typedef struct t_env
 typedef struct s_expand
 {
 	char			*str;
-	char			*str_len;
 	int				i;
 	int				i_len;
 	char			*new_str;
-	char			*new_str_len;
 	int				n;
 	int				n_len;
 	struct t_mini	*data;
@@ -70,16 +73,29 @@ typedef struct s_parse
 	int				typefile_count;
 	int				filename_count;
 	int				size_cmd;
+	int				fd;
+	pid_t				pid;
 }					t_parse;
+
+typedef struct t_exec
+{
+	int nbcmd;
+	char **cmds;
+	int *pid;
+	int pipe_fd[2];
+	int pipe_prev;
+	char			**env_exec;
+	char *path;
+}					t_exec;
 
 typedef struct t_mini
 {
-	// struct t_mini	*next;
-	// struct t_mini	*prev;
+	int				exit_status;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
 	t_parse			*parser;
+	t_exec			*exec;
 }					t_mini;
 
 typedef enum t_token_type
@@ -109,6 +125,10 @@ int					ft_strlen_stop(char *str, char c);
 char				*ft_strcat(char *dest, char *src);
 
 // TOKENISATION
+int					pipe_nbr(t_mini data);
+int					if_is_redir(int type);
+void				ft_count_elements(t_mini *data, t_parse *tab);
+
 t_token				*ft_lstnew_tok(void *values);
 t_token				*add_prev(t_token *new);
 void				ft_lstadd_back_tok(t_token **lst, t_token *new);
@@ -124,7 +144,15 @@ char				*token_positive(char *str);
 
 // FREE
 void				free_inside(t_mini *data, char *line, t_parse *tab);
+void				free_env(t_mini *data);
+void				free_token(t_mini *data);
+void				free_parser(t_mini *data, t_parse *tab);
+void				free_tab(char **tab);
+
+// MY_PRINTS
+void	print_env(t_env *env);
 void				print_token(t_token *tokenis);
+void				print_parse(t_parse *tab, int size);
 
 // EXPAND
 void				ft_expand_len_dollar(t_expand *exp_l);
@@ -138,14 +166,13 @@ void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
-
-int					ft_built_in_comp(t_mini *data, t_parse *tab);
-int					ft_env(t_mini *data);
-int					ft_exit(t_mini *data);
-int					ft_export(t_mini *data);
-int					ft_unset(t_mini *data);
-int					ft_echo(t_mini *data, t_parse *tab);
-
+int	ft_is_builtin(t_parse *tab);
+int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line);
+int					ft_env(t_env *env);
+int					ft_exit(t_mini *data, t_parse *tab, char *line);
+int					ft_export(t_mini *data, t_parse *tab);
+int					ft_unset(t_mini *data, t_parse *tab);
+int					ft_echo(t_parse *tab);
 void				print_parse(t_parse *tab, int size);
 
 int					if_is_redir(int type);
@@ -158,5 +185,19 @@ t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
-void	free_env(t_mini *data);
+void				free_env(t_mini *data);
+
+// EXEC
+
+int	ft_exec_hm(t_mini *data, t_parse *tab);
+void	env_in_tab_exec(t_mini *data);
+void	free_resources(t_mini *data);
+char	**get_path_exec(char **env);
+char *give_way_cmd(char **path, char *cmd);
+// void	exec_ve(t_mini *data);
+int	ft_exec38(t_mini *data, t_parse *tab);
+
+
+
+
 #endif

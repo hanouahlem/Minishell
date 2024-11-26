@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenisation.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 18:24:52 by manbengh          #+#    #+#             */
-/*   Updated: 2024/10/14 18:45:17 by manbengh         ###   ########.fr       */
+/*   Created: 2023/12/14 16:25:05 by ahbey             #+#    #+#             */
+/*   Updated: 2024/07/06 19:39:27 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-void	tokenisation(t_token **tokenis)
+int	ft_putchar(char c)
 {
-	//parcour tokenis 
-	// if redir_in || redir_out 
-		// next is type=FILE
-	// if |
-		//if next == WORD
-			// cmd[i] == next
-	// else
-		// cmd[i] == tokenis
-	
+	write(2, &c, 1);
+	return (1);
 }

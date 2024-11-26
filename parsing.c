@@ -6,11 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/25 15:04:56 by ahbey            ###   ########.fr       */
-=======
-/*   Updated: 2024/10/30 13:56:28 by ahbey            ###   ########.fr       */
->>>>>>> Ahlem
+/*   Updated: 2024/11/26 18:38:12 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +38,7 @@ int	ft_quote(char *str)
 
 	i = 0;
 	flag = 0;
-	if (!str) // Vérification pour éviter un accès à un pointeur NULL
+	if (!str)
 		return (printf("error : null string\n"), 1);
 	while (str[i])
 	{
@@ -81,7 +77,6 @@ int	ft_check_redir(char *str, int *i)
 {
 	int	j;
 
-	j = 0;
 	while (str[*i] == ' ')
 		(*i)++;
 	if (str[*i] == '|')
@@ -93,7 +88,7 @@ int	ft_check_redir(char *str, int *i)
 			return (printf("Error : syntax 3\n"), 1);
 	}
 	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i
-			+ 1] == '>'))
+				+ 1] == '>'))
 		return (printf("Error : syntax 4\n"), 1);
 	if (str[*i] == '>' && str[*i + 1] == '>')
 		(*i)++;
@@ -105,11 +100,9 @@ int	ft_check_redir(char *str, int *i)
 int	ft_check_redir_in_out(char *str)
 {
 	int	i;
-	int	len;
 	int	j;
 
 	i = 0;
-	len = ft_strlen(str);
 	if (ft_check_redir_pipe_begin(str) == 1)
 		return (printf("Error : syntax 5\n"), 1);
 	while (str[i])
@@ -125,7 +118,8 @@ int	ft_check_redir_in_out(char *str)
 				|| str[j] == '<')
 				return (printf("Error : syntax 5\n"), 1);
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (0);
 }

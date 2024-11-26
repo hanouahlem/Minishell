@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_utils_2.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:37:28 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 19:23:01 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/14 17:24:55 by ahbey             #+#    #+#             */
+/*   Updated: 2024/07/06 19:40:29 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-void	ft_cat_value(t_expand *exp, char *value)
+int	ft_putnbr(int n, int *len)
 {
-	fprintf(stderr, "da da[%s]\n", exp->new_str);
-	ft_strcat(exp->new_str, value);
-	exp->n += ft_strlen(value);
-	fprintf(stderr, "la la[%s]\n", exp->new_str);
+	long	nb;
+
+	nb = n;
+	if (nb < 0)
+	{
+		*len += write(2, "-", 1);
+		nb = nb * -1;
+	}
+	if (nb > 9)
+		ft_putnbr(nb / 10, len);
+	*len += write(2, &"0123456789"[nb % 10], 1);
+	return (0);
 }
 
-void	ft_exp_plus_plus(t_expand *exp_l)
+void	ft_putnbr_u(unsigned int n, int *len)
 {
-	exp_l->n++;
-	exp_l->i++;
+	if (n > 9)
+		ft_putnbr_u(n / 10, len);
+	*len += write(2, &"0123456789"[n % 10], 1);
 }

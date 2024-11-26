@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 16:45:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 16:50:38 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
+/*   Updated: 2024/07/06 19:40:39 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t n)
+int	ft_putstr(char *str, int *len)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (!dest[i] && !src[i])
+	if (!str)
+	{
+		*len += write(2, "(null)", 6);
 		return (0);
-	while ((i < n - 1) && src[i] != '\0' && (n != 0))
-	{
-		dest[i] = src[i];
-		i++;
 	}
-	if (n != 0)
-		dest[i] = '\0';
-	while (src[i] != '\0')
+	while (str[i])
 	{
+		write(2, &str[i], 1);
 		i++;
 	}
 	return (i);
 }
-/*int	main()
-{
-
-	char dest[] = "oui";
-	const char src[]= "Hello, world!";
-    
-	printf("%ld\n", ft_strlcpy(dest, src, 0));
-	printf("%s", dest);
-}*/

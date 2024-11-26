@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:19:36 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/30 18:43:11 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 19:57:04 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ t_token	*ft_lstnew_tok(void *values)
 	t_token	*new;
 
 	new = malloc(sizeof(t_token));
-	new->value_t = ft_strdup(values);
-	if (!new || !new->value_t)
+	if (!new)
 		return (NULL);
+	new->value_t = ft_strdup(values);
+	if (!new->value_t)
+		return (free(new), NULL);
 	new->type = ft_tokenisation(values);
 	new->next = NULL;
 	new->prev = NULL;
