@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 15:13:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/26 20:03:05 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_token(t_token *tokenis)
 		i++;
 	}
 }
+
 void	print_parse(t_parse *tab, int size)
 {
 	int	i;
