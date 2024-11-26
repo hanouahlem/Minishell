@@ -3,30 +3,30 @@
 
 #include "minishell.h"
 
-char	**get_path(char **env)
-{
-	int		j;
-	int		i;
-	int		u;
-	char	**res;
+// char	**get_path(char **env)
+// {
+// 	int		j;
+// 	int		i;
+// 	int		u;
+// 	char	**res;
 
-	u = 5;
-	j = 0;
-	i = -1;
-	while (env[++i])
-	{
-		while (env[i][j] && env[i][j] == "PATH="[j])
-		{
-			j++;
-			if (j == 5 && env[i][u])
-			{
-				res = ft_split(&env[i][u], ':');
-				return (res);
-			}
-		}
-	}
-	return (NULL);
-}
+// 	u = 5;
+// 	j = 0;
+// 	i = -1;
+// 	while (env[++i])
+// 	{
+// 		while (env[i][j] && env[i][j] == "PATH="[j])
+// 		{
+// 			j++;
+// 			if (j == 5 && env[i][u])
+// 			{
+// 				res = ft_split(&env[i][u], ':');
+// 				return (res);
+// 			}
+// 		}
+// 	}
+// 	return (NULL);
+// }
 
 int	concatene_command(t_parse *tab, char **s_path, char *my_cmd)
 {
@@ -65,7 +65,6 @@ void	find_path(t_mini *data, t_parse *tab, char *my_cmd)
 		return ;
 	}
 	s_path = get_path(data->exec->env_exec);
-	// pip->cmd = ft_split(tab->args[0], ' ');
 	if (concatene_command(tab, s_path, my_cmd) == 1)
     {
 		return ;

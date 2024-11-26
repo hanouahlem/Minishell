@@ -11,3 +11,6 @@ ls -la < infile | cat -e | echo hello $USER > out
 
 < out | cat -e | ls -la > out 
 
+
+
+1- builtin (unset export cd PAS DE FORK)

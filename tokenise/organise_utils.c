@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   organise_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:36:41 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/19 15:25:20 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:07:18 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_count_elements(t_mini *data, t_parse *tab)
 		{
 			tab->args_count++;
 		}
-		// if (token)
-		token = token->next;
+		if (token)
+			token = token->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/20 19:23:20 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:00:17 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "Colors.h"
 # include "libft/libft.h"
+# include "printf/ft_printf.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/types.h>
@@ -82,7 +83,8 @@ typedef struct t_exec
 	int				infile;
 	int				outfile;
 	int				fd_tmp;
-	int				pid[1024];
+	int				**pipes;
+	pid_t			*pid;
 	char			**env_exec;
 	char			*path;
 }					t_exec;
@@ -165,6 +167,7 @@ void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
+int	ft_is_builtin(t_parse *tab);
 int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line);
 int					ft_env(t_env *env);
 int					ft_exit(t_mini *data, t_parse *tab, char *line);
@@ -186,8 +189,15 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 void				free_env(t_mini *data);
 
 // EXEC
-int	init_exec(t_mini *data, t_parse *tab, int i);
-int	ft_exec(t_mini *data, t_parse *tab, char *line);
-
-
+// int	ft_exec(t_mini *data, t_parse *tab, char *line);
+int	ft_exec_hm(t_mini *data, t_parse *tab);
+// void	find_path(t_mini *data, t_parse *tab, char *my_cmd);
+// int	ft_exec(t_parse *cmds, int cmd_count, char **env);
+void	env_in_tab_exec(t_mini *data);
+void	free_resources(t_mini *data);
+// int	concatene_command(t_parse *tab, char **s_path, char *my_cmd);
+char	**get_path_exec(char **env);
+// void	exec_ve(char *cmd, char **env);
+char *give_way_cmd(char **path, char *cmd);
+void	exec_ve(t_mini *data);
 #endif

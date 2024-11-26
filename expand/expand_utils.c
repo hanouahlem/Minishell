@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/05 14:29:37 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:35:14 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	*ft_get_key(char *str, int *i)
 	char	*c;
 
 	j = 0;
-	if(!str)
-		return(NULL);
+	if (!str)
+		return (NULL);
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!c)
 		return (NULL);

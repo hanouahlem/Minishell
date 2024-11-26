@@ -69,7 +69,7 @@ void	env_in_tab(t_mini *data)
 	while (tmp)
 	{
 		data->exec->env_exec[i] = tmp->content;
-		// printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
+		printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
 		i++;
 		tmp = tmp->next;
 	}
@@ -170,7 +170,7 @@ int	ft_exec(t_mini *data, t_parse *tab, char *line)
 		//     return (printf("Failed fork !\n"), 1);
 		// if (data->exec->pid[i] == 0)
 		// {
-		//     // child_process(data, tab);
+		    // child_process(data, tab);
 		// }
 		// fee_init(data, tab, i);
 		i++;

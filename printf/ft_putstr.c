@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 11:45:03 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/25 15:30:50 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
+/*   Updated: 2024/07/06 19:40:39 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+int	ft_putstr(char *str, int *len)
 {
-	size_t	i;
-	size_t	end;
-	char	*dest;
+	int	i;
 
-	if (!s1 || !set)
-		return (NULL);
 	i = 0;
-	end = ft_strlen(s1);
-	while (ft_strchr(set, s1[i]))
+	if (!str)
 	{
+		*len += write(2, "(null)", 6);
+		return (0);
+	}
+	while (str[i])
+	{
+		write(2, &str[i], 1);
 		i++;
 	}
-	while (ft_strchr(set, s1[end]))
-	{
-		end--;
-	}
-	dest = ft_substr(s1, i, (end - i + 1));
-	return (dest);
+	return (i);
 }
-// int main()
-// {
-// 	char const s[]= "//je su//is la//";
-// 	char const set[]= "//";
-
-// 	printf("%s", ft_strtrim(s, set));
-
-// }

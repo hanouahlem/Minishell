@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/25 15:10:46 by manbengh          #+#    #+#              #
-#    Updated: 2024/11/25 15:10:47 by manbengh         ###   ########.fr        #
+#    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
+#    Updated: 2024/11/26 14:14:26 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,10 @@ SRCS =	minishell.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
 		prints.c \
-		exec/ft_exec.c  \
-		# tokenise/pour_test_malloc.c\
-		
+		exec_hanou/ft_exec_hm.c \
+		exec_hanou/ft_path.c \
+		# exec/ft_exec.c \
+
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3
@@ -41,13 +42,18 @@ NAME	=	minishell
 
 LIBFT 	=	libft/libft.a
 
+PRINTF  =   printf/libftprintf.a
+
 all: ${NAME}
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)  -g3
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) -lreadline -o $(NAME)  -g3
 
 $(LIBFT):
 	make -C libft
+
+$(PRINTF):
+	make -C printf
 
 %.o: %.c minishell.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
@@ -55,10 +61,12 @@ $(LIBFT):
 clean:
 		rm -f ${OBJS}
 		make -C libft clean
+		make -C printf clean
 
 fclean: clean
 		rm -f $(NAME)
 		make -C libft fclean
+		make -C printf fclean
 
 re:		fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/14 15:33:56 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:08:42 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_expand_dquote(t_expand *exp)
 				exp->i++;
 				key = ft_get_key(exp->str, &(exp->i));
 				if (!key || !*key)
-					exp->new_str[exp->n++] = -'$';
+					exp->new_str[exp->n++] = -('$');
 				value = ft_value_from_key(key, exp->data);
 				if (value)
 				{
