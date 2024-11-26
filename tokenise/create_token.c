@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:19:36 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/25 19:52:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/13 19:57:04 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ int	ft_tokenisation(char *tokens)
 		return (WORD);
 }
 
+t_token	*add_prev(t_token *new)
+{
+	t_token	*tmp1;
+	t_token	*tmp2;
+
+	if (new)
+	{
+		new->prev = NULL;
+		tmp1 = new;
+		tmp2 = new->next;
+		while (tmp1 && tmp2)
+		{
+			tmp2->prev = tmp1;
+			tmp1 = tmp1->next;
+			tmp2 = tmp2->next;
+		}
+	}
+	return (new);
+}
+
 t_token	*ft_lstnew_tok(void *values)
 {
 	t_token	*new;
@@ -38,9 +58,11 @@ t_token	*ft_lstnew_tok(void *values)
 	if (!new)
 		return (NULL);
 	new->value_t = ft_strdup(values);
+	if (!new->value_t)
+		return (free(new), NULL);
 	new->type = ft_tokenisation(values);
 	new->next = NULL;
-	// new->prev = new;
+	new->prev = NULL;
 	return (new);
 }
 

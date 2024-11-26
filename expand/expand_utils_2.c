@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   expand_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:06:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/21 19:57:54 by ahbey            ###   ########.fr       */
+/*   Created: 2024/10/11 16:37:28 by ahbey             #+#    #+#             */
+/*   Updated: 2024/11/13 19:23:01 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_cat_value(t_expand *exp, char *value)
 {
-	int	i;
+	fprintf(stderr, "da da[%s]\n", exp->new_str);
+	ft_strcat(exp->new_str, value);
+	exp->n += ft_strlen(value);
+	fprintf(stderr, "la la[%s]\n", exp->new_str);
+}
 
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
+void	ft_exp_plus_plus(t_expand *exp_l)
+{
+	exp_l->n++;
+	exp_l->i++;
 }

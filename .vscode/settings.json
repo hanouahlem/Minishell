@@ -1,0 +1,11 @@
+{
+<<<<<<< HEAD
+        "files.associations": {
+                "minishell.h": "c"
+        }
+=======
+	"files.associations": {
+		"minishell.h": "c"
+	}
+>>>>>>> Ahlem
+}

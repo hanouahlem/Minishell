@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:06:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/10/21 19:57:54 by ahbey            ###   ########.fr       */
+/*   Created: 2023/12/14 17:24:55 by ahbey             #+#    #+#             */
+/*   Updated: 2024/07/06 19:40:29 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_putnbr(int n, int *len)
 {
-	int	i;
+	long	nb;
 
-	i = 0;
-	while (lst)
+	nb = n;
+	if (nb < 0)
 	{
-		lst = lst->next;
-		i++;
+		*len += write(2, "-", 1);
+		nb = nb * -1;
 	}
-	return (i);
+	if (nb > 9)
+		ft_putnbr(nb / 10, len);
+	*len += write(2, &"0123456789"[nb % 10], 1);
+	return (0);
+}
+
+void	ft_putnbr_u(unsigned int n, int *len)
+{
+	if (n > 9)
+		ft_putnbr_u(n / 10, len);
+	*len += write(2, &"0123456789"[n % 10], 1);
 }

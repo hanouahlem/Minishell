@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:15:09 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:35:37 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_quote(char *str)
 
 	i = 0;
 	flag = 0;
+	if (!str)
+		return (printf("error : null string\n"), 1);
 	while (str[i])
 	{
 		if (str[i] == DQUOTE || str[i] == SQUOTE)
@@ -58,41 +60,65 @@ int	ft_check_redir_pipe_begin(char *str)
 	int	len;
 
 	i = 0;
-	len = ft_strlen(str);
+	len = ft_strlen(str) - 1;
 	while (str[i] == W_SPACE || str[i] == W_TAB)
 		i++;
-	if (str[i] == '>' || str[i] == '|')
-	{
+	if (str[i] == '|')
 		return (1);
-	}
 	while (str[len] == W_SPACE || str[len] == W_TAB)
 		len--;
 	if (str[len] == '>' || str[len] == '|' || str[len] == '<')
-	{
 		return (1);
+	return (0);
+}
+
+int	ft_check_redir(char *str, int *i)
+{
+	int	j;
+
+	while (str[*i] == ' ')
+		(*i)++;
+	if (str[*i] == '|')
+	{
+		j = *i + 1;
+		while (str[j] == ' ')
+			j++;
+		if (str[j] == '|' || str[j] == '\0')
+			return (printf("Error : syntax 3\n"), 1);
 	}
+	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i
+				+ 1] == '>'))
+		return (printf("Error : syntax 4\n"), 1);
+	if (str[*i] == '>' && str[*i + 1] == '>')
+		(*i)++;
+	else if (str[*i] == '<' && str[*i + 1] == '<')
+		(*i)++;
 	return (0);
 }
 
 int	ft_check_redir_in_out(char *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	if (ft_check_redir_pipe_begin(str) == 1)
-		return (printf("Error : syntax"), 1);
+		return (printf("Error : syntax 5\n"), 1);
 	while (str[i])
 	{
-		if (str[ft_strlen(str) - 1] == '>' || str[ft_strlen(str) - 1] == '<'
-			|| str[ft_strlen(str) - 1] == '|' || str[0] == '|')
-			return (printf("Error : syntax"), 1);
-		if (str[i] == str[i + 1] && str[i] == '|')
-			return (printf("Error : syntax"), 1);
-		if (str[i] == '<' && str[i + 2] == '<')
-			return (printf("Error : syntax"), 1);
-		if (str[i] == '>' && str[i + 2] == '>')
-			return (printf("Error : syntax"), 1);
-		i++;
+		if (ft_check_redir(str, &i))
+			return (1);
+		if (str[i] == '>' || str[i] == '<')
+		{
+			j = i + 1;
+			while (str[j] == ' ')
+				j++;
+			if (str[j] == '\0' || str[j] == '|' || str[j] == '>'
+				|| str[j] == '<')
+				return (printf("Error : syntax 5\n"), 1);
+		}
+		if (str[i])
+			i++;
 	}
 	return (0);
 }

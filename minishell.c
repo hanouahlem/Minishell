@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/09/30 18:15:48 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:30:11 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,63 +23,95 @@
 // 	}
 // }
 
-int	syntax(char *line)
+int	is_space_or_tab(char *str)
 {
-	// check_guim
-	// 	return (1)
-	// check syntax
-	// return (2)
-	(void)line;
+	int	i;
+
+	i = 0;
+	while ((str[i] && str[i] == ' ') || str[i] == '\t')
+		i++;
+	if (i == (int)ft_strlen(str))
+		return (1);
 	return (0);
 }
 int	main(int ac, char **av, char **env)
 {
-	t_mini	data;
-	char	*line;
-	t_token	*tokenis;
+	static t_mini	data = {0};
+	char			*line;
+	t_parse			*tab;
 
+	tab = NULL;
 	(void)ac;
 	(void)av;
-	// (void)env;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
-	tokenis = NULL;
-	data.token = tokenis;
 	data.env = get_env(env);
+	data.exec = NULL;
+	line = NULL;
 	while (1)
 	{
-		line = readline("Minishell> ");
+		data.exit_status = 0;
+		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
 		if (!*line)
 			continue ;
-		add_history(line);
-		syntax(line);
-		if (ft_quote(line))
+		// check si ligne espace ou tab only;
+		if (is_space_or_tab(line) == 1)
+		{
+			free_inside(&data, line, tab);
 			continue ;
+		}
+		add_history(line);
+		line = token_negation(line);
+		if (ft_quote(line))
+		{
+			free(line);
+			continue ;
+		}
 		if (ft_check_redir_in_out(line) == 1)
-			printf("\nERROR ! \n");
-		split_line(line, tokenis);
+		{
+			free(line);
+			continue ;
+		}
+		line = token_positive(line);
+		// printf("AVANT:[%s]\n", line);
+		line = ft_expand(line, &data);
+		split_line(-1, line, &data.token);
+		line = token_positive(line);
+		tab = table_struct(&data);
+		data.parser = tab;
+		if (ft_is_builtin(tab) == 0)
+		{
+			if (ft_built_in_comp(&data, tab, line) == 1)
+				printf("BUILTIN FAIL !\n");
+		}
+		free(line);
+		ft_exec38(&data, data.parser);
+		// printf("\nAPRES:[%s]\n", line);
+		free_inside(&data, NULL, tab);
 	}
-	// free env
+	free(line);
+	free_env(&data);
+	// rl_clear_history();
 	return (0);
 }
-
 /*
+printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
 
 1 - check les guillemets
-"'''''''''" vrai
+"'''''''''" vrai        fait
 "'" vrai
 """" vrai
 '"""""""""""""""' vrai
 ''' faux
-""" faux
+""" faux                       fait
 """"""" FAUX
 
-1 - expend
+1 - expand
 $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 
-2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS
+2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS         faiiiiit
 "bonjour ||||| c moi"
 "*******************"
 
@@ -89,13 +121,13 @@ $USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
 >>> faux
 |       | faux
 command | faux
-| command |
+| command |                 fait
 >  > faux
 "|||||" vrai
 '<><><||||<><' vrai
 
 4 - remettre en positive
-"****************"
+"****************"         fait
 "bonjour || c moi"
 
 5 - tokenisation
