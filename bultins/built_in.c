@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/26 18:55:21 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:29:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,3 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab)
 		return (data->exit_status = ft_cd(tab));
 	return (1);
 }
-
-// env    = fini
-// pwd    = fini
-// echo   = fini
-// cd     = normalement fini
-// unset  = en cours
-// export = en cours
-// exit   = a faire

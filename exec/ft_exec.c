@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/27 15:13:54 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/27 21:32:46 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
 		if (tab->typefile[i] == DBL_REDIR_IN)
-			;//heredoc
+			; // heredoc
 		if (fd == -1)
 		{
 			free_exec(data, "Open Fail \n");
@@ -96,17 +96,29 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 	return (0);
 }
 
+// void	ft_exec_one_built(t_parse *tab)
+// {
+
+// }
+
 int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
 	t_exec	exec;
 
 	i = 0;
-	(void)tab;
+	// (void)tab;
 	data->exec = &exec;
 	init_exec(data, &exec);
+	if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
+	{
+		// redirection_fichier(data, &tab[i]);
+		if (ft_built_in_comp(data, tab) == 0)
+			return (1);
+	}
 	while (i < exec.nbcmd)
 	{
+		printf("hello je suis dans exec\n");
 		pipe(exec.pipe_fd);
 		exec.pid[i] = fork();
 		if (exec.pid[i] == -1)
@@ -122,7 +134,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			// si commande NEST PAS UN BUILTIN
 			if (ft_is_builtin(tab) == 1)
 				ft_exec_ve(data, i);
-			else if(ft_is_builtin(tab) == 0 && tab->size_cmd > 1)// il rentre dedans que si il ya plus d'une commande
+			else if (ft_is_builtin(tab) == 0 && tab->size_cmd > 1)
 			{
 				ft_printf("HELLO WORLD\n");
 				ft_built_in_comp(data, tab);
