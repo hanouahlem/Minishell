@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/27 15:20:09 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:31:19 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
-		if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
-		{
-			if (ft_built_in_comp(&data, tab) == 1)
-				printf("BUILTIN FAIL !\n");
-		}
+		// if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
+		// {
+		// 	if (ft_built_in_comp(&data, tab) == 1)
+		// 		printf("BUILTIN FAIL !\n");
+		// }
 		ft_exec(&data, data.parser);
 		// printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, NULL, tab);

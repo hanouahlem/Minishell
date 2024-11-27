@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 19:12:29 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:24:58 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exec_ve(t_mini *data, int i)
 
 	path = get_path_exec(data->exec->env_exec);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
-	if (!data->parser[i].cmd)
+	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
 		free_exec(data, NULL);
@@ -79,13 +79,9 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
 		if (tab->typefile[i] == DBL_REDIR_IN)
-			;
+			; // heredoc
 		if (fd == -1)
-		{
 			free_exec(data, "Open Fail \n");
-		}
-		// if fd == -1
-		// exit error
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
 		else
@@ -94,6 +90,32 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		i++;
 	}
 	return (0);
+}
+
+void	ft_redir_builtin(t_mini *data, t_parse *tab)
+{
+	int	i;
+	int	fd;
+
+	i = 0;
+	fd = -1;
+	while (i < tab->filename_count)
+	{
+		if (tab->typefile[i] == REDIR_OUT)
+			fd = open(tab->filename[i], O_WRONLY | O_TRUNC | O_CREAT, 0664);
+		else if (tab->typefile[i] == DBL_REDIR_OUT)
+			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
+		else if (tab->typefile[i] == REDIR_IN) // "<"
+			fd = open(tab->filename[i], O_RDONLY);
+		if (fd == -1)
+			free_inside(data, NULL, tab);
+		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
+			dup2(fd, STDOUT_FILENO);
+		else
+			dup2(fd, STDIN_FILENO);
+		close(fd);
+		i++;
+	}
 }
 
 int	ft_exec(t_mini *data, t_parse *tab)
@@ -105,13 +127,18 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	(void)tab;
 	data->exec = &exec;
 	init_exec(data, &exec);
+	if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
+	{
+		ft_redir_builtin(data, tab);
+		if (ft_built_in_comp(data, tab) == 1)
+			return (1);
+	}
 	while (i < exec.nbcmd)
 	{
 		pipe(exec.pipe_fd);
 		exec.pid[i] = fork();
 		if (exec.pid[i] == -1)
 		{
-			// error // free
 			free_exec(data, "Fail pid\n");
 			exit(1);
 		}
@@ -119,11 +146,12 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		{
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
-			// si commande NEST PAS UN BUILTIN
 			if (ft_is_builtin(tab) == 1)
 				ft_exec_ve(data, i);
-			else
+			else // que si il ya plus d'une commande
+			{
 				ft_built_in_comp(data, tab);
+			}
 			free_exec(data, NULL);
 			exit(127);
 		}
