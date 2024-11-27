@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 19:12:29 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:13:54 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exec_ve(t_mini *data, int i)
 
 	path = get_path_exec(data->exec->env_exec);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
-	if (!data->parser[i].cmd)
+	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
 		free_exec(data, NULL);
@@ -79,7 +79,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
 		if (tab->typefile[i] == DBL_REDIR_IN)
-			;
+			;//heredoc
 		if (fd == -1)
 		{
 			free_exec(data, "Open Fail \n");
@@ -122,8 +122,11 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			// si commande NEST PAS UN BUILTIN
 			if (ft_is_builtin(tab) == 1)
 				ft_exec_ve(data, i);
-			else
+			else if(ft_is_builtin(tab) == 0 && tab->size_cmd > 1)// il rentre dedans que si il ya plus d'une commande
+			{
+				ft_printf("HELLO WORLD\n");
 				ft_built_in_comp(data, tab);
+			}
 			free_exec(data, NULL);
 			exit(127);
 		}
