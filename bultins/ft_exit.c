@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/27 18:02:21 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:51:59 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ int	ft_exit(t_mini *data, t_parse *tab)
 		one_arg(data, tab->args[1]);
 	else
 		data->exit_status = 0;
-	free_inside(data, NULL, tab);
-	free_env(data);
-	exit(1);
+	free_exec(data, NULL);
 	return (0);
 }
 

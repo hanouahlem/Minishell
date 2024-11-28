@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/27 19:24:58 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:57:00 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,33 +118,38 @@ void	ft_redir_builtin(t_mini *data, t_parse *tab)
 	}
 }
 
-int	ft_exec(t_mini *data, t_parse *tab)
+int	worst_builtin(t_parse *tab)
 {
-	int		i;
-	t_exec	exec;
+	if (ft_strcmp(tab->args[0], "unset") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "export") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "exit") == 0)
+		return (0);
+	if (ft_strcmp(tab->args[0], "cd") == 0)
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	(void)tab;
-	data->exec = &exec;
-	init_exec(data, &exec);
-	if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
+int	one_cmd(t_mini *data, t_parse *tab, t_exec *exec, int i)
+{
+	if (ft_is_builtin(tab) == 0 && worst_builtin(tab) == 0)
 	{
-		ft_redir_builtin(data, tab);
 		if (ft_built_in_comp(data, tab) == 1)
 			return (1);
 	}
-	while (i < exec.nbcmd)
+	else
 	{
-		pipe(exec.pipe_fd);
-		exec.pid[i] = fork();
-		if (exec.pid[i] == -1)
+		pipe(exec->pipe_fd);
+		exec->pid[i] = fork();
+		if (exec->pid[i] == -1)
 		{
 			free_exec(data, "Fail pid\n");
 			exit(1);
 		}
-		if (exec.pid[i] == 0) // enfant
+		if (exec->pid[i] == 0) // enfant
 		{
-			redirections_pipe(&exec, i);
+			redirections_pipe(exec, i);
 			redirection_fichier(data, &tab[i]);
 			if (ft_is_builtin(tab) == 1)
 				ft_exec_ve(data, i);
@@ -158,11 +163,61 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		else // parent
 		{
 			if (i > 0)
-				close(exec.pipe_prev);
-			exec.pipe_prev = exec.pipe_fd[0];
-			close(exec.pipe_fd[1]);
+				close(exec->pipe_prev);
+			exec->pipe_prev = exec->pipe_fd[0];
+			close(exec->pipe_fd[1]);
 		}
-		i++;
+	}
+	return (0);
+}
+
+int	ft_exec(t_mini *data, t_parse *tab)
+{
+	int		i;
+	t_exec	exec;
+
+	i = 0;
+	(void)tab;
+	data->exec = &exec;
+	init_exec(data, &exec);
+	if (tab->size_cmd == 1)
+	{
+		if (one_cmd(data, tab, &exec, i) == 1)
+			return (1);
+	}
+	else
+	{
+		while (i < exec.nbcmd)
+		{
+			pipe(exec.pipe_fd);
+			exec.pid[i] = fork();
+			if (exec.pid[i] == -1)
+			{
+				free_exec(data, "Fail pid\n");
+				exit(1);
+			}
+			if (exec.pid[i] == 0) // enfant
+			{
+				redirections_pipe(&exec, i);
+				redirection_fichier(data, &tab[i]);
+				if (ft_is_builtin(tab) == 1)
+					ft_exec_ve(data, i);
+				else
+				{
+					ft_built_in_comp(data, tab);
+				}
+				free_exec(data, NULL);
+				exit(127);
+			}
+			else // parent
+			{
+				if (i > 0)
+					close(exec.pipe_prev);
+				exec.pipe_prev = exec.pipe_fd[0];
+				close(exec.pipe_fd[1]);
+			}
+			i++;
+		}
 	}
 	i = 0;
 	while (i < exec.nbcmd)
