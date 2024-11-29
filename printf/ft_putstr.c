@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/27 15:26:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/11/29 18:05:54 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_putstr(char *str, int *len)
 
 	(void)len;
 	i = 0;
+	(void)len;
 	if (!str)
 	{
 		// *len += write(2, "(null)\n", 7);
