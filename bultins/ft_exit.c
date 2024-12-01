@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/19 15:25:54 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:51:59 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_digits(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '-' && str[i + 1])
+		i++;
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
@@ -70,27 +72,25 @@ void	one_arg(t_mini *data, char *args)
 		data->exit_status = val % 256;
 }
 
-int	ft_exit(t_mini *data, t_parse *tab, char *line)
+int	ft_exit(t_mini *data, t_parse *tab)
 {
 	printf("exit\n");
-	if (tab->args[1] && tab->args[2])
-	{
-		data->exit_status = 1;
-		printf("minishell: exit: %s: too many arguments !\n", tab->args[1]);
-		return (1);
-	}
-	else if (tab->args[1] && ft_digits(tab->args[1]) == 1)
+	if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
 		data->exit_status = 255;
-		printf("minishell: exit: %s: numeric argument required \n", tab->args[1]);
+		printf("minishell: exit: %s: numeric argument required\n", tab->args[1]);
+	}
+	else if (tab->args[1] && tab->args[2])
+	{
+		data->exit_status = 1;
+		printf("minishell: exit: %s: too many arguments\n", tab->args[1]);
+		return (1);
 	}
 	else if (tab->args[1])
 		one_arg(data, tab->args[1]);
 	else
 		data->exit_status = 0;
-	free_inside(data, line, tab);
-	free_env(data);
-	exit(1);
+	free_exec(data, NULL);
 	return (0);
 }
 

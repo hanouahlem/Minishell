@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/22 16:05:18 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 19:19:56 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,45 +76,45 @@ int	ft_cd(t_parse *tab)
 	return (0);
 }
 
-int	ft_is_builtin(t_parse *tab)
+int	ft_is_builtin(t_parse *tab, int i)
 {
-	if (!tab->args || !tab->args[0])
+	if (!tab[i].args || !tab[i].args[0])
 		return (1);
-	if (ft_strcmp(tab->args[0], "env") == 0)
+	if (ft_strcmp(tab[i].args[0], "env") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "pwd") == 0)
+	if (ft_strcmp(tab[i].args[0], "pwd") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "unset") == 0)
+	if (ft_strcmp(tab[i].args[0], "unset") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "export") == 0)
+	if (ft_strcmp(tab[i].args[0], "export") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "exit") == 0)
+	if (ft_strcmp(tab[i].args[0], "exit") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "echo") == 0)
+	if (ft_strcmp(tab[i].args[0], "echo") == 0)
 		return (0);
-	if (ft_strcmp(tab->args[0], "cd") == 0)
+	if (ft_strcmp(tab[i].args[0], "cd") == 0)
 		return (0);
 	return (1);
 }
 
-int	ft_built_in_comp(t_mini *data, t_parse *tab, char *line)
+int	ft_built_in_comp(t_mini *data, t_parse *tab, int i)
 {
-	if (!tab->args || !tab->args[0])
+	if (!tab[i].args || !tab[i].args[0])
 		return (1);
-	if (ft_strcmp(tab->args[0], "env") == 0)
+	if (ft_strcmp(tab[i].args[0], "env") == 0)
 		return (ft_env(data->env));
-	if (ft_strcmp(tab->args[0], "pwd") == 0)
+	if (ft_strcmp(tab[i].args[0], "pwd") == 0)
 		return (ft_pwd(data));
-	if (ft_strcmp(tab->args[0], "unset") == 0)
-		return (ft_unset(data, tab));
-	if (ft_strcmp(tab->args[0], "export") == 0)
-		return (ft_export(data, tab));
-	if (ft_strcmp(tab->args[0], "exit") == 0)
-		return (ft_exit(data, tab, line));
-	if (ft_strcmp(tab->args[0], "echo") == 0)
-		return (ft_echo(tab));
-	if (ft_strcmp(tab->args[0], "cd") == 0)
-		return (data->exit_status = ft_cd(tab));
+	if (ft_strcmp(tab[i].args[0], "unset") == 0)
+		return (ft_unset(data, &tab[i]));
+	if (ft_strcmp(tab[i].args[0], "export") == 0)
+		return (ft_export(data, &tab[i]));
+	if (ft_strcmp(tab[i].args[0], "exit") == 0)
+		return (ft_exit(data, &tab[i]));
+	if (ft_strcmp(tab[i].args[0], "echo") == 0)
+		return (ft_echo(&tab[i]));// il maquait le [i] pour donner le bon arg
+	if (ft_strcmp(tab[i].args[0], "cd") == 0)
+		return (data->exit_status = ft_cd(&tab[i]));
 	return (1);
 }
 

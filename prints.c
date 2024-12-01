@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 15:13:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 18:40:58 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_token(t_token *tokenis)
 		i++;
 	}
 }
+
 void	print_parse(t_parse *tab, int size)
 {
 	int	i;
@@ -46,24 +47,24 @@ void	print_parse(t_parse *tab, int size)
 	while (i < size)
 	{
 		if (tab[i].args)
-			printf("MY COMMAND {%s}\n", tab[i].args[0]);
+			ft_printf("MY COMMAND {%s}\n", tab[i].args[0]);
 		j = 0;
-		printf("MY ARG ");
+		ft_printf("MY ARG ");
 		while (tab[i].args && tab[i].args[j])
 		{
-			printf("{%s}", tab[i].args[j]);
+			ft_printf("{%s}", tab[i].args[j]);
 			j++;
 		}
 		j = 0;
-		printf("\n");
-		printf("MY FILES | REDIR\n");
+		ft_printf("\n");
+		ft_printf("MY FILES | REDIR\n");
 		while (tab[i].filename && tab[i].filename[j])
 		{
-			printf("{%i}", tab[i].typefile[j]);
-			printf("{%s}\n", tab[i].filename[j]);
+			ft_printf("{%i}", tab[i].typefile[j]);
+			ft_printf("{%s}\n", tab[i].filename[j]);
 			j++;
 		}
-		printf("\n");
+		ft_printf("\n");
 		i++;
 	}
 }
