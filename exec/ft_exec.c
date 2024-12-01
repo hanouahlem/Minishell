@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/29 18:05:23 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 17:11:15 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ void	free_exec(t_mini *data, char *str) // int pour exit
 		free(data->exec->env_exec);
 	if (data->exec->pid)
 		free(data->exec->pid);
-	exit(1);
 }
 
+void	free_execc(t_mini *data) // int pour exit
+{
+	free_inside(data, NULL, data->parser);
+	free_env(data);
+	if (data->exec->env_exec)
+		free(data->exec->env_exec);
+	if (data->exec->pid)
+		free(data->exec->pid);
+	exit(1);
+}
 void	ft_exec_ve(t_mini *data, int i)
 {
 	char	**path;
@@ -34,6 +43,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		free_tab(path);
 		free_exec(data, NULL);
+		exit(1);
 	}
 	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
 	free(data->parser[i].cmd);

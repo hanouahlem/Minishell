@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/11/28 15:12:01 by manbengh         ###   ########.fr        #
+#    Updated: 2024/12/01 17:06:04 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRCS =	minishell.c \
 		prints.c \
 		exec/ft_path.c \
 		exec/ft_exec.c \
+		# exec/ft_path_reset.c \
+		# exec/ft_exec_reset.c \
 		# exec_hanou/ft_exec_hm.c \
 
 CC	=	cc

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/29 18:05:38 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 16:11:43 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,6 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
-		// if (ft_is_builtin(tab) == 0 && tab->size_cmd == 1)
-		// {
-		// 	if (ft_built_in_comp(&data, tab) == 1)
-		// 		printf("BUILTIN FAIL !\n");
-		// }
 		ft_exec(&data, data.parser);
 		// printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, NULL, tab);
