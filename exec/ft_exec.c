@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 18:33:15 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 14:19:47 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	redirection_fichier(t_parse *tab)
 	return (0);
 }
 
-int	ft_exec38(t_mini *data, t_parse *tab)
+int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
 	t_exec	exec;
@@ -119,8 +119,7 @@ int	ft_exec38(t_mini *data, t_parse *tab)
 		}
 		else // parent
 		{
-			fprintf(stderr, ">>>>>>>>> %i %i %i\n", exec.pipe_prev,
-				exec.pipe_fd[0], exec.pipe_fd[1]);
+			fprintf(stderr, ">>>>>>>>> %i %i %i\n", exec.pipe_prev,exec.pipe_fd[0], exec.pipe_fd[1]);
 			if (i > 0)
 				close(exec.pipe_prev);
 			exec.pipe_prev = exec.pipe_fd[0];

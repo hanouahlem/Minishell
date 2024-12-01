@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/26 18:30:11 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/01 14:19:07 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **env)
 				printf("BUILTIN FAIL !\n");
 		}
 		free(line);
-		ft_exec38(&data, data.parser);
+		ft_exec(&data, data.parser);
 		// printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, NULL, tab);
 	}
