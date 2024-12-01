@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/28 18:52:58 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/01 19:19:56 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab, int i)
 	if (ft_strcmp(tab[i].args[0], "pwd") == 0)
 		return (ft_pwd(data));
 	if (ft_strcmp(tab[i].args[0], "unset") == 0)
-		return (ft_unset(data, tab));
+		return (ft_unset(data, &tab[i]));
 	if (ft_strcmp(tab[i].args[0], "export") == 0)
-		return (ft_export(data, tab));
+		return (ft_export(data, &tab[i]));
 	if (ft_strcmp(tab[i].args[0], "exit") == 0)
-		return (ft_exit(data, tab));
+		return (ft_exit(data, &tab[i]));
 	if (ft_strcmp(tab[i].args[0], "echo") == 0)
-		return (ft_echo(tab));
+		return (ft_echo(&tab[i]));// il maquait le [i] pour donner le bon arg
 	if (ft_strcmp(tab[i].args[0], "cd") == 0)
-		return (data->exit_status = ft_cd(tab));
+		return (data->exit_status = ft_cd(&tab[i]));
 	return (1);
 }
 
