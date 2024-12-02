@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/28 18:50:44 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:30:45 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,9 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 
 // BUILT_IN
 int					ft_is_builtin(t_parse *tab, int i);
-int	ft_built_in_comp(t_mini *data, t_parse *tab, int i);
+int					ft_built_in_comp(t_mini *data, t_parse *tab, int i);
 int					ft_env(t_env *env);
+int					ft_cd(t_parse *tab, t_mini *data);
 int					ft_exit(t_mini *data, t_parse *tab);
 int					ft_export(t_mini *data, t_parse *tab);
 int					ft_unset(t_mini *data, t_parse *tab);

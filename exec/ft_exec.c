@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/01 19:14:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/02 15:51:05 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_exec(t_mini *data, char *str) // int pour exit
 		free(data->exec->env_exec);
 	if (data->exec->pid)
 		free(data->exec->pid);
-	exit(1);
+	// exit(1);
 }
 
 void	ft_exec_ve(t_mini *data, int i)
@@ -34,6 +34,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		free_tab(path);
 		free_exec(data, NULL);
+		exit(1);
 	}
 	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
 	free(data->parser[i].cmd);
@@ -83,7 +84,10 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		else if (tab->typefile[i] == DBL_REDIR_IN)
 			; // heredoc
 		if (fd == -1)
+		{
 			free_exec(data, "Open Fail \n");
+			exit (1);
+		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
 		else if (tab->typefile[i] == REDIR_IN)
