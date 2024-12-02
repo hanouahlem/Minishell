@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/01 19:27:55 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/02 19:28:38 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main(int ac, char **av, char **env)
 		// check si ligne espace ou tab only;
 		if (is_space_or_tab(line) == 1)
 		{
-			free_inside(&data, line, tab);
+			free(line);
+			// free_inside(&data, line, tab);
 			continue ;
 		}
 		add_history(line);
@@ -88,6 +89,7 @@ int	main(int ac, char **av, char **env)
 	}
 	free(line);
 	free_env(&data);
+
 	// rl_clear_history();
 	return (0);
 }
