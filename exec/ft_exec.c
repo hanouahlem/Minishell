@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 15:51:05 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:41:59 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_exec(t_mini *data, char *str) // int pour exit
 	free_inside(data, NULL, data->parser);
 	free_env(data);
 	if (data->exec->env_exec)
-		free(data->exec->env_exec);
+		free_tab(data->exec->env_exec);
 	if (data->exec->pid)
 		free(data->exec->pid);
 	// exit(1);
@@ -60,7 +60,7 @@ void	init_exec(t_mini *data, t_exec *exec)
 {
 	env_in_tab_exec(data);
 	exec->nbcmd = data->parser->size_cmd;
-	exec->pid = malloc(sizeof(int) * exec->nbcmd);
+	exec->pid = ft_calloc(sizeof(int), exec->nbcmd);
 	exec->pipe_prev = -1;
 	data->exec->pipe_fd[0] = -1;
 	data->exec->pipe_fd[1] = -1;

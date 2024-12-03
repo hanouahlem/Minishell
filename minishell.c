@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 19:26:40 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:42:54 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
-		ft_exec(&data, data.parser);
+		if (ft_exec(&data, data.parser) == 1)
+		{
+			// free_exec(&data, NULL);
+			free_inside(&data, NULL, tab);
+			continue ;
+		}
 		// printf("\nAPRES:[%s]\n", line);
 		// free_exec(&data, NULL);
 		free_inside(&data, NULL, tab);
