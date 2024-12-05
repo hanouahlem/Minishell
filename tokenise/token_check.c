@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:40:39 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:41:00 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ char	*token_negation(char *str)
 		if (str[i] == SQUOTE || str[i] == DQUOTE)
 		{
 			flag_quote = str[i];
-			i++;
+			if (str[i])
+				i++;
 			while (str[i] && str[i] != flag_quote)
 			{
 				str[i] = -str[i];
-				i++;
+				if (str[i])
+					i++;
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (str);
 }

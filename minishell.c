@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/03 18:42:54 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:35:15 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		// check si ligne espace ou tab only;
 		if (is_space_or_tab(line) == 1)
 		{
-			free_inside(&data, line, tab);
+			free(line);
 			continue ;
 		}
 		add_history(line);
