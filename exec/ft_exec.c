@@ -6,15 +6,24 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 20:57:59 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/06 20:21:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void close_standard(int standard[2])
+{
+	if (standard[0] != -1)
+		close(standard[0]);
+	if (standard[1] != -1)
+		close(standard[1]);
+}
+
 void	free_exec(t_mini *data, char *str) // int pour exit
 {
 	(void)str;
+	close_standard(data->standard);
 	free_inside(data, NULL, data->parser);
 	free_env(data);
 	free(data->exec->env_exec);
@@ -79,8 +88,8 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
-		else if (tab->typefile[i] == DBL_REDIR_IN)
-			; // heredoc
+		// else if (tab->typefile[i] == DBL_REDIR_IN)
+		// 	ft_heredocs(data);
 		if (fd == -1)
 			free_exec(data, "Open Fail \n");
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
@@ -108,14 +117,18 @@ int	worst_builtin(t_parse *tab)
 	return (1);
 }
 
-int	one_cmd(t_mini *data, t_parse *tab, t_exec *exec, int i)
+int	one_cmd(t_mini *data, t_parse *tab, int i)
 {
-	(void)exec;
-	if (worst_builtin(tab) == 0)
-	{
-		if (ft_built_in_comp(data, tab, i) == 1)
-			return (1);
-	}
+	data->standard[0] = dup(0);
+	data->standard[1] = dup(1);
+	redirection_fichier(data, &tab[i]);
+	ft_built_in_comp(data, tab, i);
+	dup2(data->standard[0], 0);
+	dup2(data->standard[1], 1);
+	close(data->standard[0]);
+	close(data->standard[1]);
+	data->standard[0] = -1;
+	data->standard[1] = -1;
 	return (0);
 }
 
@@ -125,10 +138,11 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	t_exec	exec;
 
 	i = 0;
+	memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	if (tab->size_cmd == 1 && worst_builtin(tab) == 0)
+	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
-		one_cmd(data, tab, &exec, i);
+		one_cmd(data, tab, i);
 		return (1);
 	}
 	init_exec(data, &exec);

@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/02 20:55:10 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/06 20:11:49 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,8 @@ SRCS =	minishell.c \
 		prints.c \
 		exec/ft_path.c \
 		exec/ft_exec.c \
-		# exec/ft_path_reset.c \
-		# exec/ft_exec_reset.c \
-		# exec_hanou/ft_exec_hm.c \
-
+		# exec/ft_utils_exec.c\
+	
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3

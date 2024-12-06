@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 19:28:38 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/06 20:21:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	is_space_or_tab(char *str)
 }
 int	main(int ac, char **av, char **env)
 {
-	static t_mini	data = {0};
+	static t_mini	data = {0,
+		.standard[0] = -1,
+		.standard[1] = -1
+	};
 	char			*line;
 	t_parse			*tab;
 
