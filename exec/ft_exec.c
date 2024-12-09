@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 16:00:45 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:46:27 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@ void	ft_exec_ve(t_mini *data, int i)
 		// free_exec(data, NULL);
 		exit(1);
 	}
-	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
+	fprintf(stderr,"parser[i] = %s\n", data->parser[i].cmd);
+	fprintf(stderr, "tab = %s\n", data->parser[i].args[0]);
+	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
+	{
+		ft_printf("Excve Fail !\n");
+		free_tab(path);
+		free_exec(data, NULL);
+		exit(1);
+	}
 	free(data->parser[i].cmd);
 	free_tab(data->parser[i].args);
 }
@@ -186,6 +194,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			exec.pipe_prev = exec.pipe_fd[0];
 			close(exec.pipe_fd[1]);
 		}
+		data->exit_status = 0;
 		i++;
 	}
 	i = 0;

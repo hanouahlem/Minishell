@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 15:44:36 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:09:18 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	main(int ac, char **av, char **env)
 	data.env = get_env(env);
 	data.exec = NULL;
 	line = NULL;
+	data.exit_status = 0;
 	while (1)
 	{
-		data.exit_status = 0;
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
