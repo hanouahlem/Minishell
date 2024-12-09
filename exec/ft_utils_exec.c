@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_utils_exec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/29 18:05:54 by ahbey            ###   ########.fr       */
+/*   Created: 2024/12/04 16:22:28 by ahbey             #+#    #+#             */
+/*   Updated: 2024/12/06 20:34:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "minishell.h"
 
-int	ft_putstr(char *str, int *len)
+int	ft_heredocs(char *delimiter)
 {
-	int	i;
-
-	(void)len;
-	i = 0;
-	(void)len;
-	if (!str)
-	{
-		// *len += write(2, "(null)\n", 7);
-		return (0);
-	}
-	while (str[i])
-	{
-		write(2, &str[i], 1);
-		i++;
-	}
-	return (i);
+	
+	return (0);
 }

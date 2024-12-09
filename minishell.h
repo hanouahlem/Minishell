@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 15:30:45 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:31:14 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct t_mini
 	t_expand		*expand;
 	t_parse			*parser;
 	t_exec			*exec;
+	int				standard[2];
 }					t_mini;
 
 typedef enum t_token_type
@@ -168,6 +169,7 @@ void				ft_exp_plus_plus(t_expand *exp_l);
 // BUILT_IN
 int					ft_is_builtin(t_parse *tab, int i);
 int					ft_built_in_comp(t_mini *data, t_parse *tab, int i);
+int					ft_built_in_comp(t_mini *data, t_parse *tab, int i);
 int					ft_env(t_env *env);
 int					ft_cd(t_parse *tab, t_mini *data);
 int					ft_exit(t_mini *data, t_parse *tab);
@@ -194,5 +196,6 @@ void				env_in_tab_exec(t_mini *data);
 char				**get_path_exec(char **env);
 char				*give_way_cmd(char **path, char *cmd);
 int					ft_exec(t_mini *data, t_parse *tab);
+int ft_heredocs(t_mini *data);
 
 #endif

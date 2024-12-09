@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/05 16:35:15 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:31:47 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	is_space_or_tab(char *str)
 }
 int	main(int ac, char **av, char **env)
 {
-	static t_mini	data = {0};
+	static t_mini	data = {0,
+		.standard[0] = -1,
+		.standard[1] = -1
+	};
 	char			*line;
 	t_parse			*tab;
 
@@ -60,6 +63,7 @@ int	main(int ac, char **av, char **env)
 		if (is_space_or_tab(line) == 1)
 		{
 			free(line);
+			// free_inside(&data, line, tab);
 			continue ;
 		}
 		add_history(line);
@@ -94,6 +98,7 @@ int	main(int ac, char **av, char **env)
 	}
 	free(line);
 	free_env(&data);
+
 	// rl_clear_history();
 	return (0);
 }
