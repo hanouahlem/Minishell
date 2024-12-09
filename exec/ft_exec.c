@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/05 17:03:32 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:35:43 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_exec_ve(t_mini *data, int i)
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
 	if (data->parser[i].cmd == NULL)
 	{
+		free_exec(data, "No such file or directory\n");
 		free_tab(path);
-		free_exec(data, NULL);
 		exit(1);
 	}
 	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
@@ -202,16 +202,12 @@ int	worst_builtin(t_parse *tab)
 
 
 
-int	one_cmd(t_mini *data, t_parse *tab, t_exec *exec, int i)
-{
-	(void)exec;
-	if (worst_builtin(tab) == 0)
-	{
-		if (ft_built_in_comp(data, tab, i) == 1)
-			return (1);
-	}
-	return (0);
-}
+// int	one_cmd(t_mini *data, t_parse *tab, int i)
+// {
+// 	if (ft_built_in_comp(data, tab, i) == 1)
+// 		return (1);
+// 	return (0);
+// }
 
 int	ft_exec(t_mini *data, t_parse *tab)
 {
@@ -220,10 +216,11 @@ int	ft_exec(t_mini *data, t_parse *tab)
 
 	i = 0;
 	data->exec = &exec;
-	if (tab->size_cmd == 1 && worst_builtin(tab) == 0)
+	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
-		one_cmd(data, tab, &exec, i);
-		return (1);
+		if (ft_built_in_comp(data, tab, i) == 1)
+			return (1);
+		return (0);
 	}
 	init_exec(data, &exec);
 	while (i < exec.nbcmd)
