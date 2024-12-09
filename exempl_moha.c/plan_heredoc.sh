@@ -29,7 +29,6 @@ heredoc()
 
 main
 {
-	...
 	heredoc()
 	exec()
 }

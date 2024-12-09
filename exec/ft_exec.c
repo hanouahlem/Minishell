@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/06 20:21:41 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 15:10:54 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void close_standard(int standard[2])
 
 void	free_exec(t_mini *data, char *str) // int pour exit
 {
+	// printf("%s", str);
 	(void)str;
 	close_standard(data->standard);
 	free_inside(data, NULL, data->parser);
@@ -41,7 +42,6 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		free_tab(path);
 		free_exec(data, NULL);
-		exit(1);
 	}
 	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
 	free(data->parser[i].cmd);
@@ -88,8 +88,8 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
-		// else if (tab->typefile[i] == DBL_REDIR_IN)
-		// 	ft_heredocs(data);
+		else if (tab->typefile[i] == DBL_REDIR_IN)
+			ft_heredocs(data);
 		if (fd == -1)
 			free_exec(data, "Open Fail \n");
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)

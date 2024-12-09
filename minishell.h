@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/06 20:16:00 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/07 19:19:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,22 @@ typedef struct t_exec
 	char			*path;
 }					t_exec;
 
+typedef struct t_hdoc
+{
+	int				pipe_fd[2];
+	char			*delim;
+}					t_hdoc;
+
 typedef struct t_mini
 {
 	int				exit_status;
+	int				nbr_hd;
 	t_token			*token;
 	t_env			*env;
 	t_expand		*expand;
 	t_parse			*parser;
 	t_exec			*exec;
+	t_hdoc			*heredoc;
 	int				standard[2];
 }					t_mini;
 
@@ -194,6 +202,6 @@ void				env_in_tab_exec(t_mini *data);
 char				**get_path_exec(char **env);
 char				*give_way_cmd(char **path, char *cmd);
 int					ft_exec(t_mini *data, t_parse *tab);
-int ft_heredocs(t_mini *data);
-
+void				redirections_pipe(t_exec *exec, int index);
+int					ft_heredocs(t_mini *data);
 #endif

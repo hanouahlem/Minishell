@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/06 20:21:55 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/07 19:14:34 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		line = token_positive(line);
-		// printf("AVANT:[%s]\n", line);
 		line = ft_expand(line, &data);
 		split_line(-1, line, &data.token);
 		line = token_positive(line);
@@ -87,7 +86,6 @@ int	main(int ac, char **av, char **env)
 		data.parser = tab;
 		free(line);
 		ft_exec(&data, data.parser);
-		// printf("\nAPRES:[%s]\n", line);
 		free_inside(&data, NULL, tab);
 	}
 	free(line);
