@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 14:31:14 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:16:35 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 void				free_env(t_mini *data);
 
 // EXEC
-void				free_exec(t_mini *data, char *str);
+void				free_exec(t_mini *data, char *str, int valueexit);
 void				env_in_tab_exec(t_mini *data);
 char				**get_path_exec(char **env);
 char				*give_way_cmd(char **path, char *cmd);

@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 18:46:27 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:19:24 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	close_standard(int standard[2])
 		close(standard[1]);
 }
 
-void	free_exec(t_mini *data, char *str) // int pour exit
+void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
 {
 	ft_printf("%s", str);
 	close_standard(data->standard);
@@ -28,7 +28,7 @@ void	free_exec(t_mini *data, char *str) // int pour exit
 	free_env(data);
 	free_tab(data->exec->env_exec);
 	free(data->exec->pid);
-	exit(1);
+	exit(valuexit);
 }
 
 void	ft_exec_ve(t_mini *data, int i)
@@ -40,7 +40,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
-		free_exec(data, "No such file or directory\n");
+		free_exec(data, "No such file or directory\n", 127);
 		// free_exec(data, NULL);
 		exit(1);
 	}
@@ -50,8 +50,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		ft_printf("Excve Fail !\n");
 		free_tab(path);
-		free_exec(data, NULL);
-		exit(1);
+		free_exec(data, NULL, 127);
 	}
 	free(data->parser[i].cmd);
 	free_tab(data->parser[i].args);
@@ -101,8 +100,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		// 	ft_heredocs(data);
 		if (fd == -1)
 		{
-			free_exec(data, "Open Fail \n");
-			exit(1);
+			free_exec(data, "Open Fail \n", 1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
@@ -139,7 +137,7 @@ int	one_cmd(t_mini *data, t_parse *tab, int i)
 		return (-1);
 	}
 	redirection_fichier(data, &tab[i]);
-	ft_built_in_comp(data, tab, i);
+	data->exit_status = ft_built_in_comp(data, tab, i);
 	if (dup2(data->standard[0], 0) == -1 || dup2(data->standard[1], 1) == -1)
 	{
 		perror("dup2");
@@ -158,7 +156,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	t_exec	exec;
 
 	i = 0;
-	memset(&exec, 0, sizeof(t_exec));
+	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
@@ -172,10 +170,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			return (printf("Error: pipe fail\n"), 1);
 		exec.pid[i] = fork();
 		if (exec.pid[i] == -1)
-		{
-			free_exec(data, "Fail pid\n");
-			exit(1);
-		}
+			free_exec(data, "Fail pid\n", 1);
 		if (exec.pid[i] == 0) // enfant
 		{
 			redirections_pipe(&exec, i);
@@ -184,8 +179,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 				ft_exec_ve(data, i);
 			else
 				ft_built_in_comp(data, tab, i);
-			free_exec(data, NULL);
-			exit(127);
+			free_exec(data, NULL, 127);
 		}
 		else // parent
 		{
@@ -199,7 +193,11 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	}
 	i = 0;
 	while (i < exec.nbcmd)
-		waitpid(exec.pid[i++], NULL, 0);
+	{
+		waitpid(exec.pid[i++], &data->exit_status, 0);
+		if (WIFEXITED(data->exit_status))
+			data->exit_status = WEXITSTATUS(data->exit_status);
+	}
 	close(data->exec->pipe_fd[0]);
 	free(data->exec->pid);
 	free_tab(data->exec->env_exec);
