@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:30:31 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/05 16:12:44 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:20:11 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_cd(t_parse *tab, t_mini *data)
 	else
 		if (chdir(my_home) != 0)
 			return (printf("Error : chdir fail \n"), 1);
-	free(new_pwd);
-	free(old_pwd);
+	(free(new_pwd), free(old_pwd));
 	return (0);
 }

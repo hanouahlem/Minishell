@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 14:31:47 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:44:36 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(int ac, char **av, char **env)
 	}
 	free(line);
 	free_env(&data);
-
 	// rl_clear_history();
 	return (0);
 }

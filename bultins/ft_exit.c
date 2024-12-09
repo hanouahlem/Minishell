@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 14:32:11 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:10:22 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,24 @@ int	ft_exit(t_mini *data, t_parse *tab)
 	if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
 		data->exit_status = 255;
-		printf("minishell: exit: %s: numeric argument required\n", tab->args[1]);
+		ft_printf("minishell: exit: %s: numeric argument required\n", tab->args[1]);
 	}
 	else if (tab->args[1] && tab->args[2])
 	{
 		data->exit_status = 1;
-		printf("minishell: exit: %s: too many arguments\n", tab->args[1]);
+		ft_printf("minishell: exit: %s: too many arguments\n", tab->args[1]);
 		return (1);
 	}
 	else if (tab->args[1])
 		one_arg(data, tab->args[1]);
 	else
 		data->exit_status = 0;
-	free_inside(data, NULL, tab);
-	free_env(data);
+	if (data->standard[0] != -1 && data->standard[1] != -1)
+	{
+		close(data->standard[0]);
+		close(data->standard[1]);	
+	}
+	free_exec(data, NULL);
 	exit (1);
 	return (0);
 }

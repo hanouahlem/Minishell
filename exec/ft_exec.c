@@ -6,13 +6,13 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 15:07:46 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:00:45 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void close_standard(int standard[2])
+void	close_standard(int standard[2])
 {
 	if (standard[0] != -1)
 		close(standard[0]);
@@ -94,7 +94,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		if (fd == -1)
 		{
 			free_exec(data, "Open Fail \n");
-			exit (1);
+			exit(1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
@@ -125,10 +125,18 @@ int	one_cmd(t_mini *data, t_parse *tab, int i)
 {
 	data->standard[0] = dup(0);
 	data->standard[1] = dup(1);
+	if (data->standard[0] == -1 || data->standard[1] == -1)
+	{
+		perror("dup");
+		return (-1);
+	}
 	redirection_fichier(data, &tab[i]);
 	ft_built_in_comp(data, tab, i);
-	dup2(data->standard[0], 0);
-	dup2(data->standard[1], 1);
+	if (dup2(data->standard[0], 0) == -1 || dup2(data->standard[1], 1) == -1)
+	{
+		perror("dup2");
+		return (-1);
+	}
 	close(data->standard[0]);
 	close(data->standard[1]);
 	data->standard[0] = -1;
@@ -152,8 +160,8 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	init_exec(data, &exec);
 	while (i < exec.nbcmd)
 	{
-		if(pipe(exec.pipe_fd) == -1)
-			return(printf("Error: pipe fail\n"),1);
+		if (pipe(exec.pipe_fd) == -1)
+			return (printf("Error: pipe fail\n"), 1);
 		exec.pid[i] = fork();
 		if (exec.pid[i] == -1)
 		{
