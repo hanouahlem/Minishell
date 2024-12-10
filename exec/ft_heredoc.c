@@ -6,51 +6,76 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:36:29 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 18:44:42 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_hd(t_mini *data)
+size_t	count_hd(t_mini *data)
 {
-	int	i;
+	size_t	i;
+	t_token	*tmp;
 
 	i = 0;
-	while (data->token)
+	tmp = data->token;
+	while (tmp)
 	{
-		if (data->token->type == DBL_REDIR_IN)
+		if (tmp->type == DBL_REDIR_IN)
 			i++;
-		data->token = data->token->next;
+		tmp = tmp->next;
 	}
 	return (i);
 }
 
-// char	take_delimiter(t_mini *data)
-// {
-// 	int	i;
-// 	char *str;
+void	take_delimiter(t_mini *data, t_hdoc *hdoc)
+{
+	int	i;
+	t_token	*tmp;
+	// char *str;
 	
-// 	i = 0;
-// 	while (i < data->nbr_hd && data->parser)
-// 	{
-// 		if (data->parser->typefile[i] == DBL_REDIR_IN)
-		
-// 		i++;
-// 	}
-// }
+	i = 0;
+	tmp = data->token;
+	while (i < data->nbr_hd)
+	{
+		if (tmp->type == DBL_REDIR_IN)
+		{
+			hdoc[i].delim = tmp->next->value_t;
+			pipe(hdoc[i].pipe_fd);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	exec_heredoc(t_mini *data, t_hdoc *hdoc, int i)
+{
+	
+}
 
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
-
+	// char *delim;
+	t_hdoc	*hdoc;
+	char *line;
+	int pid;
+	
 	i = 0;
 	data->nbr_hd = count_hd(data);
-	// take_delimiter(data);
+	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
+	if (!hdoc)
+		return (0);
+	take_delimiter(data, hdoc); 
 	while (i < data->nbr_hd)
 	{
-		ft_printf("nombre d'heredoc === %d\n", data->nbr_hd);
+		pid = fork();
+		if (pid == 0)
+			exec_heredoc(data, hdoc, &i);
 		i++;
+		line = readline("> ");
+		if (!line)
+			break ;
 	}
 	return (0);
 }

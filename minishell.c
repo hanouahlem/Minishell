@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:40:25 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 18:28:19 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
+		// print_token(data.token);
+		if (tab->args == NULL)
+		{
+			free_inside(&data, NULL, tab);
+			continue ;
+		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
 			// free_exec(&data, NULL);

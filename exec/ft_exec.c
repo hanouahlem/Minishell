@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 15:01:21 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 18:23:12 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	char	**path;
 
 	path = get_path_exec(data->exec->env_exec);
+	printf("args ----------> %s\n", data->parser[i].args[0]);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
 	if (data->parser[i].cmd == NULL)
 	{
@@ -78,8 +79,6 @@ void	init_exec(t_mini *data, t_exec *exec)
 	exec->nbcmd = data->parser->size_cmd;
 	exec->pid = ft_calloc(sizeof(int), exec->nbcmd);
 	exec->pipe_prev = -1;
-	// data->exec->pipe_fd[0] = -1;
-	// data->exec->pipe_fd[1] = -1;
 }
 
 int	redirection_fichier(t_mini *data, t_parse *tab)
@@ -159,6 +158,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
+	ft_heredocs(data);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);

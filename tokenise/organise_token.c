@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/01 18:38:46 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 17:38:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ t_parse	*table_struct(t_mini *data)
 	tab = NULL;
 	original_token = data->token;
 	size = pipe_nbr(*data);
-	// print_token(data->token);
 	tab = ft_calloc(sizeof(t_parse), (size + 1));
 	if (!tab)
 		return (NULL);
@@ -75,7 +74,6 @@ t_parse	*table_struct(t_mini *data)
 		i++;
 	}
 	data->token = original_token;
-	// print_parse(tab, size);
 	return (tab);
 }
 
