@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:02:43 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 14:36:29 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,19 @@ int	count_hd(t_mini *data)
 	return (i);
 }
 
-char	take_delimiter(t_mini *data)
-{
-	int	i;
-	char *str;
+// char	take_delimiter(t_mini *data)
+// {
+// 	int	i;
+// 	char *str;
 	
-	i = 0;
-	while (i < data->nbr_hd && data->parser)
-	{
-		if (data->parser->typefile[i] == DBL_REDIR_IN)
+// 	i = 0;
+// 	while (i < data->nbr_hd && data->parser)
+// 	{
+// 		if (data->parser->typefile[i] == DBL_REDIR_IN)
 		
-		i++;
-	}
-	return (NULL);
-}
+// 		i++;
+// 	}
+// }
 
 int	ft_heredocs(t_mini *data)
 {
@@ -47,7 +46,7 @@ int	ft_heredocs(t_mini *data)
 
 	i = 0;
 	data->nbr_hd = count_hd(data);
-	take_delimiter(data);
+	// take_delimiter(data);
 	while (i < data->nbr_hd)
 	{
 		ft_printf("nombre d'heredoc === %d\n", data->nbr_hd);
