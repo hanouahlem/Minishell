@@ -6,11 +6,12 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:39:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 15:01:21 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 void	close_standard(int standard[2])
 {
@@ -22,8 +23,7 @@ void	close_standard(int standard[2])
 
 void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
 {
-	// ft_printf("%s", str);
-	(void)str;
+	ft_printf("%s", str);
 	close_standard(data->standard);
 	free_inside(data, NULL, data->parser);
 	free_env(data);
@@ -45,8 +45,8 @@ void	ft_exec_ve(t_mini *data, int i)
 		// free_exec(data, NULL);
 		exit(1);
 	}
-	// fprintf(stderr,"parser[i] = %s\n", data->parser[i].cmd);
-	// fprintf(stderr, "tab = %s\n", data->parser[i].args[0]);
+	fprintf(stderr,"parser[i] = %s\n", data->parser[i].cmd);
+	fprintf(stderr, "tab = %s\n", data->parser[i].args[0]);
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		ft_printf("Excve Fail !\n");
@@ -97,8 +97,8 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
-		else if (tab->typefile[i] == DBL_REDIR_IN)
-			ft_heredocs(data);
+		// else if (tab->typefile[i] == DBL_REDIR_IN)
+		// 	ft_heredocs(data);
 		if (fd == -1)
 		{
 			free_exec(data, "Open Fail \n", 1);
@@ -159,7 +159,6 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	ft_heredocs(data);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
