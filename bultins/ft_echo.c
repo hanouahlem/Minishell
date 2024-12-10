@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/01 18:49:29 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 20:19:00 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_n(char *str)
 
 void	echo_if_n(t_parse *tab, int i)
 {
-	while (check_n(tab->args[i]) == 1)
+	while (tab->args[i] && check_n(tab->args[i]) == 1)
 		i++;
 	while (tab->args[i])
 	{

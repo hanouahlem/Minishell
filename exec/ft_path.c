@@ -40,8 +40,6 @@ char	*give_way_cmd(char **env, char *cmd)
 		ft_printf("Error: %s: command not found\n", cmd);
 		return (NULL);
 	}
-	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
 	if (!env)
 		return (NULL);
 	path = env;
@@ -50,6 +48,11 @@ char	*give_way_cmd(char **env, char *cmd)
 		res = give_up(path, cmd);
 		if (res)
 			return (res);
+	}
+	else 
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
 	}
 	ft_printf("Error: command not found: %s\n", cmd);
 	return (NULL);

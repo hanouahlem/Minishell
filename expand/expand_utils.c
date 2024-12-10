@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/19 16:35:14 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 20:14:42 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_value_from_key(char *str, t_mini *data)
 	t_env	*tmp;
 
 	tmp = data->env;
+	if (!strcmp(str, "?"))
+		return (ft_itoa(data->exit_status));
 	while (tmp)
 	{
 		if (!ft_strcmp(str, tmp->key))
@@ -34,9 +36,12 @@ char	*ft_get_key(char *str, int *i)
 	j = 0;
 	if (!str)
 		return (NULL);
+	if (str[*i] == '?')
+		return ((*i)++, ft_strdup("?"));
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!c)
 		return (NULL);
+
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
 		&& !ft_isdigit(str[1]))
 	{

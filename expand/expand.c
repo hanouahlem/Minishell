@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/09 15:56:54 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 14:06:51 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_expand_dquote(t_expand *exp)
 	}
 }
 
-void	ft_expand_dollar(t_expand *exp)
+void	ft_expand_dollar(t_expand *exp, t_mini *data)
 {
 	char	*key;
 	char	*value;
@@ -88,6 +88,18 @@ void	ft_expand_dollar(t_expand *exp)
 	while (exp->str[exp->i] == '$')
 	{
 		exp->i++;
+		(void)data;
+		// if (exp->str[exp->i] == '?')
+		// {
+		// 	value = ft_itoa(data->exit_status);
+		// 	if (value)
+		// 	{
+		// 		ft_strcat(exp->new_str, value);
+		// 		exp->n += ft_strlen(value) + 1;
+		// 		free(value);
+		// 	}
+		// 	continue ;
+		// }
 		key = ft_get_key(exp->str, &(exp->i));
 		if (!key || !*key)
 			exp->new_str[exp->n++] = '$';
@@ -114,7 +126,7 @@ char	*ft_expand(char *str, t_mini *data)
 	{
 		ft_expand_squote(&exp);
 		ft_expand_dquote(&exp);
-		ft_expand_dollar(&exp);
+		ft_expand_dollar(&exp, data);
 		if (exp.str[exp.i] && exp.str[exp.i] != SQUOTE
 			&& exp.str[exp.i] != DQUOTE)
 			exp.new_str[exp.n++] = exp.str[exp.i++];

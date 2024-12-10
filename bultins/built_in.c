@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/09 14:30:56 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:19:29 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab, int i)
 	if (ft_strcmp(tab[i].args[0], "echo") == 0)
 		return (ft_echo(&tab[i]));
 	if (ft_strcmp(tab[i].args[0], "cd") == 0)
-		return (data->exit_status = ft_cd(&tab[i], data));
+		return (ft_cd(&tab[i], data));
 	return (1);
 }
 

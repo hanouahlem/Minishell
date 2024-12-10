@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/14 15:35:37 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/09 19:17:45 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	ft_check_redir(char *str, int *i)
 {
 	int	j;
 
-	while (str[*i] == ' ')
+	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	if (str[*i] == '|')
 	{
 		j = *i + 1;
-		while (str[j] == ' ')
+		while (str[j] == ' ' || str[*i] == '\t')
 			j++;
 		if (str[j] == '|' || str[j] == '\0')
 			return (printf("Error : syntax 3\n"), 1);
@@ -111,7 +111,7 @@ int	ft_check_redir_in_out(char *str)
 		if (str[i] == '>' || str[i] == '<')
 		{
 			j = i + 1;
-			while (str[j] == ' ')
+			while (str[j] == ' ' || str[j] == '\t')
 				j++;
 			if (str[j] == '\0' || str[j] == '|' || str[j] == '>'
 				|| str[j] == '<')

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 15:18:42 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 14:05:45 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	main(int ac, char **av, char **env)
 	data.env = get_env(env);
 	data.exec = NULL;
 	line = NULL;
+	data.exit_status = 0;
 	while (1)
 	{
-		data.exit_status = 0;
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break ;
@@ -85,12 +85,18 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
-		ft_exec(&data, data.parser);
+		if (ft_exec(&data, data.parser) == 1)
+		{
+			// free_exec(&data, NULL);
+			free_inside(&data, NULL, tab);
+			continue ;
+		}
+		printf("\nAPRES:[%i]\n", data.exit_status);
+		// free_exec(&data, NULL);
 		free_inside(&data, NULL, tab);
 	}
 	free(line);
 	free_env(&data);
-
 	// rl_clear_history();
 	return (0);
 }
