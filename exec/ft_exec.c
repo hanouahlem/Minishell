@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 15:10:54 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 19:09:26 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void close_standard(int standard[2])
 
 void	free_exec(t_mini *data, char *str) // int pour exit
 {
-	// printf("%s", str);
+	// ft_printf("%s", str);
 	(void)str;
 	close_standard(data->standard);
 	free_inside(data, NULL, data->parser);
 	free_env(data);
-	free(data->exec->env_exec);
+	free_tab(data->exec->env_exec);
 	free(data->exec->pid);
 	exit(1);
 }
@@ -41,7 +41,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
-		free_exec(data, NULL);
+		free_exec(data, "ERROR: No such file or directory\n");
 	}
 	execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec);
 	free(data->parser[i].cmd);
@@ -67,7 +67,7 @@ void	init_exec(t_mini *data, t_exec *exec)
 {
 	env_in_tab_exec(data);
 	exec->nbcmd = data->parser->size_cmd;
-	exec->pid = malloc(sizeof(int) * exec->nbcmd);
+	exec->pid = ft_calloc(sizeof(int), exec->nbcmd);
 	exec->pipe_prev = -1;
 	// data->exec->pipe_fd[0] = -1;
 	// data->exec->pipe_fd[1] = -1;
@@ -91,7 +91,10 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		else if (tab->typefile[i] == DBL_REDIR_IN)
 			ft_heredocs(data);
 		if (fd == -1)
+		{
 			free_exec(data, "Open Fail \n");
+			exit (1);
+		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
 		else if (tab->typefile[i] == REDIR_IN)
@@ -140,6 +143,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = 0;
 	memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
+	ft_heredocs(data);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
@@ -181,6 +185,6 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		waitpid(exec.pid[i++], NULL, 0);
 	close(data->exec->pipe_fd[0]);
 	free(data->exec->pid);
-	free(data->exec->env_exec);
+	free_tab(data->exec->env_exec);
 	return (0);
 }

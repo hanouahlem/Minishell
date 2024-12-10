@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/07 19:27:36 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/09 16:21:22 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,11 @@ SRCS =	minishell.c \
 		bultins/ft_exit.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
+		bultins/ft_cd.c \
 		prints.c \
 		exec/ft_path.c \
 		exec/ft_exec.c \
-		exec/ft_utils_exec.c\
+		exec/ft_heredoc.c\
 	
 CC	=	cc
 

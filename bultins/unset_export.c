@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:33:03 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/02 20:34:08 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 14:30:15 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ int	ft_export(t_mini *data, t_parse *tab)
 			return (free(key), 1);
 		value = find_value_for_env(tab->args[i]);
 		if (is_key_in_env(data, key) == 1)
-		{
 			change_value_in_env(&data->env, key, value, tab->args[i]);
-		}
 		else
 		{
 			node = ft_lstnew_env(tab->args[i]);

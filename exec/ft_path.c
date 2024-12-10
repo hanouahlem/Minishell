@@ -76,7 +76,7 @@ void	env_in_tab_exec(t_mini *data)
 	tmp = data->env;
 	while (tmp)
 	{
-		data->exec->env_exec[i] = tmp->content;
+		data->exec->env_exec[i] = ft_strdup(tmp->content);
 		// printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
 		i++;
 		tmp = tmp->next;

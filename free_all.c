@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/06 20:21:38 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 14:30:34 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,6 @@ void	free_parser(t_mini *data, t_parse *tab)
 	}
 	free(tab);
 }
-
-// void	free_expand(t_expand *expand)
-// {
-// 	if (expand->str)
-// 		free(expand->str);
-// 	if (expand->new_str)
-// 		free(expand->new_str);
-// }
 
 void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
