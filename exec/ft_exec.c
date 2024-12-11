@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 18:23:12 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:45:16 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
 		// else if (tab->typefile[i] == DBL_REDIR_IN)
-		// 	ft_heredocs(data);
+			// ft_heredocs(data);
 		if (fd == -1)
 		{
-			free_exec(data, "Open Fail \n", 1);
+			free_exec(data, "Open Fail 5 \n", 1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
@@ -134,14 +134,14 @@ int	one_cmd(t_mini *data, t_parse *tab, int i)
 	if (data->standard[0] == -1 || data->standard[1] == -1)
 	{
 		perror("dup");
-		return (-1);
+		return (1);
 	}
 	redirection_fichier(data, &tab[i]);
 	data->exit_status = ft_built_in_comp(data, tab, i);
 	if (dup2(data->standard[0], 0) == -1 || dup2(data->standard[1], 1) == -1)
 	{
 		perror("dup2");
-		return (-1);
+		return (1);
 	}
 	close(data->standard[0]);
 	close(data->standard[1]);

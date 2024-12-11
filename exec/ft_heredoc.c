@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 18:44:42 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:57:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,51 +32,100 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 {
 	int	i;
 	t_token	*tmp;
-	// char *str;
 	
 	i = 0;
 	tmp = data->token;
-	while (i < data->nbr_hd)
+	while (tmp)
 	{
 		if (tmp->type == DBL_REDIR_IN)
 		{
 			hdoc[i].delim = tmp->next->value_t;
-			pipe(hdoc[i].pipe_fd);
+			if(pipe(hdoc[i].pipe_fd) == -1)
+			{
+				perror("pipe");
+				exit(1);
+			}
 			i++;
 		}
 		tmp = tmp->next;
+		if (i >= data->nbr_hd)
+			break;
 	}
 }
 
-void	exec_heredoc(t_mini *data, t_hdoc *hdoc, int i)
+void	write_hd(t_hdoc *hdoc, int fd)
 {
-	
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if(!ft_strcmp(line, hdoc->delim))
+		{
+			free(line);
+			break;
+		}
+		ft_putendl_fd(line, fd);
+		free(line);
+	}
+	close(fd);
 }
+
+void	exec_heredoc(t_mini *data, t_hdoc *hdoc, int *i)
+{
+	while (*i < data->nbr_hd)
+	{
+		close(hdoc[*i].pipe_fd[0]);
+		write_hd(hdoc, hdoc[*i].pipe_fd[1]);
+		free(hdoc[*i].delim);
+		(*i)++;
+	}
+	free(hdoc);
+	exit(0);
+}
+
+void	clean_hdoc(t_hdoc *hdoc, int nbr_hd)
+{
+	int	i;
+
+	i = 0;
+	if (!hdoc)
+		return ;
+	while (i < nbr_hd)
+	{
+		if (hdoc[i].delim)
+			free(hdoc[i].delim);
+		i++;
+	}
+	free(hdoc);
+}
+
 
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
-	// char *delim;
 	t_hdoc	*hdoc;
-	char *line;
 	int pid;
 	
 	i = 0;
 	data->nbr_hd = count_hd(data);
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
-		return (0);
+		return (1);
 	take_delimiter(data, hdoc); 
-	while (i < data->nbr_hd)
+	pid = fork();
+	if (pid == 0)
+		exec_heredoc(data, hdoc, &i);
+	else if (pid > 0)
 	{
-		pid = fork();
-		if (pid == 0)
-			exec_heredoc(data, hdoc, &i);
-		i++;
-		line = readline("> ");
-		if (!line)
-			break ;
+		i = 0;
+		while (i < data->nbr_hd)
+			close(hdoc[i++].pipe_fd[1]);
+		waitpid(pid, 0, 0);
 	}
+	clean_hdoc(hdoc, data->nbr_hd);
 	return (0);
 }
 
