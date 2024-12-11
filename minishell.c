@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:54:41 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/11 15:32:15 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,18 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		line = token_positive(line);
-		// printf("AVANT:[%s]\n", line);
 		line = ft_expand(line, &data);
 		split_line(-1, line, &data.token);
 		line = token_positive(line);
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
+		// print_token(data.token);
+		if (tab->args == NULL)
+		{
+			free_inside(&data, NULL, tab);
+			continue ;
+		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
 			// free_exec(&data, NULL);

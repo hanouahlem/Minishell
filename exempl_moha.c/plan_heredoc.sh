@@ -6,12 +6,9 @@ typedef struct t_hd
 
 t_mini 
 {
-
-
 	t_hd *hd;
 	int nbhd;
 }
-
 
 initheredoc(t_hd hd, str)
 {
@@ -29,11 +26,9 @@ heredoc()
 
 main
 {
-	...
 	heredoc()
 	exec()
 }
-
 
 "<< avion | cat << bateau | test << mer << chevre << grec"
 

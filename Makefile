@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/09 14:37:17 by manbengh         ###   ########.fr        #
+#    Updated: 2024/12/09 16:21:22 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =	minishell.c \
 		prints.c \
 		exec/ft_path.c \
 		exec/ft_exec.c \
-		# exec/ft_utils_exec.c\
+		exec/ft_heredoc.c\
 	
 CC	=	cc
 

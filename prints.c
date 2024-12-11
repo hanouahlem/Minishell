@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/01 18:40:58 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/10 17:27:41 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ void	print_env(t_env *env)
 void	print_token(t_token *tokenis)
 {
 	int	i;
+	t_token	*tmp;
 
 	i = 1;
-	while (tokenis)
+	tmp = tokenis;
+	while (tmp)
 	{
-		// printf("type == %d\n", tokenis->type);
-		// if (tokenis->prev != NULL)
-		// 	printf("prev == %s\n\n", tokenis->prev->value_t);
-		printf("token [%d]== [%s]\n",tokenis->type, tokenis->value_t);
-		tokenis = tokenis->next;
+		// printf("type == %d\n", tmp->type);
+		// if (tmp->prev != NULL)
+		// 	printf("prev == %s\n\n", tmp->prev->value_t);
+		printf("token [%d]== [%s]\n",tmp->type, tmp->value_t);
+		tmp = tmp->next;
 		i++;
 	}
 }
