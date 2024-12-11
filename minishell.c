@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 20:15:00 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:54:41 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **env)
 			free_inside(&data, NULL, tab);
 			continue ;
 		}
-		printf("\nAPRES:[%i]\n", data.exit_status);
+		// printf("\nAPRES:[%i]\n", data.exit_status);
 		// free_exec(&data, NULL);
 		free_inside(&data, NULL, tab);
 	}
