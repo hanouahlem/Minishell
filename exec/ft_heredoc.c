@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/11 15:34:19 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:26:07 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,56 +28,123 @@ size_t	count_hd(t_mini *data)
 	return (i);
 }
 
+// void	exec_heredoc(t_mini *data, t_hdoc *hdoc)
+// {
+// 	int	i = 0;
+
+// 	while (i < data->nbr_hd)
+// 	{
+// 		close(hdoc[i].pipe_fd[0]);
+// 		write_hd(hdoc, hdoc[i].pipe_fd[1]);
+// 		free(hdoc[i].delim);
+// 		(i)++;
+// 	}
+// 	free(hdoc);
+// }
+
+void	write_hd(t_hdoc *hdoc, int fd, int i)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		printf("write_hd hdoc->delim : %s\n", hdoc[i].delim);
+		if(!ft_strcmp(line, hdoc[i].delim))
+		{
+			free(line);
+			break;
+		}
+		ft_putendl_fd(line, fd);
+		free(line);
+	}
+	close(fd);
+}
+
+
+void	clean_hdoc(t_hdoc *hdoc, int nbr_hd)
+{
+	int	i;
+
+	i = 0;
+	if (!hdoc)
+		return;
+	while (i < nbr_hd)
+	{
+		if (hdoc[i].delim)
+			free(hdoc[i].delim);
+		if (hdoc[i].pipe_fd[0] >= 0)
+			close(hdoc[i].pipe_fd[0]);
+		if (hdoc[i].pipe_fd[1] >= 0)
+			close(hdoc[i].pipe_fd[1]);
+		i++;
+	}
+	free(hdoc);
+}
+
 void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 {
 	int	i;
 	t_token	*tmp;
-	// char *str;
 	
 	i = 0;
 	tmp = data->token;
-	while (i < data->nbr_hd)
+	while (tmp)
 	{
 		if (tmp->type == DBL_REDIR_IN)
 		{
-			hdoc[i].delim = tmp->next->value_t;
-			pipe(hdoc[i].pipe_fd);
+			hdoc[i].delim = ft_strdup(tmp->next->value_t);
+			ft_printf("delim : %s\n", hdoc[i].delim);
+			if (!hdoc[i].delim)
+				printf("error strdup delim\n");
+			if (pipe(hdoc[i].pipe_fd) == -1)
+			{
+				perror("pipe");
+				exit(1);
+			}
+			write_hd(hdoc, hdoc[i].pipe_fd[1], i);
 			i++;
+			hdoc[i].delim = NULL;
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
+		if (i >= data->nbr_hd)
+			break;
 	}
 }
-
-// void	exec_heredoc(t_mini *data, t_hdoc *hdoc, int i)
-// {
-	
-// }
 
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
-	// char *delim;
 	t_hdoc	*hdoc;
-	char *line;
-	int pid;
+	t_token	*tmp;
 	
 	i = 0;
+	tmp = data->token;
 	data->nbr_hd = count_hd(data);
+	if (data->nbr_hd == 0)
+		return (0);
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
-		return (0);
-	take_delimiter(data, hdoc); 
-	while (i < data->nbr_hd)
-	{
-		pid = fork();
-		if (pid == 0)
-			exec_heredoc(data, hdoc, &i);
-		i++;
-		line = readline("> ");
-		if (!line)
-			break ;
-	}
+		return (1);
+	take_delimiter(data, hdoc);
+	// exec_heredoc(data, hdoc);
+	clean_hdoc(hdoc, data->nbr_hd);
 	return (0);
 }
 
+	//virer les fork
+	// pid = fork();
+	// if (pid == 0)
+	// 	exec_heredoc(data, hdoc, &i);
+	// else if (pid > 0)
+	// {
+	// 	i = 0;
+	// 	while (i < data->nbr_hd)
+	// 		close(hdoc[i++].pipe_fd[1]);
+	// 	waitpid(pid, 0, 0);
+	// }
 // ls << lim | << bateau | echo hello | << hello | << lala ls
