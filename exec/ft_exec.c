@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 18:25:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/12 20:27:09 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,31 @@ void	close_standard(int standard[2])
 		close(standard[1]);
 }
 
+void	clean_hdoc(t_mini *data)
+{
+	int	i;
+
+	i = 0;
+	if (!data->heredoc)
+		return;
+	while (i < data->nbr_hd)
+	{
+		if (data->heredoc[i].delim)
+			free(data->heredoc[i].delim);
+		if (data->heredoc[i].pipe_fd[0] >= 0)
+			close(data->heredoc[i].pipe_fd[0]);
+		if (data->heredoc[i].pipe_fd[1] >= 0)
+			close(data->heredoc[i].pipe_fd[1]);
+		i++;
+	}
+	free(data->heredoc);
+}
+
 void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
 {
 	ft_printf("%s", str);
 	close_standard(data->standard);
+	clean_hdoc(data);
 	free_inside(data, NULL, data->parser);
 	free_env(data);
 	free_tab(data->exec->env_exec);
@@ -41,7 +62,7 @@ void	ft_exec_ve(t_mini *data, int i)
 	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
-		free_exec(data, "No such file or directory\n", 127);
+		free_exec(data, NULL, 127);
 		// free_exec(data, NULL);
 		exit(1);
 	}
@@ -78,12 +99,24 @@ void	init_exec(t_mini *data, t_exec *exec)
 	exec->pipe_prev = -1;
 }
 
+int find_hd(t_mini *data, char *str)
+{
+
+	int i = 0;
+	while(i < data->nbr_hd)
+	{
+		if (!strcmp(data->heredoc[i].delim, str))
+			return (data->heredoc[i].pipe_fd[0]);
+		i++;
+	}
+	return (-1);
+}
+
 int	redirection_fichier(t_mini *data, t_parse *tab)
 {
 	int	i;
 	int	fd;
 
-	(void)data;
 	i = 0;
 	fd = -1;
 	while (i < tab->filename_count)
@@ -94,18 +127,23 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
-		// else if (tab->typefile[i] == DBL_REDIR_IN)
-			// fd = open();
+		else if (tab->typefile[i] == DBL_REDIR_IN)
+			fd = find_hd(data, tab->filename[i]);
 		if (fd == -1)
 		{	
-			free_exec(data, "Open Fail 5 \n", 1);
+			if (access(tab->filename[i], F_OK))
+				ft_printf("Error : %s : No such file or directory\n",tab->filename[i] );
+			else
+				ft_printf("Error : %s : Permission denied\n", tab->filename[i]);
+			free_exec(data, NULL, 1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
-		else if (tab->typefile[i] == REDIR_IN)
+		else if (tab->typefile[i] == REDIR_IN || tab->typefile[i] == DBL_REDIR_IN)
 			dup2(fd, STDIN_FILENO);
-		close(fd);
 		i++;
+		if (tab->typefile[i] != DBL_REDIR_IN)
+			close(fd);
 	}
 	return (0);
 }
@@ -156,7 +194,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	// ft_heredocs(data);
+	ft_heredocs(data);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
@@ -175,11 +213,13 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
 			if(!tab->args || !tab->args[0])
-				free_exec();
+				free_exec(data, NULL, 1);
 			if (ft_is_builtin(tab, i) == 1)
 				ft_exec_ve(data, i);
 			else
+			{
 				ft_built_in_comp(data, tab, i);
+			}
 			free_exec(data, NULL, 127);
 		}
 		else // parent

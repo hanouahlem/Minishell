@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:05:23 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/12 20:29:25 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // Free
 void				free_env(t_mini *data);
-
+void	clean_hdoc(t_mini *data);
 // EXEC
 void				free_exec(t_mini *data, char *str, int valueexit);
 void				env_in_tab_exec(t_mini *data);
