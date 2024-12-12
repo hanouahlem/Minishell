@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/11 16:34:35 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:26:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (!*line)
 			continue ;
-		// check si ligne espace ou tab only;
 		if (is_space_or_tab(line) == 1)
 		{
 			free(line);
-			// free_inside(&data, line, tab);
 			continue ;
 		}
 		add_history(line);
@@ -85,7 +83,6 @@ int	main(int ac, char **av, char **env)
 		tab = table_struct(&data);
 		data.parser = tab;
 		free(line);
-		// print_token(data.token);
 		if (tab->args == NULL)
 		{
 			free_inside(&data, NULL, tab);
@@ -93,12 +90,9 @@ int	main(int ac, char **av, char **env)
 		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
-			// free_exec(&data, NULL);
 			free_inside(&data, NULL, tab);
 			continue ;
 		}
-		// printf("\nAPRES:[%i]\n", data.exit_status);
-		// free_exec(&data, NULL);
 		free_inside(&data, NULL, tab);
 	}
 	free(line);

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/11 17:45:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/12 18:25:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_exec_ve(t_mini *data, int i)
 	char	**path;
 
 	path = get_path_exec(data->exec->env_exec);
-	printf("args ----------> %s\n", data->parser[i].args[0]);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
 	if (data->parser[i].cmd == NULL)
 	{
@@ -46,8 +45,6 @@ void	ft_exec_ve(t_mini *data, int i)
 		// free_exec(data, NULL);
 		exit(1);
 	}
-	fprintf(stderr,"parser[i] = %s\n", data->parser[i].cmd);
-	fprintf(stderr, "tab = %s\n", data->parser[i].args[0]);
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		ft_printf("Excve Fail !\n");
@@ -86,6 +83,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 	int	i;
 	int	fd;
 
+	(void)data;
 	i = 0;
 	fd = -1;
 	while (i < tab->filename_count)
@@ -97,9 +95,9 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
 		// else if (tab->typefile[i] == DBL_REDIR_IN)
-			// ft_heredocs(data);
+			// fd = open();
 		if (fd == -1)
-		{
+		{	
 			free_exec(data, "Open Fail 5 \n", 1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
@@ -158,7 +156,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	ft_heredocs(data);
+	// ft_heredocs(data);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
@@ -176,6 +174,8 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		{
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
+			if(!tab->args || !tab->args[0])
+				free_exec();
 			if (ft_is_builtin(tab, i) == 1)
 				ft_exec_ve(data, i);
 			else
