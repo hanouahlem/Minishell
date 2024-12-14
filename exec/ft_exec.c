@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 20:27:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/14 19:09:44 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			else
 			{
 				ft_built_in_comp(data, tab, i);
+				
 			}
 			free_exec(data, NULL, 127);
 		}

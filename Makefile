@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/12 16:22:03 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/14 18:14:34 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,6 @@ fclean: clean
 re:		fclean all
 
 leak: all
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --show-reachable=yes --suppressions=supp.txt ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --show-reachable=yes --suppressions=supp.txt --trace-children=yes ./minishell
 
 .PHONY: all clean fclean re/

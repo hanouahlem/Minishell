@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 20:25:12 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/14 19:13:32 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,20 @@ int	main(int ac, char **av, char **env)
 		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
+			clean_hdoc(&data);
 			free_inside(&data, NULL, tab);
 			continue ;
 		}
+		for (int x = 0; x < data.nbr_hd; x++)
+		{
+			if (data.heredoc[x].pipe_fd[0] >= 0)
+			{
+				close(data.heredoc[x].pipe_fd[0]);
+				free(data.heredoc[x].delim);
+			}
+		}
 		free_inside(&data, NULL, tab);
+		
 	}
 	free(line);
 	free_env(&data);
