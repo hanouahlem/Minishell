@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 18:26:07 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:19:49 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	write_hd(t_hdoc *hdoc, int fd, int i)
 		line = readline("> ");
 		if (!line)
 			break ;
-		printf("write_hd hdoc->delim : %s\n", hdoc[i].delim);
 		if(!ft_strcmp(line, hdoc[i].delim))
 		{
 			free(line);
@@ -96,7 +95,6 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 		if (tmp->type == DBL_REDIR_IN)
 		{
 			hdoc[i].delim = ft_strdup(tmp->next->value_t);
-			ft_printf("delim : %s\n", hdoc[i].delim);
 			if (!hdoc[i].delim)
 				printf("error strdup delim\n");
 			if (pipe(hdoc[i].pipe_fd) == -1)
@@ -126,7 +124,7 @@ int	ft_heredocs(t_mini *data)
 	tmp = data->token;
 	data->nbr_hd = count_hd(data);
 	if (data->nbr_hd == 0)
-		return (0);
+		return (1);
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
 		return (1);

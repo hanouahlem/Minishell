@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 15:56:55 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:22:24 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		free_tab(path);
 		free_exec(data, NULL, 127);
-		// free_exec(data, NULL);
-		exit(1);
 	}
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
@@ -93,8 +91,8 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 			fd = open(tab->filename[i], O_WRONLY | O_APPEND | O_CREAT, 0664);
 		else if (tab->typefile[i] == REDIR_IN)
 			fd = open(tab->filename[i], O_RDONLY);
-		// else if (tab->typefile[i] == DBL_REDIR_IN)
-			// ft_heredocs(data);
+		else if (tab->typefile[i] == DBL_REDIR_IN)
+			fd = 0;
 		if (fd == -1)
 		{
 			free_exec(data, "Open Fail 5 \n", 1);
