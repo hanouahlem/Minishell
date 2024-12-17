@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 19:19:49 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/14 16:37:33 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,6 @@ size_t	count_hd(t_mini *data)
 	return (i);
 }
 
-// void	exec_heredoc(t_mini *data, t_hdoc *hdoc)
-// {
-// 	int	i = 0;
-
-// 	while (i < data->nbr_hd)
-// 	{
-// 		close(hdoc[i].pipe_fd[0]);
-// 		write_hd(hdoc, hdoc[i].pipe_fd[1]);
-// 		free(hdoc[i].delim);
-// 		(i)++;
-// 	}
-// 	free(hdoc);
-// }
-
 void	write_hd(t_hdoc *hdoc, int fd, int i)
 {
 	char	*line;
@@ -60,27 +46,6 @@ void	write_hd(t_hdoc *hdoc, int fd, int i)
 		free(line);
 	}
 	close(fd);
-}
-
-
-void	clean_hdoc(t_hdoc *hdoc, int nbr_hd)
-{
-	int	i;
-
-	i = 0;
-	if (!hdoc)
-		return;
-	while (i < nbr_hd)
-	{
-		if (hdoc[i].delim)
-			free(hdoc[i].delim);
-		if (hdoc[i].pipe_fd[0] >= 0)
-			close(hdoc[i].pipe_fd[0]);
-		if (hdoc[i].pipe_fd[1] >= 0)
-			close(hdoc[i].pipe_fd[1]);
-		i++;
-	}
-	free(hdoc);
 }
 
 void	take_delimiter(t_mini *data, t_hdoc *hdoc)
@@ -114,6 +79,21 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 	}
 }
 
+void clean_heredoc(t_mini *data) {
+    int i = 0;
+    while (i < data->nbr_hd) {
+        if (data->heredoc[i].delim) {
+            free(data->heredoc[i].delim);
+            data->heredoc[i].delim = NULL;
+        }
+        close(data->heredoc[i].pipe_fd[0]);
+        close(data->heredoc[i].pipe_fd[1]);
+        i++;
+    }
+    free(data->heredoc);
+    data->heredoc = NULL;
+}
+
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
@@ -129,8 +109,8 @@ int	ft_heredocs(t_mini *data)
 	if (!hdoc)
 		return (1);
 	take_delimiter(data, hdoc);
+	data->heredoc = hdoc;
 	// exec_heredoc(data, hdoc);
-	clean_hdoc(hdoc, data->nbr_hd);
 	return (0);
 }
 
