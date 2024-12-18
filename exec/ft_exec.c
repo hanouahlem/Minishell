@@ -44,11 +44,6 @@ void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
 	ft_printf("%s", str);
 	close_standard(data->standard);
 	clean_hdoc(data);
-	// if (data->heredoc[i].pipe_fd[0] >= 0)
-	// {
-	// 	close(data->heredoc[i].pipe_fd[0]);
-	// 	free(data->heredoc[i].delim);
-	// }
 	free_inside(data, NULL, data->parser);
 	free_env(data);
 	free_tab(data->exec->env_exec);
@@ -68,14 +63,6 @@ void	ft_exec_ve(t_mini *data, int i)
 		free_exec(data, NULL, 127);
 	}
 	clean_hdoc(data);
-	// for (int x = 0; x < data->nbr_hd; x++)
-	// {
-		// if (data->heredoc[x].pipe_fd[0] >= 0)
-		// {
-		// 	close(data->heredoc[x].pipe_fd[0]);
-		// 	free(data->heredoc[x].delim);
-		// }
-	// }
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		ft_printf("Excve Fail !\n");
@@ -250,6 +237,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		waitpid(exec.pid[i++], &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			data->exit_status = WEXITSTATUS(data->exit_status);
+		// sign_return = 131;
 	}
 	close(data->exec->pipe_fd[0]);
 	free(data->exec->pid);

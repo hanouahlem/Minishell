@@ -12,16 +12,24 @@
 
 #include "minishell.h"
 
-// void	sig_management(int signo)
-// {
-// 	if (signo == SIGINT)
-// 	{
-// 		printf("\n");
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 	}
-// }
+int	sign_return ;
+
+void	sig_management(int signo)
+{
+	if (signo == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		if (!sign_return)
+			sign_return = 130;
+		else
+			sign_return = 0;
+	}
+}
+
+
 
 int	is_space_or_tab(char *str)
 {
@@ -52,6 +60,7 @@ int	main(int ac, char **av, char **env)
 	data.exec = NULL;
 	line = NULL;
 	data.exit_status = 0;
+	sign_return = 0;
 	while (1)
 	{
 		line = readline("Minishell 😜👀$> ");
@@ -92,58 +101,13 @@ int	main(int ac, char **av, char **env)
 		{
 			clean_hdoc(&data);
 			free_inside(&data, NULL, tab);
-			clean_hdoc(&data);
 			continue ;
 		}
-		for (int x = 0; x < data.nbr_hd; x++)
-		{
-			if (data.heredoc[x].pipe_fd[0] >= 0)
-			{
-				close(data.heredoc[x].pipe_fd[0]);
-				free(data.heredoc[x].delim);
-			}
-		}
+		clean_hdoc(&data);
 		free_inside(&data, NULL, tab);		
 	}
 	free(line);
 	free_env(&data);
-	// rl_clear_history();
+	rl_clear_history();
 	return (0);
 }
-/*
-printf("%svalue+t ----> %s%s\n", RED, data.token->value_t, RESET);
-
-1 - check les guillemets
-"'''''''''" vrai        fait
-"'" vrai
-"""" vrai
-'"""""""""""""""' vrai
-''' faux
-""" faux                       fait
-""""""" FAUX
-
-1 - expand
-$USER == ahlem  -> "$USER"== "ahlem" ->  '$USER' == '$USER'
-
-2- METTRE EN NEGATIVE L'INTERRIEUR DES GUILLEMETS         faiiiiit
-"bonjour ||||| c moi"
-"*******************"
-
-3 - gerer la syntax
-
-|| faux
->>> faux
-|       | faux
-command | faux
-| command |                 fait
->  > faux
-"|||||" vrai
-'<><><||||<><' vrai
-
-4 - remettre en positive
-"****************"         fait
-"bonjour || c moi"
-
-5 - tokenisation
-
-*/

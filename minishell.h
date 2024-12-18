@@ -119,6 +119,8 @@ typedef enum t_token_type
 	OUT_FILE,
 }					t_token_type;
 
+extern int	sign_return ;
+
 // syntax error
 int					ft_check_redir_in_out(char *str);
 int					ft_quote(char *str);

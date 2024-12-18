@@ -28,16 +28,17 @@ size_t	count_hd(t_mini *data)
 	return (i);
 }
 
-void	write_hd(t_hdoc *hdoc, int fd, int i)
+void	write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 {
 	char	*line;
 
+	(void)data;
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
 		{
-			//printf bash: warning: here-document at line 1 delimited by end-of-file (wanted `hdoc[i].delim')
+			ft_printf("mini: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", hdoc[i].delim);
 			break ;
 		}
 		if(!ft_strcmp(line, hdoc[i].delim))
@@ -70,7 +71,7 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 				perror("pipe");
 				exit(1);
 			}
-			write_hd(hdoc, hdoc[i].pipe_fd[1], i);
+			write_hd(data, hdoc, hdoc[i].pipe_fd[1], i);
 			i++;
 			tmp = tmp->next;
 		}
