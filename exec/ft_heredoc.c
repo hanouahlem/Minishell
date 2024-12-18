@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/14 16:37:33 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:12:34 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	write_hd(t_hdoc *hdoc, int fd, int i)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			//printf bash: warning: here-document at line 1 delimited by end-of-file (wanted `hdoc[i].delim')
 			break ;
+		}
 		if(!ft_strcmp(line, hdoc[i].delim))
 		{
 			free(line);
@@ -61,7 +64,7 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 		{
 			hdoc[i].delim = ft_strdup(tmp->next->value_t);
 			if (!hdoc[i].delim)
-				printf("error strdup delim\n");
+				ft_printf("error strdup delim\n");
 			if (pipe(hdoc[i].pipe_fd) == -1)
 			{
 				perror("pipe");
@@ -69,7 +72,6 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 			}
 			write_hd(hdoc, hdoc[i].pipe_fd[1], i);
 			i++;
-			hdoc[i].delim = NULL;
 			tmp = tmp->next;
 		}
 		else
@@ -110,7 +112,6 @@ int	ft_heredocs(t_mini *data)
 		return (1);
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
-	// exec_heredoc(data, hdoc);
 	return (0);
 }
 

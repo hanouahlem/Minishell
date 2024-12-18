@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/14 16:32:08 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:09:44 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,12 @@ void	clean_hdoc(t_mini *data)
 	i = 0;
 	if (!data->heredoc)
 		return;
-	// printf("data->nbr_hd : %d\n\n", data->nbr_hd);
 	while (i < data->nbr_hd)
 	{
 		if (data->heredoc[i].delim)
 			free(data->heredoc[i].delim);
 		if (data->heredoc[i].pipe_fd[0] >= 0)
 			close(data->heredoc[i].pipe_fd[0]);
-		if (data->heredoc[i].pipe_fd[1] >= 0)
-			close(data->heredoc[i].pipe_fd[1]);
 		i++;
 	}
 	free(data->heredoc);
@@ -47,6 +44,11 @@ void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
 	ft_printf("%s", str);
 	close_standard(data->standard);
 	clean_hdoc(data);
+	// if (data->heredoc[i].pipe_fd[0] >= 0)
+	// {
+	// 	close(data->heredoc[i].pipe_fd[0]);
+	// 	free(data->heredoc[i].delim);
+	// }
 	free_inside(data, NULL, data->parser);
 	free_env(data);
 	free_tab(data->exec->env_exec);
@@ -65,6 +67,15 @@ void	ft_exec_ve(t_mini *data, int i)
 		free_tab(path);
 		free_exec(data, NULL, 127);
 	}
+	clean_hdoc(data);
+	// for (int x = 0; x < data->nbr_hd; x++)
+	// {
+		// if (data->heredoc[x].pipe_fd[0] >= 0)
+		// {
+		// 	close(data->heredoc[x].pipe_fd[0]);
+		// 	free(data->heredoc[x].delim);
+		// }
+	// }
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		ft_printf("Excve Fail !\n");
@@ -218,7 +229,9 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			else
 			{
 				ft_built_in_comp(data, tab, i);
+				
 			}
+		
 			free_exec(data, NULL, 127);
 		}
 		else // parent
