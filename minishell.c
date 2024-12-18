@@ -42,6 +42,7 @@ int	is_space_or_tab(char *str)
 		return (1);
 	return (0);
 }
+
 int	main(int ac, char **av, char **env)
 {
 	static t_mini	data = {0,

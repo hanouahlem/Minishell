@@ -21,8 +21,8 @@ t_env	*get_env(char **env)
 	i = 0;
 	node = NULL;
 	path = NULL;
-	if (!env[0])
-		printf("No ENV\n");
+	if (env == NULL)
+		return (NULL);
 	while (env[i])
 	{
 		node = ft_lstnew_env(env[i]);
