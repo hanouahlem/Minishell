@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 17:27:41 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // printf("KEY :  %s\n", env->key);
 // printf("VALUE :  %s\n\n", env->value);
-void	print_env(t_env *env)
+void print_env(t_env *env)
 {
 	while (env)
 	{
@@ -22,10 +22,10 @@ void	print_env(t_env *env)
 		env = env->next;
 	}
 }
-void	print_token(t_token *tokenis)
+void print_token(t_token *tokenis)
 {
-	int	i;
-	t_token	*tmp;
+	int i;
+	t_token *tmp;
 
 	i = 1;
 	tmp = tokenis;
@@ -34,16 +34,16 @@ void	print_token(t_token *tokenis)
 		// printf("type == %d\n", tmp->type);
 		// if (tmp->prev != NULL)
 		// 	printf("prev == %s\n\n", tmp->prev->value_t);
-		printf("token [%d]== [%s]\n",tmp->type, tmp->value_t);
+		printf("token [%d]== [%s]\n", tmp->type, tmp->value_t);
 		tmp = tmp->next;
 		i++;
 	}
 }
 
-void	print_parse(t_parse *tab, int size)
+void print_parse(t_parse *tab, int size)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < size)

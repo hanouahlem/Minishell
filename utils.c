@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:44:50 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/13 19:56:34 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_lstnew_env(void *my_env)
+t_env *ft_lstnew_env(void *my_env)
 {
-	t_env	*new;
+	t_env *new;
 
 	new = malloc(sizeof(t_env));
 	if (!new)
@@ -28,7 +28,7 @@ t_env	*ft_lstnew_env(void *my_env)
 	return (new);
 }
 
-t_env	*ft_lstlast_env(t_env *lst)
+t_env *ft_lstlast_env(t_env *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -39,10 +39,10 @@ t_env	*ft_lstlast_env(t_env *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back_env(t_env **lst, t_env *new)
+void ft_lstadd_back_env(t_env **lst, t_env *new)
 {
 	if (!lst || !new)
-		return ;
+		return;
 	if (*lst)
 	{
 		ft_lstlast_env(*lst)->next = new;
@@ -51,9 +51,9 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 		*lst = new;
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int ft_strcmp(const char *s1, const char *s2)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (s1[i] && s2[i] && (s1[i] == s2[i]))
@@ -61,10 +61,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_strcat(char *dest, char *src)
+char *ft_strcat(char *dest, char *src)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;

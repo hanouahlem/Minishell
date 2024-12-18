@@ -6,13 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:19:36 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 19:57:04 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_tokenisation(char *tokens)
+int ft_tokenisation(char *tokens)
 {
 	if (ft_strcmp(tokens, "<") == 0)
 		return (REDIR_IN);
@@ -30,10 +30,10 @@ int	ft_tokenisation(char *tokens)
 		return (WORD);
 }
 
-t_token	*add_prev(t_token *new)
+t_token *add_prev(t_token *new)
 {
-	t_token	*tmp1;
-	t_token	*tmp2;
+	t_token *tmp1;
+	t_token *tmp2;
 
 	if (new)
 	{
@@ -50,9 +50,9 @@ t_token	*add_prev(t_token *new)
 	return (new);
 }
 
-t_token	*ft_lstnew_tok(void *values)
+t_token *ft_lstnew_tok(void *values)
 {
-	t_token	*new;
+	t_token *new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)
@@ -66,7 +66,7 @@ t_token	*ft_lstnew_tok(void *values)
 	return (new);
 }
 
-t_token	*ft_lstlast_tok(t_token *lst)
+t_token *ft_lstlast_tok(t_token *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -75,10 +75,10 @@ t_token	*ft_lstlast_tok(t_token *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back_tok(t_token **lst, t_token *new)
+void ft_lstadd_back_tok(t_token **lst, t_token *new)
 {
 	if (!lst || !new)
-		return ;
+		return;
 	if (*lst)
 		ft_lstlast_tok(*lst)->next = new;
 	else

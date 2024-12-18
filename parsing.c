@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 16:38:16 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_quote(char *str, int *i, char c)
+int ft_check_quote(char *str, int *i, char c)
 {
-	int	flag;
+	int flag;
 
 	flag = 1;
 	(*i)++;
@@ -23,17 +23,17 @@ int	ft_check_quote(char *str, int *i, char c)
 		if (str[*i] == c)
 		{
 			flag = 0;
-			break ;
+			break;
 		}
 		(*i)++;
 	}
 	return (flag);
 }
 
-int	ft_quote(char *str)
+int ft_quote(char *str)
 {
-	int	i;
-	int	flag;
+	int i;
+	int flag;
 
 	i = 0;
 	flag = 0;
@@ -45,7 +45,7 @@ int	ft_quote(char *str)
 		{
 			flag = ft_check_quote(str, &i, str[i]);
 			if (flag == 1)
-				break ;
+				break;
 		}
 		i++;
 	}
@@ -54,10 +54,10 @@ int	ft_quote(char *str)
 	return (0);
 }
 
-int	ft_check_redir_pipe_begin(char *str)
+int ft_check_redir_pipe_begin(char *str)
 {
-	int	i;
-	int	len;
+	int i;
+	int len;
 
 	i = 0;
 	len = ft_strlen(str) - 1;
@@ -72,9 +72,9 @@ int	ft_check_redir_pipe_begin(char *str)
 	return (0);
 }
 
-int	ft_check_redir(char *str, int *i)
+int ft_check_redir(char *str, int *i)
 {
-	int	j;
+	int j;
 
 	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
@@ -86,8 +86,7 @@ int	ft_check_redir(char *str, int *i)
 		if (str[j] == '|' || str[j] == '\0')
 			return (printf("Error : syntax 3\n"), 1);
 	}
-	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i
-				+ 1] == '>'))
+	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i + 1] == '>'))
 		return (printf("Error : syntax 4\n"), 1);
 	if (str[*i] == '>' && str[*i + 1] == '>')
 		(*i)++;
@@ -96,10 +95,10 @@ int	ft_check_redir(char *str, int *i)
 	return (0);
 }
 
-int	ft_check_redir_in_out(char *str)
+int ft_check_redir_in_out(char *str)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	if (ft_check_redir_pipe_begin(str) == 1)
@@ -113,8 +112,7 @@ int	ft_check_redir_in_out(char *str)
 			j = i + 1;
 			while (str[j] == ' ' || str[j] == '\t')
 				j++;
-			if (str[j] == '\0' || str[j] == '|' || str[j] == '>'
-				|| str[j] == '<')
+			if (str[j] == '\0' || str[j] == '|' || str[j] == '>' || str[j] == '<')
 				return (printf("Error : syntax 5\n"), 1);
 		}
 		if (str[i])

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/15 17:06:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	sign_return ;
+int sign_return;
 
-void	sig_management(int signo)
+void sig_management(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -29,11 +29,9 @@ void	sig_management(int signo)
 	}
 }
 
-
-
-int	is_space_or_tab(char *str)
+int is_space_or_tab(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while ((str[i] && str[i] == ' ') || str[i] == '\t')
@@ -42,14 +40,13 @@ int	is_space_or_tab(char *str)
 		return (1);
 	return (0);
 }
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	static t_mini	data = {0,
-		.standard[0] = -1,
-		.standard[1] = -1
-	};
-	char			*line;
-	t_parse			*tab;
+	static t_mini data = {0,
+						  .standard[0] = -1,
+						  .standard[1] = -1};
+	char *line;
+	t_parse *tab;
 
 	tab = NULL;
 	(void)ac;
@@ -65,25 +62,25 @@ int	main(int ac, char **av, char **env)
 	{
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
-			break ;
+			break;
 		if (!*line)
-			continue ;
+			continue;
 		if (is_space_or_tab(line) == 1)
 		{
 			free(line);
-			continue ;
+			continue;
 		}
 		add_history(line);
 		line = token_negation(line);
 		if (ft_quote(line))
 		{
 			free(line);
-			continue ;
+			continue;
 		}
 		if (ft_check_redir_in_out(line) == 1)
 		{
 			free(line);
-			continue ;
+			continue;
 		}
 		line = token_positive(line);
 		line = ft_expand(line, &data);
@@ -95,16 +92,16 @@ int	main(int ac, char **av, char **env)
 		if (tab->args == NULL)
 		{
 			free_inside(&data, NULL, tab);
-			continue ;
+			continue;
 		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
 			clean_hdoc(&data);
 			free_inside(&data, NULL, tab);
-			continue ;
+			continue;
 		}
 		clean_hdoc(&data);
-		free_inside(&data, NULL, tab);		
+		free_inside(&data, NULL, tab);
 	}
 	free(line);
 	free_env(&data);
