@@ -72,6 +72,6 @@ fclean: clean
 re:		fclean all
 
 leak: all
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --show-reachable=yes --suppressions=supp.txt --trace-children=yes ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --show-reachable=yes --suppressions=supp.txt ./minishell
 
 .PHONY: all clean fclean re/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/12 20:29:25 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/14 18:01:12 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ typedef enum t_token_type
 	IN_FILE,
 	OUT_FILE,
 }					t_token_type;
+
+extern int	sign_return ;
 
 // syntax error
 int					ft_check_redir_in_out(char *str);

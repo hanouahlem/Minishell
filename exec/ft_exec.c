@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
 /*   Updated: 2024/12/14 19:09:44 by ahbey            ###   ########.fr       */
@@ -34,8 +34,6 @@ void	clean_hdoc(t_mini *data)
 			free(data->heredoc[i].delim);
 		if (data->heredoc[i].pipe_fd[0] >= 0)
 			close(data->heredoc[i].pipe_fd[0]);
-		if (data->heredoc[i].pipe_fd[1] >= 0)
-			close(data->heredoc[i].pipe_fd[1]);
 		i++;
 	}
 	free(data->heredoc);
@@ -63,9 +61,8 @@ void	ft_exec_ve(t_mini *data, int i)
 	{
 		free_tab(path);
 		free_exec(data, NULL, 127);
-		// free_exec(data, NULL);
-		exit(1);
 	}
+	clean_hdoc(data);
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		ft_printf("Excve Fail !\n");
@@ -221,6 +218,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 				ft_built_in_comp(data, tab, i);
 				
 			}
+		
 			free_exec(data, NULL, 127);
 		}
 		else // parent
@@ -239,6 +237,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		waitpid(exec.pid[i++], &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			data->exit_status = WEXITSTATUS(data->exit_status);
+		// sign_return = 131;
 	}
 	close(data->exec->pipe_fd[0]);
 	free(data->exec->pid);

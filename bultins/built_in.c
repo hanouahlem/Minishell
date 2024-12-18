@@ -34,6 +34,8 @@ int	ft_pwd(t_mini *data)
 	char	*pwd;
 
 	(void)data;
+	// if (!data->env->content)
+	// 	return (printf("No env !\n\n"), 1);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{

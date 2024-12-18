@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
 /*   Updated: 2024/12/14 19:12:34 by ahbey            ###   ########.fr       */
@@ -28,29 +28,19 @@ size_t	count_hd(t_mini *data)
 	return (i);
 }
 
-// void	exec_heredoc(t_mini *data, t_hdoc *hdoc)
-// {
-// 	int	i = 0;
-
-// 	while (i < data->nbr_hd)
-// 	{
-// 		close(hdoc[i].pipe_fd[0]);
-// 		write_hd(hdoc, hdoc[i].pipe_fd[1]);
-// 		free(hdoc[i].delim);
-// 		(i)++;
-// 	}
-// 	free(hdoc);
-// }
-
-void	write_hd(t_hdoc *hdoc, int fd, int i)
+void	write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 {
 	char	*line;
 
+	(void)data;
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			ft_printf("mini: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", hdoc[i].delim);
 			break ;
+		}
 		if(!ft_strcmp(line, hdoc[i].delim))
 		{
 			free(line);
@@ -69,7 +59,6 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 	
 	i = 0;
 	tmp = data->token;
-	ft_printf("ICI\n");
 	while (tmp)
 	{
 		if (tmp->type == DBL_REDIR_IN)
@@ -82,7 +71,7 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 				perror("pipe");
 				exit(1);
 			}
-			write_hd(hdoc, hdoc[i].pipe_fd[1], i);
+			write_hd(data, hdoc, hdoc[i].pipe_fd[1], i);
 			i++;
 			tmp = tmp->next;
 		}
@@ -91,6 +80,21 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 		if (i >= data->nbr_hd)
 			break;
 	}
+}
+
+void clean_heredoc(t_mini *data) {
+    int i = 0;
+    while (i < data->nbr_hd) {
+        if (data->heredoc[i].delim) {
+            free(data->heredoc[i].delim);
+            data->heredoc[i].delim = NULL;
+        }
+        close(data->heredoc[i].pipe_fd[0]);
+        close(data->heredoc[i].pipe_fd[1]);
+        i++;
+    }
+    free(data->heredoc);
+    data->heredoc = NULL;
 }
 
 int	ft_heredocs(t_mini *data)
@@ -103,7 +107,7 @@ int	ft_heredocs(t_mini *data)
 	tmp = data->token;
 	data->nbr_hd = count_hd(data);
 	if (data->nbr_hd == 0)
-		return (0);
+		return (1);
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
 		return (1);

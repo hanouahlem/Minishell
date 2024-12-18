@@ -38,6 +38,17 @@ hd[2].delim = "mer"
 hd[3].delim = "chevre"
 hd[4].delim = "grec"
 
+
+
+marche pas :
+<< lim | ls | << haha | echo hsjkgs 
+===>>  hsjkgs
+
+
+
+
+
+
 #include "minishell.h"
 
 
