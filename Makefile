@@ -30,6 +30,7 @@ SRCS =	minishell.c \
 		bultins/ft_cd.c \
 		prints.c \
 		exec/ft_path.c \
+		exec/signals.c \
 		exec/ft_exec.c \
 		exec/ft_heredoc.c\
 	

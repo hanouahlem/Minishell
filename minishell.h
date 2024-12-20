@@ -25,8 +25,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -208,4 +210,12 @@ char				*give_way_cmd(char **path, char *cmd);
 int					ft_exec(t_mini *data, t_parse *tab);
 void				redirections_pipe(t_exec *exec, int index);
 int					ft_heredocs(t_mini *data);
+
+// SIGNALS
+void	default_signals(void);
+void	disable_signals(void);
+void	manage_sig(void);
+void	sig_management(int signo);
+void    sign_hdoc(int num_sig);
+
 #endif

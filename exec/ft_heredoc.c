@@ -36,11 +36,13 @@ void	write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line)
+		if (!line && sign_return != SIGINT)
 		{
 			ft_printf("mini: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", hdoc[i].delim);
 			break ;
 		}
+		if (sign_return == SIGINT)
+			break ;
 		if(!ft_strcmp(line, hdoc[i].delim))
 		{
 			free(line);
@@ -97,12 +99,21 @@ void clean_heredoc(t_mini *data) {
     data->heredoc = NULL;
 }
 
+void	signal_here_doc(int signum)
+{
+	if (signum == SIGINT)
+		sign_return = SIGINT;
+	close (STDIN_FILENO);
+}
+
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
 	t_hdoc	*hdoc;
 	t_token	*tmp;
-	
+	int	std;
+
+	std = dup(0);
 	i = 0;
 	tmp = data->token;
 	data->nbr_hd = count_hd(data);
@@ -111,20 +122,16 @@ int	ft_heredocs(t_mini *data)
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
 		return (1);
+	signal(SIGINT, signal_here_doc);
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
+	if (sign_return == SIGINT)
+	{
+		dup2(std, STDIN_FILENO);
+		data->exit_status = 130;
+	}
+	close(std);
 	return (0);
 }
 
-	//virer les fork
-	// pid = fork();
-	// if (pid == 0)
-	// 	exec_heredoc(data, hdoc, &i);
-	// else if (pid > 0)
-	// {
-	// 	i = 0;
-	// 	while (i < data->nbr_hd)
-	// 		close(hdoc[i++].pipe_fd[1]);
-	// 	waitpid(pid, 0, 0);
-	// }
 // ls << lim | << bateau | echo hello | << hello | << lala ls
