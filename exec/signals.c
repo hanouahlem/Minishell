@@ -48,7 +48,16 @@ void	sig_management(int signo)
 
 void	manage_sig(void)
 {
-	signal(SIGINT, &sig_management);
+    struct sigaction sa;
+
+    // Initialiser la structure sigaction à zéro
+    sigemptyset(&sa.sa_mask);  // Aucun signal ne sera bloqué pendant l'exécution du gestionnaire
+    sa.sa_handler = sig_management;  // Définir le gestionnaire pour SIGINT
+    sa.sa_flags = 0;  // Pas d'options supplémentaires
+
+    // Enregistrer le gestionnaire pour SIGINT
+    sigaction(SIGINT, &sa, NULL);
+	// signal(SIGINT, &sig_management);
 	signal(SIGQUIT, SIG_IGN);
 	// signal(SIGTSTP, SIG_IGN);
 }

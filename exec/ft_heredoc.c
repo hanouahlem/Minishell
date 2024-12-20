@@ -58,7 +58,7 @@ void	take_delimiter(t_mini *data, t_hdoc *hdoc)
 {
 	int	i;
 	t_token	*tmp;
-	
+
 	i = 0;
 	tmp = data->token;
 	while (tmp)
@@ -106,6 +106,17 @@ void	signal_here_doc(int signum)
 	close (STDIN_FILENO);
 }
 
+// void	manage_sigHD(void)
+// {
+//     struct sigaction sa;
+
+//     sigemptyset(&sa.sa_mask);  // Aucun signal ne sera bloqué pendant l'exécution du gestionnaire
+//     sa.sa_handler = signal_here_doc;  // Définir le gestionnaire pour SIGINT
+//     sa.sa_flags = 0;  // Pas d'options supplémentaires
+
+//     sigaction(SIGINT, &sa, NULL);
+// }
+
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
@@ -123,6 +134,7 @@ int	ft_heredocs(t_mini *data)
 	if (!hdoc)
 		return (1);
 	signal(SIGINT, signal_here_doc);
+	// manage_sigHD();
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
 	if (sign_return == SIGINT)

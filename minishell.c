@@ -93,7 +93,6 @@ int	main(int ac, char **av, char **env)
 			free_inside(&data, NULL, tab);
 			continue ;
 		}
-		// manage_sig();
 		clean_hdoc(&data);
 		free_inside(&data, NULL, tab);		
 	}

@@ -182,6 +182,24 @@ int	one_cmd(t_mini *data, t_parse *tab, int i)
 	return (0);
 }
 
+
+void	signal_pipex(int signum)
+{
+	if (signum == SIGQUIT)
+		sign_return = SIGQUIT;
+	else
+		sign_return = SIGINT;
+	printf("signal recu pipex\n");
+}
+
+// void	signal_here_doc(int signum)
+// {
+// 	if (signum == SIGINT)
+// 		sign_return = SIGINT;
+// 	printf("signal recu depuis heredoc\n");
+// 	close (STDIN_FILENO);
+// }
+
 int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
@@ -198,6 +216,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	}
 	// disable_signals();
 	init_exec(data, &exec);
+	signal(SIGINT, SIG_IGN);
 	while (i < exec.nbcmd)
 	{
 		if (pipe(exec.pipe_fd) == -1)
@@ -207,6 +226,8 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			free_exec(data, "Fail pid\n", 1);
 		if (exec.pid[i] == 0) // enfant
 		{
+			signal(SIGQUIT, signal_pipex);
+			signal(SIGINT, signal_pipex);
 			// disable_signals();
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
