@@ -36,11 +36,11 @@ void	clean_hdoc(t_mini *data)
 			close(data->heredoc[i].pipe_fd[0]);
 		i++;
 	}
-	if (data->heredoc)
+	if (data->nbr_hd != 0)
 		free(data->heredoc);
 }
 
-void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
+void	free_exec(t_mini *data, char *str, int valuexit)
 {
 	ft_printf("%s", str);
 	close_standard(data->standard);
@@ -193,14 +193,6 @@ void	signal_pipex(int signum)
 	ft_printf("signal recu pipex\n");
 }
 
-// void	signal_here_doc(int signum)
-// {
-// 	if (signum == SIGINT)
-// 		sign_return = SIGINT;
-// 	printf("signal recu depuis heredoc\n");
-// 	close (STDIN_FILENO);
-// }
-
 int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
@@ -212,12 +204,6 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	data->exec = &exec;
 	// signal(SIGINT, signal_here_doc);
 	ft_heredocs(data);
-	// if (sign_return == SIGINT)
-	// {
-	// 	dup2(std, STDIN_FILENO);
-	// 	data->exit_status = 130;
-	// }
-	// close(std);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
@@ -225,7 +211,6 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	}
 	if (sign_return == SIGINT)
 		return (1);
-	// disable_signals();
 	init_exec(data, &exec);
 	signal(SIGINT, SIG_IGN);
 	while (i < exec.nbcmd)

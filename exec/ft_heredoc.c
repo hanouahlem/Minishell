@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/23 16:34:46 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/23 18:37:06 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,7 @@ int	ft_heredocs(t_mini *data)
 	}
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
-	{
-		close(std);
 		return (1);
-	}
 	signal(SIGINT, signal_here_doc);
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
