@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/14 19:12:34 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/23 15:26:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,6 @@ void	signal_here_doc(int signum)
 	close (STDIN_FILENO);
 }
 
-// void	manage_sigHD(void)
-// {
-//     struct sigaction sa;
-
-//     sigemptyset(&sa.sa_mask);  // Aucun signal ne sera bloqué pendant l'exécution du gestionnaire
-//     sa.sa_handler = signal_here_doc;  // Définir le gestionnaire pour SIGINT
-//     sa.sa_flags = 0;  // Pas d'options supplémentaires
-
-//     sigaction(SIGINT, &sa, NULL);
-// }
-
 int	ft_heredocs(t_mini *data)
 {
 	int	i;
@@ -134,7 +123,6 @@ int	ft_heredocs(t_mini *data)
 	if (!hdoc)
 		return (1);
 	signal(SIGINT, signal_here_doc);
-	// manage_sigHD();
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
 	if (sign_return == SIGINT)
