@@ -6,28 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/18 20:22:01 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/23 13:13:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int sign_return;
-
-void sig_management(int signo)
-{
-	if (signo == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		if (!sign_return)
-			sign_return = 130;
-		else
-			sign_return = 0;
-	}
-}
 
 int is_space_or_tab(char *str)
 {
@@ -41,7 +26,7 @@ int is_space_or_tab(char *str)
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	static t_mini data = {0,
 						  .standard[0] = -1,
@@ -49,18 +34,22 @@ int	main(int ac, char **av, char **env)
 	char *line;
 	t_parse *tab;
 
-	tab = NULL;
 	(void)ac;
 	(void)av;
+	tab = NULL;
 	// signal(SIGINT, sig_management);
 	// signal(SIGQUIT, sig_management);
+	sign_return = 0;
 	data.env = get_env(env);
 	data.exec = NULL;
 	line = NULL;
 	data.exit_status = 0;
-	sign_return = 0;
 	while (1)
 	{
+		manage_sig();
+		sign_return = 0;
+		if (sign_return == SIGINT)
+			data.exit_status = 130;
 		line = readline("Minishell 😜👀$> ");
 		if (!line)
 			break;
@@ -101,6 +90,7 @@ int	main(int ac, char **av, char **env)
 			free_inside(&data, NULL, tab);
 			continue;
 		}
+		// manage_sig();
 		clean_hdoc(&data);
 		free_inside(&data, NULL, tab);
 	}

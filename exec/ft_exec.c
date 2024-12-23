@@ -60,14 +60,13 @@ void	ft_exec_ve(t_mini *data, int i)
 	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
-		free_exec(data, NULL, 127);
+		free_exec(data, "Error : Command not found\n", 127);
 	}
 	clean_hdoc(data);
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
-		ft_printf("Excve Fail !\n");
 		free_tab(path);
-		free_exec(data, NULL, 127);
+		free_exec(data, "Error : Command not found\n", 127);
 	}
 	free(data->parser[i].cmd);
 	free_tab(data->parser[i].args);
@@ -197,6 +196,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		one_cmd(data, tab, i);
 		return (1);
 	}
+	// disable_signals();
 	init_exec(data, &exec);
 	while (i < exec.nbcmd)
 	{
@@ -207,6 +207,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			free_exec(data, "Fail pid\n", 1);
 		if (exec.pid[i] == 0) // enfant
 		{
+			// disable_signals();
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
 			if(!tab->args || !tab->args[0])
