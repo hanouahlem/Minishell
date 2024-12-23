@@ -130,13 +130,13 @@ int	ft_heredocs(t_mini *data)
 	tmp = data->token;
 	data->nbr_hd = count_hd(data);
 	if (data->nbr_hd == 0)
-		return (1);
-	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
-	if (!hdoc)
 	{
 		close(std);
 		return (1);
 	}
+	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
+	if (!hdoc)
+		return (1);
 	signal(SIGINT, signal_here_doc);
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
