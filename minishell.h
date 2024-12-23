@@ -107,6 +107,7 @@ typedef struct t_mini
 	t_exec			*exec;
 	t_hdoc			*heredoc;
 	int				standard[2];
+	int				check;
 }					t_mini;
 
 typedef enum t_token_type
@@ -216,6 +217,7 @@ void	default_signals(void);
 void	disable_signals(void);
 void	manage_sig(void);
 void	sig_management(int signo);
+void	sig_management2(int signo);
 void    sign_hdoc(int num_sig);
 
 #endif
