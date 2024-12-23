@@ -47,9 +47,15 @@ int	main(int ac, char **av, char **env)
 	data.exec = NULL;
 	line = NULL;
 	data.exit_status = 0;
+	data.check = 0;
 	while (1)
 	{
 		manage_sig();
+		if (data.check == 0)
+			signal(SIGINT, sig_management);
+		if (data.check == 1)
+			signal(SIGINT, sig_management2);
+		data.check = 0;
 		sign_return = 0;
 		if (sign_return == SIGINT)
 			data.exit_status = 130;

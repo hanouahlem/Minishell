@@ -104,6 +104,7 @@ void	signal_here_doc(int signum)
 	if (signum == SIGINT)
 		sign_return = SIGINT;
 	close (STDIN_FILENO);
+	printf("\n");
 }
 
 // void	manage_sigHD(void)
@@ -132,13 +133,16 @@ int	ft_heredocs(t_mini *data)
 		return (1);
 	hdoc = ft_calloc(sizeof(t_hdoc), (data->nbr_hd + 1));
 	if (!hdoc)
+	{
+		close(std);
 		return (1);
+	}
 	signal(SIGINT, signal_here_doc);
-	// manage_sigHD();
 	take_delimiter(data, hdoc);
 	data->heredoc = hdoc;
 	if (sign_return == SIGINT)
 	{
+		data->check = 1;
 		dup2(std, STDIN_FILENO);
 		data->exit_status = 130;
 	}

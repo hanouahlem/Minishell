@@ -46,6 +46,20 @@ void	sig_management(int signo)
 	}
 }
 
+void	sig_management2(int signo)
+{
+	if (signo == SIGINT)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		if (!sign_return)
+			sign_return = 130;
+		else
+			sign_return = 0;
+	}
+}
+
 void	manage_sig(void)
 {
     struct sigaction sa;

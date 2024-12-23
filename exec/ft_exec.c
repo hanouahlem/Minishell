@@ -36,7 +36,8 @@ void	clean_hdoc(t_mini *data)
 			close(data->heredoc[i].pipe_fd[0]);
 		i++;
 	}
-	free(data->heredoc);
+	if (data->heredoc)
+		free(data->heredoc);
 }
 
 void	free_exec(t_mini *data, char *str, int valuexit) // int pour exit
@@ -189,7 +190,7 @@ void	signal_pipex(int signum)
 		sign_return = SIGQUIT;
 	else
 		sign_return = SIGINT;
-	printf("signal recu pipex\n");
+	ft_printf("signal recu pipex\n");
 }
 
 // void	signal_here_doc(int signum)
@@ -204,16 +205,26 @@ int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
 	t_exec	exec;
+	// int		std = dup(0);
 
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
+	// signal(SIGINT, signal_here_doc);
 	ft_heredocs(data);
+	// if (sign_return == SIGINT)
+	// {
+	// 	dup2(std, STDIN_FILENO);
+	// 	data->exit_status = 130;
+	// }
+	// close(std);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
 		return (1);
 	}
+	if (sign_return == SIGINT)
+		return (1);
 	// disable_signals();
 	init_exec(data, &exec);
 	signal(SIGINT, SIG_IGN);
@@ -226,9 +237,9 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			free_exec(data, "Fail pid\n", 1);
 		if (exec.pid[i] == 0) // enfant
 		{
+			// disable_signals();
 			signal(SIGQUIT, signal_pipex);
 			signal(SIGINT, signal_pipex);
-			// disable_signals();
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
 			if(!tab->args || !tab->args[0])
@@ -237,10 +248,8 @@ int	ft_exec(t_mini *data, t_parse *tab)
 				ft_exec_ve(data, i);
 			else
 			{
-				ft_built_in_comp(data, tab, i);
-				
+				ft_built_in_comp(data, tab, i);	
 			}
-		
 			free_exec(data, NULL, 127);
 		}
 		else // parent
