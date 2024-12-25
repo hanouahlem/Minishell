@@ -65,76 +65,39 @@ void	change_value_in_env(t_env **env, char *str, char *new_value,
 	}
 }
 
+void	process_export(t_mini *data, t_parse *tab, char *key, int i)
+{
+	t_env	*node;
+	char	*value;
+
+	node = NULL;
+	value = find_value_for_env(tab->args[i]);
+	if (is_key_in_env(data, key))
+		change_value_in_env(&data->env, key, value, tab->args[i]);
+	else
+	{
+		node = ft_lstnew_env(tab->args[i]);
+		if (!node)
+			return (free(key), free(value));
+		ft_lstadd_back_env(&data->env, node);
+	}
+	free(value);
+}
+
 int	ft_export(t_mini *data, t_parse *tab)
 {
 	int		i;
 	char	*key;
-	char	*value;
-	t_env	*node;
 
 	i = 1;
-	node = NULL;
 	while (tab->args[i])
 	{
 		key = find_key_for_env(tab->args[i]);
 		if (check_key_export(key) == 1)
 			return (free(key), 1);
-		value = find_value_for_env(tab->args[i]);
-		if (is_key_in_env(data, key) == 1)
-			change_value_in_env(&data->env, key, value, tab->args[i]);
-		else
-		{
-			node = ft_lstnew_env(tab->args[i]);
-			if (!node)
-			{
-				free(key);
-				free(value);
-				return (1);
-			}
-			ft_lstadd_back_env(&data->env, node);
-		}
+		process_export(data, tab, key, i);
 		i++;
-		free(value);
 		free(key);
 	}
 	return (0);
 }
-
-void	free_unset(t_env *env)
-{
-	free(env->key);
-	free(env->value);
-	free(env->content);
-}
-
-int	ft_unset(t_mini *data, t_parse *tab)
-{
-	t_env	*tmp;
-	t_env	*prev;
-	int	i;
-
-	tmp = data->env;
-	prev = NULL;
-	i = 0;
-	while (tab->args[++i])
-	{
-		while (data->env)
-		{
-			if (ft_strcmp(data->env->key, tab->args[i]) == 0)
-			{
-				free_unset(data->env);
-				if (prev)
-					prev->next = data->env->next;
-				else
-					tmp = data->env->next;
-				free(data->env);
-				break ;
-			}
-			prev = data->env;
-			data->env = data->env->next;
-		}
-		data->env = tmp;
-	}
-	return (0);
-}
-

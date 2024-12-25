@@ -25,7 +25,8 @@ SRCS =	minishell.c \
 		expand/expand_utils_2.c \
 		bultins/built_in.c \
 		bultins/ft_exit.c \
-		bultins/unset_export.c \
+		bultins/ft_export.c \
+		bultins/ft_unset.c \
 		bultins/ft_echo.c \
 		bultins/ft_cd.c \
 		prints.c \

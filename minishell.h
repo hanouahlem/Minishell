@@ -162,6 +162,8 @@ void				free_env(t_mini *data);
 void				free_token(t_mini *data);
 void				free_parser(t_mini *data, t_parse *tab);
 void				free_tab(char **tab);
+void				free_env(t_mini *data);
+void	clean_hdoc(t_mini *data);
 
 // MY_PRINTS
 void				print_env(t_env *env);
@@ -200,9 +202,6 @@ int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
 
-// Free
-void				free_env(t_mini *data);
-void	clean_hdoc(t_mini *data);
 // EXEC
 void				free_exec(t_mini *data, char *str, int valueexit);
 void				env_in_tab_exec(t_mini *data);
@@ -213,11 +212,8 @@ void				redirections_pipe(t_exec *exec, int index);
 int					ft_heredocs(t_mini *data);
 
 // SIGNALS
-void	default_signals(void);
-void	disable_signals(void);
 void	manage_sig(void);
 void	sig_management(int signo);
 void	sig_management2(int signo);
-void    sign_hdoc(int num_sig);
 
 #endif
