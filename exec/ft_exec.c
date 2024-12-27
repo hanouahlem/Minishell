@@ -6,14 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/23 16:38:01 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:11:37 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void	close_standard(int standard[2])
+void close_standard(int standard[2])
 {
 	if (standard[0] != -1)
 		close(standard[0]);
@@ -21,9 +20,9 @@ void	close_standard(int standard[2])
 		close(standard[1]);
 }
 
-void	clean_hdoc(t_mini *data)
+void clean_hdoc(t_mini *data)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!data->heredoc)
@@ -33,14 +32,17 @@ void	clean_hdoc(t_mini *data)
 		if (data->heredoc[i].delim)
 			free(data->heredoc[i].delim);
 		if (data->heredoc[i].pipe_fd[0] >= 0)
+		{
 			close(data->heredoc[i].pipe_fd[0]);
+			close(data->heredoc[i].pipe_fd[1]);
+		}
 		i++;
 	}
 	if (data->nbr_hd != 0)
 		free(data->heredoc);
 }
 
-void	free_exec(t_mini *data, char *str, int valuexit)
+void free_exec(t_mini *data, char *str, int valuexit)
 {
 	ft_printf("%s", str);
 	close_standard(data->standard);
@@ -52,28 +54,28 @@ void	free_exec(t_mini *data, char *str, int valuexit)
 	exit(valuexit);
 }
 
-void	ft_exec_ve(t_mini *data, int i)
+void ft_exec_ve(t_mini *data, int i)
 {
-	char	**path;
+	char **path;
 
 	path = get_path_exec(data->exec->env_exec);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
 	if (data->parser[i].cmd == NULL)
 	{
 		free_tab(path);
-		free_exec(data, "Error : Command not found\n", 127);
+		free_exec(data, NULL, 127);
 	}
 	clean_hdoc(data);
 	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
 	{
 		free_tab(path);
-		free_exec(data, "Error : Command not found\n", 127);
+		free_exec(data, NULL, 127);
 	}
 	free(data->parser[i].cmd);
 	free_tab(data->parser[i].args);
 }
 
-void	redirections_pipe(t_exec *exec, int index)
+void redirections_pipe(t_exec *exec, int index)
 {
 	if (index != 0) // lire
 	{
@@ -88,7 +90,7 @@ void	redirections_pipe(t_exec *exec, int index)
 	close(exec->pipe_fd[1]);
 }
 
-void	init_exec(t_mini *data, t_exec *exec)
+void init_exec(t_mini *data, t_exec *exec)
 {
 	env_in_tab_exec(data);
 	exec->nbcmd = data->parser->size_cmd;
@@ -100,7 +102,7 @@ int find_hd(t_mini *data, char *str)
 {
 
 	int i = 0;
-	while(i < data->nbr_hd)
+	while (i < data->nbr_hd)
 	{
 		if (!strcmp(data->heredoc[i].delim, str))
 			return (data->heredoc[i].pipe_fd[0]);
@@ -109,10 +111,10 @@ int find_hd(t_mini *data, char *str)
 	return (-1);
 }
 
-int	redirection_fichier(t_mini *data, t_parse *tab)
+int redirection_fichier(t_mini *data, t_parse *tab)
 {
-	int	i;
-	int	fd;
+	int i;
+	int fd;
 
 	i = 0;
 	fd = -1;
@@ -127,9 +129,9 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 		else if (tab->typefile[i] == DBL_REDIR_IN)
 			fd = find_hd(data, tab->filename[i]);
 		if (fd == -1)
-		{	
+		{
 			if (access(tab->filename[i], F_OK))
-				ft_printf("Error : %s : No such file or directory\n",tab->filename[i] );
+				ft_printf("Error : %s : No such file or directory\n", tab->filename[i]);
 			else
 				ft_printf("Error : %s : Permission denied\n", tab->filename[i]);
 			free_exec(data, NULL, 1);
@@ -145,7 +147,7 @@ int	redirection_fichier(t_mini *data, t_parse *tab)
 	return (0);
 }
 
-int	worst_builtin(t_parse *tab)
+int worst_builtin(t_parse *tab)
 {
 	if (ft_strcmp(tab->args[0], "unset") == 0)
 		return (0);
@@ -160,7 +162,7 @@ int	worst_builtin(t_parse *tab)
 	return (1);
 }
 
-int	one_cmd(t_mini *data, t_parse *tab, int i)
+int one_cmd(t_mini *data, t_parse *tab, int i)
 {
 	data->standard[0] = dup(0);
 	data->standard[1] = dup(1);
@@ -183,27 +185,24 @@ int	one_cmd(t_mini *data, t_parse *tab, int i)
 	return (0);
 }
 
-
-void	signal_pipex(int signum)
+void signal_pipex(int signum)
 {
 	if (signum == SIGQUIT)
 		sign_return = SIGQUIT;
 	else
 		sign_return = SIGINT;
-	ft_printf("signal recu pipex\n");
 }
 
-int	ft_exec(t_mini *data, t_parse *tab)
+int ft_exec(t_mini *data, t_parse *tab)
 {
-	int		i;
-	t_exec	exec;
-	// int		std = dup(0);
+	int i;
+	t_exec exec;
 
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	// signal(SIGINT, signal_here_doc);
-	ft_heredocs(data);
+	if (ft_heredocs(data) == 1)
+		return (1);
 	if (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0)
 	{
 		one_cmd(data, tab, i);
@@ -213,6 +212,7 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		return (1);
 	init_exec(data, &exec);
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (i < exec.nbcmd)
 	{
 		if (pipe(exec.pipe_fd) == -1)
@@ -222,18 +222,17 @@ int	ft_exec(t_mini *data, t_parse *tab)
 			free_exec(data, "Fail pid\n", 1);
 		if (exec.pid[i] == 0) // enfant
 		{
-			// disable_signals();
 			signal(SIGQUIT, signal_pipex);
 			signal(SIGINT, signal_pipex);
 			redirections_pipe(&exec, i);
 			redirection_fichier(data, &tab[i]);
-			if(!tab->args || !tab->args[0])
+			if (!tab->args || !tab->args[0])
 				free_exec(data, NULL, 1);
 			if (ft_is_builtin(tab, i) == 1)
 				ft_exec_ve(data, i);
 			else
 			{
-				ft_built_in_comp(data, tab, i);	
+				ft_built_in_comp(data, tab, i);
 			}
 			free_exec(data, NULL, 127);
 		}
@@ -253,7 +252,6 @@ int	ft_exec(t_mini *data, t_parse *tab)
 		waitpid(exec.pid[i++], &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			data->exit_status = WEXITSTATUS(data->exit_status);
-		// sign_return = 131;
 	}
 	close(data->exec->pipe_fd[0]);
 	free(data->exec->pid);

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/23 16:57:00 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/23 18:42:07 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void ft_expand_len_squote(t_expand *exp_l)
 	}
 }
 
-ft_free_key(char *key)
+void	ft_free_key(char *key)
 {
 	if (key)
 		free(key);
@@ -90,7 +90,7 @@ void ft_expand_len_dquote(t_expand *exp_l)
 				if (value)
 					exp_l->n += ft_strlen(value);
 				free(value);
-				free_key(key);
+				ft_free_key(key);
 			}
 			else
 				ft_exp_plus_plus(exp_l);

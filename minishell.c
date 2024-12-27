@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/23 15:25:15 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/26 18:30:06 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,21 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	tab = NULL;
-	// signal(SIGINT, sig_management);
-	// signal(SIGQUIT, sig_management);
 	sign_return = 0;
 	data.env = get_env(env);
 	data.exec = NULL;
 	line = NULL;
 	data.exit_status = 0;
-	data.check = 0;
 	while (1)
 	{
 		manage_sig();
-		if (data.check == 0)
-			signal(SIGINT, sig_management);
-		if (data.check == 1)
-			signal(SIGINT, sig_management2);
-		data.check = 0;
-		sign_return = 0;
-		if (sign_return == SIGINT)
-			data.exit_status = 130;
 		line = readline("Minishell 😜👀$> ");
+		if (sign_return != 0)
+		{
+			data.exit_status = sign_return;
+			sign_return = 0;
+			continue;
+		}
 		if (!line)
 			break;
 		if (!*line)

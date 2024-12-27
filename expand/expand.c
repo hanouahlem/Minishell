@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/23 16:58:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/23 19:18:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ void ft_expand_dquote(t_expand *exp)
 	}
 }
 
+void	if_value(t_expand *exp, char *value)
+{
+	ft_strcat(exp->new_str, value);
+	exp->n += ft_strlen(value) + 1;
+	free(value);
+}
+
 void ft_expand_dollar(t_expand *exp, t_mini *data)
 {
 	char *key;
@@ -92,11 +99,7 @@ void ft_expand_dollar(t_expand *exp, t_mini *data)
 		{
 			value = ft_itoa(data->exit_status);
 			if (value)
-			{
-				ft_strcat(exp->new_str, value);
-				exp->n += ft_strlen(value) + 1;
-				free(value);
-			}
+				if_value(exp, value);
 			continue ;
 		}
 		key = ft_get_key(exp->str, &(exp->i));
@@ -111,6 +114,12 @@ void ft_expand_dollar(t_expand *exp, t_mini *data)
 		(free(key), free(value));
 	}
 }
+		// if (value)
+		// {
+		// 	ft_strcat(exp->new_str, value);
+		// 	exp->n += ft_strlen(value) + 1;
+		// 	free(value);
+		// }
 
 char *ft_expand(char *str, t_mini *data)
 {
