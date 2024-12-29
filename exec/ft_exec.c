@@ -6,13 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/27 19:11:37 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:23:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void close_standard(int standard[2])
+void	close_standard(int standard[2])
 {
 	if (standard[0] != -1)
 		close(standard[0]);
@@ -20,29 +20,28 @@ void close_standard(int standard[2])
 		close(standard[1]);
 }
 
-void clean_hdoc(t_mini *data)
+void	clean_hdoc(t_mini *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!data->heredoc)
-		return;
+		return ;
 	while (i < data->nbr_hd)
 	{
 		if (data->heredoc[i].delim)
 			free(data->heredoc[i].delim);
-		if (data->heredoc[i].pipe_fd[0] >= 0)
-		{
+		if (data->heredoc[i].pipe_fd[0] > 2)
 			close(data->heredoc[i].pipe_fd[0]);
+		if (data->heredoc[i].pipe_fd[1] > 2)
 			close(data->heredoc[i].pipe_fd[1]);
-		}
 		i++;
 	}
 	if (data->nbr_hd != 0)
 		free(data->heredoc);
 }
 
-void free_exec(t_mini *data, char *str, int valuexit)
+void	free_exec(t_mini *data, char *str, int valuexit)
 {
 	ft_printf("%s", str);
 	close_standard(data->standard);
@@ -54,9 +53,9 @@ void free_exec(t_mini *data, char *str, int valuexit)
 	exit(valuexit);
 }
 
-void ft_exec_ve(t_mini *data, int i)
+void	ft_exec_ve(t_mini *data, int i)
 {
-	char **path;
+	char	**path;
 
 	path = get_path_exec(data->exec->env_exec);
 	data->parser[i].cmd = give_way_cmd(path, data->parser[i].args[0]);
@@ -66,7 +65,8 @@ void ft_exec_ve(t_mini *data, int i)
 		free_exec(data, NULL, 127);
 	}
 	clean_hdoc(data);
-	if (execve(data->parser[i].cmd, data->parser[i].args, data->exec->env_exec) < 0)
+	if (execve(data->parser[i].cmd, data->parser[i].args,
+			data->exec->env_exec) < 0)
 	{
 		free_tab(path);
 		free_exec(data, NULL, 127);
@@ -75,7 +75,7 @@ void ft_exec_ve(t_mini *data, int i)
 	free_tab(data->parser[i].args);
 }
 
-void redirections_pipe(t_exec *exec, int index)
+void	redirections_pipe(t_exec *exec, int index)
 {
 	if (index != 0) // lire
 	{
@@ -90,7 +90,7 @@ void redirections_pipe(t_exec *exec, int index)
 	close(exec->pipe_fd[1]);
 }
 
-void init_exec(t_mini *data, t_exec *exec)
+void	init_exec(t_mini *data, t_exec *exec)
 {
 	env_in_tab_exec(data);
 	exec->nbcmd = data->parser->size_cmd;
@@ -98,10 +98,11 @@ void init_exec(t_mini *data, t_exec *exec)
 	exec->pipe_prev = -1;
 }
 
-int find_hd(t_mini *data, char *str)
+int	find_hd(t_mini *data, char *str)
 {
+	int	i;
 
-	int i = 0;
+	i = 0;
 	while (i < data->nbr_hd)
 	{
 		if (!strcmp(data->heredoc[i].delim, str))
@@ -111,10 +112,10 @@ int find_hd(t_mini *data, char *str)
 	return (-1);
 }
 
-int redirection_fichier(t_mini *data, t_parse *tab)
+int	redirection_fichier(t_mini *data, t_parse *tab)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = 0;
 	fd = -1;
@@ -131,14 +132,16 @@ int redirection_fichier(t_mini *data, t_parse *tab)
 		if (fd == -1)
 		{
 			if (access(tab->filename[i], F_OK))
-				ft_printf("Error : %s : No such file or directory\n", tab->filename[i]);
+				ft_printf("Error : %s : No such file or directory\n",
+					tab->filename[i]);
 			else
 				ft_printf("Error : %s : Permission denied\n", tab->filename[i]);
 			free_exec(data, NULL, 1);
 		}
 		if (tab->typefile[i] == REDIR_OUT || tab->typefile[i] == DBL_REDIR_OUT)
 			dup2(fd, STDOUT_FILENO);
-		else if (tab->typefile[i] == REDIR_IN || tab->typefile[i] == DBL_REDIR_IN)
+		else if (tab->typefile[i] == REDIR_IN
+			|| tab->typefile[i] == DBL_REDIR_IN)
 			dup2(fd, STDIN_FILENO);
 		i++;
 		if (tab->typefile[i] != DBL_REDIR_IN)
@@ -147,7 +150,7 @@ int redirection_fichier(t_mini *data, t_parse *tab)
 	return (0);
 }
 
-int worst_builtin(t_parse *tab)
+int	worst_builtin(t_parse *tab)
 {
 	if (ft_strcmp(tab->args[0], "unset") == 0)
 		return (0);
@@ -162,7 +165,7 @@ int worst_builtin(t_parse *tab)
 	return (1);
 }
 
-int one_cmd(t_mini *data, t_parse *tab, int i)
+int	one_cmd(t_mini *data, t_parse *tab, int i)
 {
 	data->standard[0] = dup(0);
 	data->standard[1] = dup(1);
@@ -185,7 +188,7 @@ int one_cmd(t_mini *data, t_parse *tab, int i)
 	return (0);
 }
 
-void signal_pipex(int signum)
+void	signal_pipex(int signum)
 {
 	if (signum == SIGQUIT)
 		sign_return = SIGQUIT;
@@ -193,10 +196,10 @@ void signal_pipex(int signum)
 		sign_return = SIGINT;
 }
 
-int ft_exec(t_mini *data, t_parse *tab)
+int	ft_exec(t_mini *data, t_parse *tab)
 {
-	int i;
-	t_exec exec;
+	int		i;
+	t_exec	exec;
 
 	i = 0;
 	ft_memset(&exec, 0, sizeof(t_exec));

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/27 19:14:01 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/29 19:04:52 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 		{
 			data->exit_status = sign_return;
 			sign_return = 0;
-			return (1);
+			return (close(fd),1);
 		}
 		if (!line)
 		{
@@ -54,7 +54,6 @@ int write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 		free(line);
 	}
 	close(fd);
-
 	return (0);
 }
 
@@ -78,10 +77,7 @@ int take_delimiter(t_mini *data, t_hdoc *hdoc)
 				exit(1);
 			}
 			if (write_hd(data, hdoc, hdoc[i].pipe_fd[1], i) == 1)
-			{
-				dprintf(2, "apres le write hd\n");
 				return (1);
-			}
 			i++;
 			tmp = tmp->next;
 		}
@@ -91,15 +87,6 @@ int take_delimiter(t_mini *data, t_hdoc *hdoc)
 			return (0);
 	}
 	return (0);
-}
-
-void signal_here_doc(int signum)
-{
-	if (signum == SIGINT)
-		sign_return = SIGINT;
-	rl_replace_line("", 0); // Efface la ligne courante
-	rl_on_new_line();		// Signale une nouvelle ligne
-	rl_redisplay();
 }
 
 int ft_heredocs(t_mini *data)

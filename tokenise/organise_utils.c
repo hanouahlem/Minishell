@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:36:41 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:15 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int pipe_nbr(t_mini data)
+int	pipe_nbr(t_mini data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data.token)
@@ -27,16 +27,17 @@ int pipe_nbr(t_mini data)
 	return (i);
 }
 
-int if_is_redir(int type)
+int	if_is_redir(int type)
 {
-	if (type == REDIR_IN || type == REDIR_OUT || type == DBL_REDIR_IN || type == DBL_REDIR_OUT)
+	if (type == REDIR_IN || type == REDIR_OUT || type == DBL_REDIR_IN
+		|| type == DBL_REDIR_OUT)
 		return (0);
 	return (1);
 }
 
-void ft_count_elements(t_mini *data, t_parse *tab)
+void	ft_count_elements(t_mini *data, t_parse *tab)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = data->token;
 	tab->args_count = 0;

@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:36:37 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void handle_token(char *str, int *index_l, t_token **tokenis)
+void	handle_token(char *str, int *index_l, t_token **tokenis)
 {
-	t_token *node_t;
+	t_token	*node_t;
 
 	str[*index_l] = '\0';
 	node_t = ft_lstnew_tok(str);
@@ -22,9 +22,9 @@ void handle_token(char *str, int *index_l, t_token **tokenis)
 	*index_l = 0;
 }
 
-void process_special_char(char *line, char *str, int *i, t_token **tokenis)
+void	process_special_char(char *line, char *str, int *i, t_token **tokenis)
 {
-	t_token *node_t;
+	t_token	*node_t;
 
 	str[0] = line[*i];
 	if (line[(*i) + 1] == '>' || line[(*i) + 1] == '<')
@@ -39,10 +39,10 @@ void process_special_char(char *line, char *str, int *i, t_token **tokenis)
 	ft_lstadd_back_tok(tokenis, node_t);
 }
 
-void split_line(int i, char *line, t_token **tokenis)
+void	split_line(int i, char *line, t_token **tokenis)
 {
-	int index_l;
-	char *str;
+	int		index_l;
+	char	*str;
 
 	index_l = 0;
 	str = ft_strdup(line);
@@ -67,6 +67,7 @@ void split_line(int i, char *line, t_token **tokenis)
 	*tokenis = add_prev(*tokenis);
 	free(str);
 }
+
 // else
 // {
 // 	str[index_l++] = line[i];

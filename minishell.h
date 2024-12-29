@@ -6,14 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/25 19:55:40 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/29 17:01:17 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include "Colors.h"
 #include "libft/libft.h"
 #include "printf/ft_printf.h"
 #include <fcntl.h>
@@ -172,12 +171,13 @@ void print_parse(t_parse *tab, int size);
 void ft_expand_len_dollar(t_expand *exp_l);
 void ft_expand_len_dquote(t_expand *exp_l);
 void ft_expand_len_squote(t_expand *exp_l);
-
 int ft_expand_len(char *str, t_mini *data);
 char *ft_expand(char *str, t_mini *data);
 
+void	if_value(t_expand *exp, char *value);
 void ft_cat_value(t_expand *exp, char *value);
 void ft_exp_plus_plus(t_expand *exp_l);
+void	ft_free_key(char *key);
 
 // BUILT_IN
 int ft_is_builtin(t_parse *tab, int i);
@@ -189,7 +189,7 @@ int ft_exit(t_mini *data, t_parse *tab);
 int ft_export(t_mini *data, t_parse *tab);
 int ft_unset(t_mini *data, t_parse *tab);
 int ft_echo(t_parse *tab);
-void print_parse(t_parse *tab, int size);
+// void print_parse(t_parse *tab, int size);
 
 int if_is_redir(int type);
 

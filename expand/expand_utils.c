@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/23 18:42:07 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:43:51 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_value_from_key(char *str, t_mini *data)
+char	*ft_value_from_key(char *str, t_mini *data)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = data->env;
 	if (!strcmp(str, "?"))
@@ -28,10 +28,10 @@ char *ft_value_from_key(char *str, t_mini *data)
 	return (NULL);
 }
 
-char *ft_get_key(char *str, int *i)
+char	*ft_get_key(char *str, int *i)
 {
-	int j;
-	char *c;
+	int		j;
+	char	*c;
 
 	j = 0;
 	if (!str)
@@ -41,8 +41,8 @@ char *ft_get_key(char *str, int *i)
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!c)
 		return (NULL);
-
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_') && !ft_isdigit(str[1]))
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
+		&& !ft_isdigit(str[1]))
 	{
 		c[j++] = str[(*i)++];
 	}
@@ -50,7 +50,7 @@ char *ft_get_key(char *str, int *i)
 	return (c);
 }
 
-void ft_expand_len_squote(t_expand *exp_l)
+void	ft_expand_len_squote(t_expand *exp_l)
 {
 	if (exp_l->str[exp_l->i] == SQUOTE)
 	{
@@ -64,16 +64,10 @@ void ft_expand_len_squote(t_expand *exp_l)
 	}
 }
 
-void	ft_free_key(char *key)
+void	ft_expand_len_dquote(t_expand *exp_l)
 {
-	if (key)
-		free(key);
-}
-
-void ft_expand_len_dquote(t_expand *exp_l)
-{
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	if (exp_l->str[exp_l->i] == DQUOTE)
 	{
@@ -99,10 +93,10 @@ void ft_expand_len_dquote(t_expand *exp_l)
 	}
 }
 
-void ft_expand_len_dollar(t_expand *exp_l)
+void	ft_expand_len_dollar(t_expand *exp_l)
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	if (exp_l->str[exp_l->i] == '$')
 	{

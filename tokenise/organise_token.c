@@ -6,13 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/23 16:54:24 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:39:57 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_parse(t_parse *tab, t_token *tokenis)
+void	ft_parse(t_parse *tab, t_token *tokenis)
 {
 	if (if_is_redir(tokenis->type) == 0 && tab->typelen < tab->typefile_count)
 	{
@@ -26,7 +26,7 @@ void ft_parse(t_parse *tab, t_token *tokenis)
 	}
 }
 
-void ft_allocate_parse(t_parse *tab)
+void	ft_allocate_parse(t_parse *tab)
 {
 	tab->args = ft_calloc(sizeof(char *), (tab->args_count + 1));
 	tab->typefile = ft_calloc(sizeof(int), (tab->typefile_count + 1));
@@ -38,7 +38,7 @@ void ft_allocate_parse(t_parse *tab)
 	}
 }
 
-void while_token(t_mini *data, t_parse *tab, int *i)
+void	while_token(t_mini *data, t_parse *tab, int *i)
 {
 	while (data->token && data->token->type != PIPE)
 	{
@@ -51,12 +51,12 @@ void while_token(t_mini *data, t_parse *tab, int *i)
 		data->token = data->token->next;
 }
 
-t_parse *table_struct(t_mini *data)
+t_parse	*table_struct(t_mini *data)
 {
-	int i;
-	int size;
-	t_parse *tab;
-	t_token *original_token;
+	int		i;
+	int		size;
+	t_parse	*tab;
+	t_token	*original_token;
 
 	i = 0;
 	tab = NULL;

@@ -6,16 +6,16 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/23 16:53:26 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:23 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *token_negation(char *str)
+char	*token_negation(char *str)
 {
-	int i;
-	int flag_quote;
+	int	i;
+	int	flag_quote;
 
 	i = 0;
 	while (str[i])
@@ -38,9 +38,9 @@ char *token_negation(char *str)
 	return (str);
 }
 
-char *token_positive(char *str)
+char	*token_positive(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -52,12 +52,12 @@ char *token_positive(char *str)
 	return (str);
 }
 
-char *delete_quote(char *str)
+char	*delete_quote(char *str)
 {
-	char *new;
-	int i;
-	int n;
-	char c;
+	char	*new;
+	int		i;
+	int		n;
+	char	c;
 
 	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	i = 0;
