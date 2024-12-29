@@ -40,8 +40,6 @@ char	*give_way_cmd(char **env, char *cmd)
 		ft_printf("Error: %s: command not found\n", cmd);
 		return (NULL);
 	}
-	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
 	if (!env)
 		return (NULL);
 	path = env;
@@ -51,7 +49,12 @@ char	*give_way_cmd(char **env, char *cmd)
 		if (res)
 			return (res);
 	}
-	ft_printf("Error: command not found: %s\n", cmd);
+	else 
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+	}
+	ft_printf("Error: %s: command not found\n", cmd);
 	return (NULL);
 }
 
@@ -76,8 +79,7 @@ void	env_in_tab_exec(t_mini *data)
 	tmp = data->env;
 	while (tmp)
 	{
-		data->exec->env_exec[i] = tmp->content;
-		// printf("env_exec[i] -> %s\n", data->exec->env_exec[i]);
+		data->exec->env_exec[i] = ft_strdup(tmp->content);
 		i++;
 		tmp = tmp->next;
 	}

@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/29 18:05:54 by ahbey            ###   ########.fr       */
+/*   Created: 2024/12/23 15:23:25 by ahbey             #+#    #+#             */
+/*   Updated: 2024/12/29 18:52:53 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "minishell.h"
 
-int	ft_putstr(char *str, int *len)
+int	sig_event(void)
 {
-	int	i;
+	return (EXIT_SUCCESS);
+}
 
-	(void)len;
-	i = 0;
-	(void)len;
-	if (!str)
-	{
-		// *len += write(2, "(null)\n", 7);
-		return (0);
-	}
-	while (str[i])
-	{
-		write(2, &str[i], 1);
-		i++;
-	}
-	return (i);
+void	sig_management(int signo)
+{
+	sign_return = 128 + signo;
+	rl_done = 1;
+}
+
+void	manage_sig(void)
+{
+    struct sigaction sa;
+
+    sigemptyset(&sa.sa_mask);
+	rl_event_hook = sig_event;
+    sa.sa_handler = sig_management; 
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

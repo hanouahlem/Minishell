@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/19 16:35:14 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:43:51 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_value_from_key(char *str, t_mini *data)
 	t_env	*tmp;
 
 	tmp = data->env;
+	if (!strcmp(str, "?"))
+		return (ft_itoa(data->exit_status));
 	while (tmp)
 	{
 		if (!ft_strcmp(str, tmp->key))
@@ -34,6 +36,8 @@ char	*ft_get_key(char *str, int *i)
 	j = 0;
 	if (!str)
 		return (NULL);
+	if (str[*i] == '?')
+		return ((*i)++, ft_strdup("?"));
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!c)
 		return (NULL);
@@ -80,8 +84,7 @@ void	ft_expand_len_dquote(t_expand *exp_l)
 				if (value)
 					exp_l->n += ft_strlen(value);
 				free(value);
-				if (key)
-					free(key);
+				ft_free_key(key);
 			}
 			else
 				ft_exp_plus_plus(exp_l);

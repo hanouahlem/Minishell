@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 16:19:36 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/13 19:57:04 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:39:30 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_tokenisation(char *tokens)
 
 t_token	*add_prev(t_token *new)
 {
-	t_token	*tmp1;
-	t_token	*tmp2;
+	t_token		*tmp1;
+	t_token		*tmp2;
 
 	if (new)
 	{
@@ -52,7 +52,7 @@ t_token	*add_prev(t_token *new)
 
 t_token	*ft_lstnew_tok(void *values)
 {
-	t_token	*new;
+	t_token		*new;
 
 	new = malloc(sizeof(t_token));
 	if (!new)

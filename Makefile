@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/01 19:25:57 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/29 21:53:02 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,13 @@ SRCS =	minishell.c \
 		bultins/ft_exit.c \
 		bultins/unset_export.c \
 		bultins/ft_echo.c \
+		bultins/ft_cd.c \
 		prints.c \
 		exec/ft_path.c \
+		exec/signals.c \
 		exec/ft_exec.c \
-		# exec_hanou/ft_exec_hm.c \
-
+		exec/ft_heredoc.c\
+	
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3
@@ -71,6 +73,6 @@ fclean: clean
 re:		fclean all
 
 leak: all
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --suppressions=supp.txt ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --show-reachable=yes --suppressions=supp.txt ./minishell
 
 .PHONY: all clean fclean re/

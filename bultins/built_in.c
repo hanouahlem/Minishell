@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:26:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/01 19:19:56 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/09 20:19:29 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env(t_env *env)
 	{
 		while (tmp)
 		{
-			printf("%s\n",tmp->content);
+			printf("%s\n", tmp->content);
 			tmp = tmp->next;
 		}
 		return (0);
@@ -34,6 +34,8 @@ int	ft_pwd(t_mini *data)
 	char	*pwd;
 
 	(void)data;
+	// if (!data->env->content)
+	// 	return (printf("No env !\n\n"), 1);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
@@ -45,34 +47,6 @@ int	ft_pwd(t_mini *data)
 	}
 	printf("%s\n", pwd);
 	free(pwd);
-	return (0);
-}
-
-int	ft_cd(t_parse *tab)
-{
-	char	*my_home;
-
-	// changer OLDPWD dans env
-	my_home = getenv("HOME");
-	if (!my_home)
-		return (printf("Error : can't get HOME.\n"), 1);
-	if (tab->args[1])
-	{
-		if (tab->args[2])
-			return (printf("Erreur cd : too many arguments !\n"), 1);
-		if (ft_strcmp(tab->args[1], "~") == 0)
-		{
-			if (chdir(my_home) != 0)
-				return (printf("Error : chdir fail \n"), 1);
-		}
-		if (chdir(tab->args[1]) != 0)
-			return (printf("Error : chdir fail \n"), 1);
-	}
-	else
-	{
-		if (chdir(my_home) != 0)
-			return (printf("Error : chdir fail \n"), 1);
-	}
 	return (0);
 }
 
@@ -112,9 +86,9 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab, int i)
 	if (ft_strcmp(tab[i].args[0], "exit") == 0)
 		return (ft_exit(data, &tab[i]));
 	if (ft_strcmp(tab[i].args[0], "echo") == 0)
-		return (ft_echo(&tab[i]));// il maquait le [i] pour donner le bon arg
+		return (ft_echo(&tab[i]));
 	if (ft_strcmp(tab[i].args[0], "cd") == 0)
-		return (data->exit_status = ft_cd(&tab[i]));
+		return (ft_cd(&tab[i], data));
 	return (1);
 }
 
@@ -122,6 +96,6 @@ int	ft_built_in_comp(t_mini *data, t_parse *tab, int i)
 // pwd    = fini
 // echo   = fini
 // cd     = normalement fini
-// unset  = en cours
-// export = en cours
-// exit   = a faire
+// unset  = fini
+// export = fini
+// exit   = presque
