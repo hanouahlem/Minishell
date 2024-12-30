@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/30 17:19:30 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:32:07 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@ void	clean_up_exec(t_mini *data)
 	free_tab(data->exec->env_exec);
 }
 
+int	exec_commands(t_mini *data, t_parse *tab, t_exec *exec)
+{
+	int	i;
+
+	i = -1;
+	while (++i < exec->nbcmd)
+	{
+		if (exec_pipe(exec) == 1)
+			return (free_exec(data, "Fail pid\n", 1), 1);
+		exec->pid[i] = fork();
+		if (exec->pid[i] == -1)
+			return (free_exec(data, "Fail pid\n", 1), 1);
+		if (exec->pid[i] == 0)
+			exec_child_process(data, exec, tab, i);
+		else
+			exec_parent_process(exec, i);
+	}
+	return (0);
+}
+
 int	ft_exec(t_mini *data, t_parse *tab)
 {
 	int		i;
@@ -49,24 +69,17 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	i = -1;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	if (ft_heredocs(data) || (tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0))
+	if (ft_heredocs(data) == 1)
+		return (1);
+	if ((tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0))
 		return (one_cmd(data, tab, 0));
 	if (sign_return == SIGINT)
 		return (1);
 	init_exec(data, &exec);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	while (++i < exec.nbcmd)
-	{
-		ft_printf("i -----> %i\n", i);
-		exec.pid[i] = fork();
-		if (exec_pipe(&exec) || exec.pid[i] == -1)
-			return (free_exec(data, "Fail pid\n", 1), 1);
-		if (exec.pid[i] == 0)
-			exec_child_process(data, &exec, tab, i);
-		else
-			exec_parent_process(&exec, i);
-	}
+	if (exec_commands(data, tab, &exec) == 1)
+		return (1);
 	wait_for_processes(&exec, data);
 	return (clean_up_exec(data), 0);
 }
