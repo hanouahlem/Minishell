@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 15:36:15 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:23 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,6 @@ char	*token_positive(char *str)
 	}
 	return (str);
 }
-
-// char	*delete_quote(char *str)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*res;
-
-// 	i = 0;
-// 	j = 0;
-// 	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
-// 	while (str[i])
-// 	{
-// 		if (str[i] == SQUOTE || str[i] == DQUOTE)
-// 		{
-// 			i++;
-// 		}
-// 		res[j] = str[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	res[j] = '\0';
-// 	free(str);
-// 	return (res);
-// }
 
 char	*delete_quote(char *str)
 {

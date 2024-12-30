@@ -1,46 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/23 15:23:25 by ahbey             #+#    #+#             */
+/*   Updated: 2024/12/30 15:43:48 by manbengh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+int	sig_event(void)
+{
+	return (EXIT_SUCCESS);
+}
 
 void	sig_management(int signo)
 {
-	if (signo == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		if (!sign_return)
-			sign_return = 130;
-		else
-			sign_return = 0;
-	}
+	sign_return = 128 + signo;
+	rl_done = 1;
 }
 
-void	sig_management2(int signo)
+void	signal_pipex(int signum)
 {
-	if (signo == SIGINT)
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		if (!sign_return)
-			sign_return = 130;
-		else
-			sign_return = 0;
-	}
+	if (signum == SIGQUIT)
+		sign_return = SIGQUIT;
+	else
+		sign_return = SIGINT;
 }
 
 void	manage_sig(void)
 {
-    struct sigaction sa;
+	struct sigaction	sa;
 
-    // Initialiser la structure sigaction à zéro
-    sigemptyset(&sa.sa_mask);  // Aucun signal ne sera bloqué pendant l'exécution du gestionnaire
-    sa.sa_handler = sig_management;  // Définir le gestionnaire pour SIGINT
-    sa.sa_flags = 0;  // Pas d'options supplémentaires
-
-    // Enregistrer le gestionnaire pour SIGINT
-    sigaction(SIGINT, &sa, NULL);
-	// signal(SIGINT, &sig_management);
+	sigemptyset(&sa.sa_mask);
+	rl_event_hook = sig_event;
+	sa.sa_handler = sig_management;
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGTSTP, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

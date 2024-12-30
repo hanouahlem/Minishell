@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/09 20:14:42 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:43:51 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_get_key(char *str, int *i)
 	c = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!c)
 		return (NULL);
-
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')
 		&& !ft_isdigit(str[1]))
 	{
@@ -85,8 +84,7 @@ void	ft_expand_len_dquote(t_expand *exp_l)
 				if (value)
 					exp_l->n += ft_strlen(value);
 				free(value);
-				if (key)
-					free(key);
+				ft_free_key(key);
 			}
 			else
 				ft_exp_plus_plus(exp_l);

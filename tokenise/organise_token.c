@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:18:52 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 17:38:48 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/27 19:39:57 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,3 @@ t_parse	*table_struct(t_mini *data)
 	data->token = original_token;
 	return (tab);
 }
-
-// ls -l | cat -re | echo asd  asd
-
-// tab[0]
-// cmd = ls
-// arg = ls -l
-
-// tab[1]
-// cmd = cat
-// arg = cat -re
-
-// tab[2]
-// cmd = echo
-// arg = echo asd asd

@@ -6,16 +6,16 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/14 18:01:12 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:15:28 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "Colors.h"
 # include "libft/libft.h"
 # include "printf/ft_printf.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -24,11 +24,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <errno.h>
 
 # define SQUOTE '\''
 # define DQUOTE '"'
@@ -127,6 +126,8 @@ extern int	sign_return ;
 // syntax error
 int					ft_check_redir_in_out(char *str);
 int					ft_quote(char *str);
+int is_space_or_tab(char *str);
+int	check_main(t_mini *data, char *line, t_parse *tab);
 
 // en
 t_env				*ft_lstnew_env(void *content);
@@ -163,23 +164,24 @@ void				free_token(t_mini *data);
 void				free_parser(t_mini *data, t_parse *tab);
 void				free_tab(char **tab);
 void				free_env(t_mini *data);
-void	clean_hdoc(t_mini *data);
+void				clean_hdoc(t_mini *data);
+void				free_exec(t_mini *data, char *str, int valuexit);
 
 // MY_PRINTS
 void				print_env(t_env *env);
 void				print_token(t_token *tokenis);
-void				print_parse(t_parse *tab, int size);
 
 // EXPAND
 void				ft_expand_len_dollar(t_expand *exp_l);
 void				ft_expand_len_dquote(t_expand *exp_l);
 void				ft_expand_len_squote(t_expand *exp_l);
-
 int					ft_expand_len(char *str, t_mini *data);
 char				*ft_expand(char *str, t_mini *data);
 
+void				if_value(t_expand *exp, char *value);
 void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
+void				ft_free_key(char *key);
 
 // BUILT_IN
 int					ft_is_builtin(t_parse *tab, int i);
@@ -191,11 +193,9 @@ int					ft_exit(t_mini *data, t_parse *tab);
 int					ft_export(t_mini *data, t_parse *tab);
 int					ft_unset(t_mini *data, t_parse *tab);
 int					ft_echo(t_parse *tab);
-void				print_parse(t_parse *tab, int size);
-
-int					if_is_redir(int type);
 
 // ORGANIS
+
 int					pipe_nbr(t_mini data);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
@@ -203,17 +203,28 @@ t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
 
 // EXEC
-void				free_exec(t_mini *data, char *str, int valueexit);
+void				ft_exec_ve(t_mini *data, int i);
+void				init_exec(t_mini *data, t_exec *exec);
 void				env_in_tab_exec(t_mini *data);
 char				**get_path_exec(char **env);
 char				*give_way_cmd(char **path, char *cmd);
 int					ft_exec(t_mini *data, t_parse *tab);
 void				redirections_pipe(t_exec *exec, int index);
+int					redirection_fichier(t_mini *data, t_parse *tab);
 int					ft_heredocs(t_mini *data);
+int					find_hd(t_mini *data, char *str);
+int					one_cmd(t_mini *data, t_parse *tab, int i);
+
+void				wait_for_processes(t_exec *exec, t_mini *data);
+void				exec_parent_process(t_exec *exec, int i);
+void				exec_child_process(t_mini *data, t_exec *exec, t_parse *tab,
+						int i);
+int					exec_pipe(t_exec *exec);
 
 // SIGNALS
-void	manage_sig(void);
-void	sig_management(int signo);
-void	sig_management2(int signo);
+
+void				signal_pipex(int signum);
+void				manage_sig(void);
+void				sig_management(int signo);
 
 #endif

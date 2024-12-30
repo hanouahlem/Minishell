@@ -6,7 +6,7 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 18:25:21 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/25 18:28:50 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:40:14 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int	ft_unset(t_mini *data, t_parse *tab)
 {
 	int	i;
 
-	i = 0;
-	while (tab->args[++i])
-		if (unset_key_in_env(data, tab->args[i]) == 1)
-			return (1);
+	i = 1;
+	while (tab->args[i])
+	{
+		unset_key_in_env(data, tab->args[i]);
+		i++;
+	}
 	return (0);
 }

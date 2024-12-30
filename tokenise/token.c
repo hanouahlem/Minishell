@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:32:30 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 19:17:57 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:36:37 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	split_line(int i, char *line, t_token **tokenis)
 	*tokenis = add_prev(*tokenis);
 	free(str);
 }
+
 // else
 // {
 // 	str[index_l++] = line[i];

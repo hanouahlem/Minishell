@@ -6,80 +6,52 @@
 /*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:26:49 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/14 19:13:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/30 17:23:48 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	sign_return ;
+int sign_return;
 
-
-int	is_space_or_tab(char *str)
+int main(int ac, char **av, char **env)
 {
-	int	i;
-
-	i = 0;
-	while ((str[i] && str[i] == ' ') || str[i] == '\t')
-		i++;
-	if (i == (int)ft_strlen(str))
-		return (1);
-	return (0);
-}
-
-
-int	main(int ac, char **av, char **env)
-{
-	static t_mini	data = {0,
-		.standard[0] = -1,
-		.standard[1] = -1
-	};
-	char			*line;
-	t_parse			*tab;
+	static t_mini data = {0,
+						  .standard[0] = -1,
+						  .standard[1] = -1};
+	char *line;
+	t_parse *tab;
 
 	(void)ac;
 	(void)av;
 	tab = NULL;
-	// signal(SIGINT, sig_management);
-	// signal(SIGQUIT, sig_management);
 	sign_return = 0;
 	data.env = get_env(env);
 	data.exec = NULL;
 	line = NULL;
 	data.exit_status = 0;
-	data.check = 0;
 	while (1)
 	{
 		manage_sig();
-		if (data.check == 0)
-			signal(SIGINT, sig_management);
-		if (data.check == 1)
-			signal(SIGINT, sig_management2);
-		data.check = 0;
-		sign_return = 0;
-		if (sign_return == SIGINT)
-			data.exit_status = 130;
 		line = readline("Minishell 😜👀$> ");
+		if (sign_return != 0)
+		{
+			data.exit_status = sign_return;
+			sign_return = 0;
+			continue;
+		}
 		if (!line)
-			break ;
+			break;
 		if (!*line)
-			continue ;
-		if (is_space_or_tab(line) == 1)
-		{
-			free(line);
-			continue ;
-		}
+			continue;
 		add_history(line);
+		// if (check_main(&data, line, tab) == 1)
 		line = token_negation(line);
-		if (ft_quote(line))
+		if (is_space_or_tab(line) == 1 || ft_quote(line) == 1
+				|| ft_check_redir_in_out(line) == 1)
 		{
 			free(line);
-			continue ;
-		}
-		if (ft_check_redir_in_out(line) == 1)
-		{
-			free(line);
-			continue ;
+			continue;
 		}
 		line = token_positive(line);
 		line = ft_expand(line, &data);
@@ -91,16 +63,16 @@ int	main(int ac, char **av, char **env)
 		if (tab->args == NULL)
 		{
 			free_inside(&data, NULL, tab);
-			continue ;
+			continue;
 		}
 		if (ft_exec(&data, data.parser) == 1)
 		{
 			clean_hdoc(&data);
 			free_inside(&data, NULL, tab);
-			continue ;
+			continue;
 		}
 		clean_hdoc(&data);
-		free_inside(&data, NULL, tab);		
+		free_inside(&data, NULL, tab);
 	}
 	free(line);
 	free_env(&data);

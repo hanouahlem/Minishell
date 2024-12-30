@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
+#    By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/14 18:14:34 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/30 17:09:54 by manbengh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ SRCS =	minishell.c \
 		parsing.c \
 		get_path.c \
 		free_all.c \
+		free_all_utils.c \
 		utils.c  \
+		ft_checks.c \
 		tokenise/token.c  \
 		tokenise/create_token.c \
 		tokenise/token_check.c  \
@@ -33,6 +35,8 @@ SRCS =	minishell.c \
 		exec/ft_path.c \
 		exec/signals.c \
 		exec/ft_exec.c \
+		exec/ft_exec_utils.c \
+		exec/ft_exec_utils_two.c \
 		exec/ft_heredoc.c\
 	
 CC	=	cc
