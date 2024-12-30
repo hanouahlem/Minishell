@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:23:25 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/29 18:52:53 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/29 22:05:24 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void	sig_management(int signo)
 {
 	sign_return = 128 + signo;
 	rl_done = 1;
+}
+
+void	signal_pipex(int signum)
+{
+	if (signum == SIGQUIT)
+		sign_return = SIGQUIT;
+	else
+		sign_return = SIGINT;
 }
 
 void	manage_sig(void)

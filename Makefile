@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/14 18:14:34 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/30 21:35:34 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,11 @@ SRCS =	minishell.c \
 		exec/ft_path.c \
 		exec/signals.c \
 		exec/ft_exec.c \
+		exec/ft_exec_utis.c\
 		exec/ft_heredoc.c\
+		exec/ft_heredoc_utils.c\
+		exec/ft_redirections.c\
+		
 	
 CC	=	cc
 

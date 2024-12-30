@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/29 19:04:52 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/30 21:43:58 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,18 @@ int write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 	return (0);
 }
 
+int pipe_heredoc_write(t_mini *data, t_hdoc *hdoc, int i)
+{
+	if (pipe(hdoc[i].pipe_fd) == -1)
+	{
+		perror("pipe");
+		exit(1);
+	}
+	if (write_hd(data, hdoc, hdoc[i].pipe_fd[1], i) == 1)
+		return (1);
+	return(0);
+}
+
 int take_delimiter(t_mini *data, t_hdoc *hdoc)
 {
 	int i;
@@ -71,12 +83,7 @@ int take_delimiter(t_mini *data, t_hdoc *hdoc)
 			hdoc[i].delim = ft_strdup(tmp->next->value_t);
 			if (!hdoc[i].delim)
 				ft_printf("error strdup delim\n");
-			if (pipe(hdoc[i].pipe_fd) == -1)
-			{
-				perror("pipe");
-				exit(1);
-			}
-			if (write_hd(data, hdoc, hdoc[i].pipe_fd[1], i) == 1)
+			if(pipe_heredoc_write(data, hdoc, i) == 1)
 				return (1);
 			i++;
 			tmp = tmp->next;
