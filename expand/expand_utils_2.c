@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:37:28 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/31 18:34:10 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 19:17:35 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_exp_plus_plus(t_expand *exp_l)
 
 void	if_value(t_expand *exp, char *value)
 {
-	exp->new_str = ft_strjoin(exp->new_str, value);
+	ft_strcat(exp->new_str, value);
 	exp->n += ft_strlen(value) + 1;
 	free(value);
 }
