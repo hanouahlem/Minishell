@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 13:35:26 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/31 16:58:03 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:19:04 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*ft_itoa(int n)
 
 	nbr = (long int )n;
 	i = ft_len(n);
-	ft_printf("i ========== %i\n", i);
 	str = malloc(sizeof(char) * (i + 1));
 	if (!str)
 		return (NULL);

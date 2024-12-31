@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/31 15:50:32 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/31 17:38:41 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRCS =	minishell.c \
 		bultins/ft_unset.c \
 		bultins/ft_echo.c \
 		bultins/ft_cd.c \
-		prints.c \
 		exec/ft_path.c \
 		exec/signals.c \
 		exec/ft_exec.c \

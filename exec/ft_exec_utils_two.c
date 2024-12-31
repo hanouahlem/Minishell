@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:44:52 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/30 16:45:48 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:45:22 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	wait_for_processes(t_exec *exec, t_mini *data)
 		waitpid(exec->pid[i], &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			data->exit_status = WEXITSTATUS(data->exit_status);
+		else if (WIFSIGNALED(data->exit_status) && WTERMSIG(data->exit_status) == SIGQUIT)
+		{
+			ft_printf("Quit (core dumped)\n");
+			g_sign_return = 131;
+		}
 		i++;
 	}
 }

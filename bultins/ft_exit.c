@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/10 14:08:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:26:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_exit(t_mini *data, t_parse *tab)
 	printf("exit\n");
 	if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
-		data->exit_status = 255;
+		data->exit_status = 2;
 		ft_printf("minishell: exit: %s: numeric argument required\n",
 			tab->args[1]);
 	}
