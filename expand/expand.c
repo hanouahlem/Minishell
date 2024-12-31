@@ -6,11 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/31 16:56:14 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 18:48:05 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static char	*adding_stuff(char *str, char c);
 
 int	ft_expand_len(char *str, t_mini *data)
 {
@@ -118,7 +120,27 @@ char	*ft_expand(char *str, t_mini *data)
 		ft_expand_dollar(&exp, data);
 		if (exp.str[exp.i] && exp.str[exp.i] != SQUOTE
 			&& exp.str[exp.i] != DQUOTE)
+		{
 			exp.new_str[exp.n++] = exp.str[exp.i++];
+		}
 	}
 	return (exp.new_str);
 }
+
+// static char	*adding_stuff(char *str, char c)
+// {
+// 	char	*res;
+// 	int			i;
+// 	int			len;
+
+// 	i = -1;
+// 	len = ft_strlen(str);
+// 	res = malloc(sizeof(char) * (len + 2));
+// 	if (!res)
+// 		return (NULL);
+// 	res[i + 2] = '\0';
+// 	while (str[++i])
+// 		res[i] = str[i];
+// 	res[i] = c;
+// 	return (res);	
+// }
