@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/30 23:13:46 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:09:34 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,15 @@ typedef enum t_token_type
 	OUT_FILE,
 }					t_token_type;
 
-extern int sign_return ;
+extern int	g_sign_return ;
 
 // syntax error
 int					ft_check_redir_in_out(char *str);
 int					ft_quote(char *str);
-
+int					is_space_or_tab(char *str);
+char				*process_and_expand_line(char *line, t_mini *data);
+int					handle_signal(t_mini *data);
+void				init_data(t_mini *data, char **env);
 // en
 t_env				*ft_lstnew_env(void *content);
 t_env				*ft_lstlast_env(t_env *lst);
@@ -161,12 +164,13 @@ void				free_env(t_mini *data);
 void				free_token(t_mini *data);
 void				free_parser(t_mini *data, t_parse *tab);
 void				free_tab(char **tab);
+void				free_env(t_mini *data);
+void				clean_hdoc(t_mini *data);
+void				free_exec(t_mini *data, char *str, int valuexit);
 
 // MY_PRINTS
 void				print_env(t_env *env);
 void				print_token(t_token *tokenis);
-void				print_parse(t_parse *tab, int size);
-
 // EXPAND
 void				ft_expand_len_dollar(t_expand *exp_l);
 void				ft_expand_len_dquote(t_expand *exp_l);
@@ -178,6 +182,7 @@ void				if_value(t_expand *exp, char *value);
 void				ft_cat_value(t_expand *exp, char *value);
 void				ft_exp_plus_plus(t_expand *exp_l);
 void				ft_free_key(char *key);
+void				if_value_key(t_expand *exp, char *value, char *key);
 
 // BUILT_IN
 int					ft_is_builtin(t_parse *tab, int i);
@@ -189,44 +194,38 @@ int					ft_exit(t_mini *data, t_parse *tab);
 int					ft_export(t_mini *data, t_parse *tab);
 int					ft_unset(t_mini *data, t_parse *tab);
 int					ft_echo(t_parse *tab);
-int					if_is_redir(int type);
 
 // ORGANIS
+
 int					pipe_nbr(t_mini data);
 void				ft_parse(t_parse *tab, t_token *tokenis);
 int					if_is_redir(int type);
 t_parse				*table_struct(t_mini *data);
 void				ft_count_elements(t_mini *data, t_parse *tab);
 
-// Free
-void				free_env(t_mini *data);
-void				clean_hdoc(t_mini *data);
-
-// Heredoc
-int					find_hd(t_mini *data, char *str);
-void				clean_hdoc(t_mini *data);
-int					pipe_heredoc_write(t_mini *data, t_hdoc *hdoc, int i);
-int					write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i);
-
 // EXEC
-void				free_exec(t_mini *data, char *str, int valueexit);
+void				ft_exec_ve(t_mini *data, int i);
+void				init_exec(t_mini *data, t_exec *exec);
 void				env_in_tab_exec(t_mini *data);
 char				**get_path_exec(char **env);
 char				*give_way_cmd(char **path, char *cmd);
 int					ft_exec(t_mini *data, t_parse *tab);
 void				redirections_pipe(t_exec *exec, int index);
-int					ft_heredocs(t_mini *data);
-void				close_standard(int standard[2]);
-void				free_exec(t_mini *data, char *str, int valuexit);
 int					redirection_fichier(t_mini *data, t_parse *tab);
-int					before_exec(t_mini *data, t_parse *tab, t_exec *exec,
-						int i);
-void				init_exec(t_mini *data, t_exec *exec);
+int					ft_heredocs(t_mini *data);
+int					find_hd(t_mini *data, char *str);
 int					one_cmd(t_mini *data, t_parse *tab, int i);
+
+void				wait_for_processes(t_exec *exec, t_mini *data);
+void				exec_parent_process(t_exec *exec, int i);
+void				exec_child_process(t_mini *data, t_exec *exec, t_parse *tab,
+						int i);
+int					exec_pipe(t_exec *exec);
+
 // SIGNALS
 
+void				signal_pipex(int signum);
 void				manage_sig(void);
 void				sig_management(int signo);
-void				signal_pipex(int signum);
 
 #endif

@@ -33,16 +33,13 @@ int	ft_pwd(t_mini *data)
 {
 	char	*pwd;
 
-	(void)data;
-	// if (!data->env->content)
-	// 	return (printf("No env !\n\n"), 1);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		perror("getcwd failed\n");
+		perror("pwd: error retrieving current directory:");
+		perror(" getcwd: cannot access parent directories\n");
 		data->exit_status = 1;
 		free(pwd);
-		// --> afficher la valeur de retour pour exit  <-- //
 		return (1);
 	}
 	printf("%s\n", pwd);

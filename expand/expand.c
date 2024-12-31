@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/27 20:21:06 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:56:14 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,7 @@ void	ft_expand_dquote(t_expand *exp)
 				if (!key || !*key)
 					exp->new_str[exp->n++] = -('$');
 				value = ft_value_from_key(key, exp->data);
-				if (value)
-				{
-					ft_cat_value(exp, value);
-					free(value);
-				}
-				free(key);
-				key = NULL;
+				if_value_key(exp, value, key);
 			}
 			else
 				exp->new_str[exp->n++] = -exp->str[exp->i++];
@@ -88,7 +82,6 @@ void	ft_expand_dollar(t_expand *exp, t_mini *data)
 	while (exp->str[exp->i] == '$')
 	{
 		exp->i++;
-		(void)data;
 		if (exp->str[exp->i] == '?')
 		{
 			value = ft_itoa(data->exit_status);

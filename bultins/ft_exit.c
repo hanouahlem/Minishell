@@ -14,9 +14,9 @@
 
 long long	ft_atoi_flag(const char *str, int *flag)
 {
-	int	i;
+	int		i;
 	long	nb;
-	int	sign;
+	int		sign;
 
 	i = 0;
 	nb = 0;
@@ -56,6 +56,7 @@ int	ft_digits(char *str)
 	}
 	return (0);
 }
+
 void	one_arg(t_mini *data, char *args)
 {
 	int	flag;
@@ -78,7 +79,8 @@ int	ft_exit(t_mini *data, t_parse *tab)
 	if (tab->args[1] && ft_digits(tab->args[1]) == 1)
 	{
 		data->exit_status = 255;
-		ft_printf("minishell: exit: %s: numeric argument required\n", tab->args[1]);
+		ft_printf("minishell: exit: %s: numeric argument required\n",
+			tab->args[1]);
 	}
 	else if (tab->args[1] && tab->args[2])
 	{
@@ -93,9 +95,8 @@ int	ft_exit(t_mini *data, t_parse *tab)
 	if (data->standard[0] != -1 && data->standard[1] != -1)
 	{
 		close(data->standard[0]);
-		close(data->standard[1]);	
+		close(data->standard[1]);
 	}
 	free_exec(data, NULL, data->exit_status);
 	return (0);
 }
-

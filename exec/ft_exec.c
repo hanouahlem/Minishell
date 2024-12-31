@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:21:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/30 22:58:33 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:45:07 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,64 +34,31 @@ void	ft_exec_ve(t_mini *data, int i)
 	free_tab(data->parser[i].args);
 }
 
-int	one_cmd(t_mini *data, t_parse *tab, int i)
+void	clean_up_exec(t_mini *data)
 {
-	data->standard[0] = dup(0);
-	data->standard[1] = dup(1);
-	if (data->standard[0] == -1 || data->standard[1] == -1)
-	{
-		perror("dup");
-		return (1);
-	}
-	redirection_fichier(data, &tab[i]);
-	data->exit_status = ft_built_in_comp(data, tab, i);
-	if (dup2(data->standard[0], 0) == -1 || dup2(data->standard[1], 1) == -1)
-	{
-		perror("dup2");
-		return (1);
-	}
-	close(data->standard[0]);
-	close(data->standard[1]);
-	data->standard[0] = -1;
-	data->standard[1] = -1;
-	return (0);
+	close(data->exec->pipe_fd[0]);
+	free(data->exec->pid);
+	free_tab(data->exec->env_exec);
 }
 
-void	make_child(t_mini *data, t_parse *tab, t_exec *exec, int i)
+int	exec_commands(t_mini *data, t_parse *tab, t_exec *exec)
 {
-	if (exec->pid[i] == 0) // enfant
+	int	i;
+
+	i = -1;
+	while (++i < exec->nbcmd)
 	{
-		signal(SIGQUIT, signal_pipex);
-		signal(SIGINT, signal_pipex);
-		redirections_pipe(exec, i);
-		redirection_fichier(data, &tab[i]);
-		if (!tab->args || !tab->args[0])
-			free_exec(data, NULL, 1);
-		if (ft_is_builtin(tab, i) == 1)
-			ft_exec_ve(data, i);
+		if (exec_pipe(exec) == 1)
+			return (free_exec(data, "Fail pid\n", 1), 1);
+		exec->pid[i] = fork();
+		if (exec->pid[i] == -1)
+			return (free_exec(data, "Fail pid\n", 1), 1);
+		if (exec->pid[i] == 0)
+			exec_child_process(data, exec, tab, i);
 		else
-		{
-			ft_built_in_comp(data, tab, i);
-		}
-		free_exec(data, NULL, 127);
+			exec_parent_process(exec, i);
 	}
-	else // parent
-	{
-		if (i > 0)
-			close(exec->pipe_prev);
-		exec->pipe_prev = exec->pipe_fd[0];
-		close(exec->pipe_fd[1]);
-	}
-}
-
-void	ft_waitpid_exec(t_mini *data, t_exec *exec, int *i)
-{
-	while (*i < exec->nbcmd)
-	{
-		waitpid(exec->pid[(*i)++], &data->exit_status, 0);
-		if (WIFEXITED(data->exit_status))
-			data->exit_status = WEXITSTATUS(data->exit_status);
-	}
+	return (0);
 }
 
 int	ft_exec(t_mini *data, t_parse *tab)
@@ -99,26 +66,20 @@ int	ft_exec(t_mini *data, t_parse *tab)
 	int		i;
 	t_exec	exec;
 
-	i = 0;
+	i = -1;
 	ft_memset(&exec, 0, sizeof(t_exec));
 	data->exec = &exec;
-	if (before_exec(data, tab, &exec, i) == 1)
+	if (ft_heredocs(data) == 1)
 		return (1);
-	while (i < exec.nbcmd)
-	{
-		if (pipe(exec.pipe_fd) == -1)
-			return (printf("Error: pipe fail\n"), 1);
-		exec.pid[i] = fork();
-		if (exec.pid[i] == -1)
-			free_exec(data, "Fail pid\n", 1);
-		make_child(data, tab, &exec, i);
-		data->exit_status = 0;
-		i++;
-	}
-	i = 0;
-	ft_waitpid_exec(data, &exec, &i); // Appel à la nouvelle fonction
-	close(data->exec->pipe_fd[0]);
-	free(data->exec->pid);
-	free_tab(data->exec->env_exec);
-	return (0);
+	if ((tab->size_cmd == 1 && ft_is_builtin(tab, 0) == 0))
+		return (one_cmd(data, tab, 0));
+	if (g_sign_return == SIGINT)
+		return (1);
+	init_exec(data, &exec);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	if (exec_commands(data, tab, &exec) == 1)
+		return (1);
+	wait_for_processes(&exec, data);
+	return (clean_up_exec(data), 0);
 }

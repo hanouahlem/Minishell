@@ -89,12 +89,3 @@ int	ft_echo(t_parse *tab)
 	}
 	return (0);
 }
-
-
-// bash-5.1$ echo bonjour > /dev/full
-// bash: echo: write error: No space left on device
-
-
-//echo :
-// retirer les quotes
-// si $a (donc une key qui existe pas) il faut echo rien et pas le "$a" a lecran

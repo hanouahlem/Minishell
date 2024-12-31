@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:37:28 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/27 19:44:12 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 14:57:35 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	ft_free_key(char *key)
 {
 	if (key)
 		free(key);
+}
+
+void	if_value_key(t_expand *exp, char *value, char *key)
+{
+	if (value)
+	{
+		ft_cat_value(exp, value);
+		free(value);
+	}
+	free(key);
+	key = NULL;
 }

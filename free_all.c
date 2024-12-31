@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:23:16 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/18 19:39:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/30 17:00:05 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_env(t_mini *data)
+void	free_env(t_mini *data)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	while (data->env)
 	{
@@ -27,9 +27,9 @@ void free_env(t_mini *data)
 	}
 }
 
-void free_tab(char **tab)
+void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab && tab[i])
@@ -40,9 +40,9 @@ void free_tab(char **tab)
 	free(tab);
 }
 
-void free_token(t_mini *data)
+void	free_token(t_mini *data)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	while (data->token)
 	{
@@ -53,9 +53,9 @@ void free_token(t_mini *data)
 	}
 }
 
-void free_parser(t_mini *data, t_parse *tab)
+void	free_parser(t_mini *data, t_parse *tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)data;
@@ -74,7 +74,7 @@ void free_parser(t_mini *data, t_parse *tab)
 	free(tab);
 }
 
-void free_inside(t_mini *data, char *line, t_parse *tab)
+void	free_inside(t_mini *data, char *line, t_parse *tab)
 {
 	if (line)
 		free(line);

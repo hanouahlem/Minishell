@@ -6,16 +6,16 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:21:43 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/30 21:43:58 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 16:45:07 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t count_hd(t_mini *data)
+size_t	count_hd(t_mini *data)
 {
-	size_t i;
-	t_token *tmp;
+	size_t	i;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = data->token;
@@ -28,22 +28,37 @@ size_t count_hd(t_mini *data)
 	return (i);
 }
 
-int write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
+int	find_hd(t_mini *data, char *str)
 {
-	char *line;
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_hd)
+	{
+		if (!strcmp(data->heredoc[i].delim, str))
+			return (data->heredoc[i].pipe_fd[0]);
+		i++;
+	}
+	return (-1);
+}
+
+int	write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
+{
+	char		*line;
 
 	while (1)
 	{
 		line = readline("> ");
-		if (sign_return != 0)
+		if (g_sign_return != 0)
 		{
-			data->exit_status = sign_return;
-			sign_return = 0;
-			return (close(fd),1);
+			data->exit_status = g_sign_return;
+			g_sign_return = 0;
+			return (close(fd), 1);
 		}
 		if (!line)
 		{
-			ft_printf("mini: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", hdoc[i].delim);
+			ft_printf("mini: warning: here-document at line 1 ");
+			ft_printf("delimited by end-of-file (wanted `%s')\n", hdoc[i].delim);
 			return (0);
 		}
 		if (!ft_strcmp(line, hdoc[i].delim))
@@ -53,26 +68,13 @@ int write_hd(t_mini *data, t_hdoc *hdoc, int fd, int i)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
-	close(fd);
-	return (0);
+	return (close(fd), 0);
 }
 
-int pipe_heredoc_write(t_mini *data, t_hdoc *hdoc, int i)
+int	take_delimiter(t_mini *data, t_hdoc *hdoc)
 {
-	if (pipe(hdoc[i].pipe_fd) == -1)
-	{
-		perror("pipe");
-		exit(1);
-	}
-	if (write_hd(data, hdoc, hdoc[i].pipe_fd[1], i) == 1)
-		return (1);
-	return(0);
-}
-
-int take_delimiter(t_mini *data, t_hdoc *hdoc)
-{
-	int i;
-	t_token *tmp;
+	int		i;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = data->token;
@@ -83,7 +85,9 @@ int take_delimiter(t_mini *data, t_hdoc *hdoc)
 			hdoc[i].delim = ft_strdup(tmp->next->value_t);
 			if (!hdoc[i].delim)
 				ft_printf("error strdup delim\n");
-			if(pipe_heredoc_write(data, hdoc, i) == 1)
+			if (pipe(hdoc[i].pipe_fd) == -1)
+				exit(1);
+			if (write_hd(data, hdoc, hdoc[i].pipe_fd[1], i) == 1)
 				return (1);
 			i++;
 			tmp = tmp->next;
@@ -96,11 +100,11 @@ int take_delimiter(t_mini *data, t_hdoc *hdoc)
 	return (0);
 }
 
-int ft_heredocs(t_mini *data)
+int	ft_heredocs(t_mini *data)
 {
-	int i;
-	t_hdoc *hdoc;
-	t_token *tmp;
+	int		i;
+	t_hdoc	*hdoc;
+	t_token	*tmp;
 
 	i = 0;
 	tmp = data->token;
@@ -116,7 +120,7 @@ int ft_heredocs(t_mini *data)
 		return (1);
 	}
 	data->heredoc = hdoc;
-	if (sign_return == SIGINT)
+	if (g_sign_return == SIGINT)
 	{
 		data->check = 1;
 		data->exit_status = 130;

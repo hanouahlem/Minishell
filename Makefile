@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/30 21:35:34 by ahbey            ###   ########.fr        #
+#    Updated: 2024/12/31 15:50:32 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ SRCS =	minishell.c \
 		parsing.c \
 		get_path.c \
 		free_all.c \
+		free_all_utils.c \
 		utils.c  \
+		ft_checks.c \
 		tokenise/token.c  \
 		tokenise/create_token.c \
 		tokenise/token_check.c  \
@@ -25,17 +27,18 @@ SRCS =	minishell.c \
 		expand/expand_utils_2.c \
 		bultins/built_in.c \
 		bultins/ft_exit.c \
-		bultins/unset_export.c \
+		bultins/ft_export.c \
+		bultins/ft_unset.c \
 		bultins/ft_echo.c \
 		bultins/ft_cd.c \
 		prints.c \
 		exec/ft_path.c \
 		exec/signals.c \
 		exec/ft_exec.c \
-		exec/ft_exec_utis.c\
+		exec/ft_exec_utils.c \
+		exec/ft_exec_utils_two.c \
 		exec/ft_heredoc.c\
-		exec/ft_heredoc_utils.c\
-		exec/ft_redirections.c\
+	
 		
 	
 CC	=	cc

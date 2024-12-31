@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:42:58 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/27 19:43:51 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:04:02 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ void	ft_expand_len_dollar(t_expand *exp_l)
 		if (!exp_l->str[exp_l->i + 1])
 			exp_l->n += 1;
 		exp_l->i++;
+		if (exp_l->str[exp_l->i] == '?')
+		{
+			exp_l->n += 1;
+		}
 		key = ft_get_key(exp_l->str, &(exp_l->i));
 		value = ft_value_from_key(key, exp_l->data);
 		if (value)
