@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:48:45 by manbengh          #+#    #+#             */
-/*   Updated: 2024/12/31 19:25:15 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/01/01 14:13:29 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	ft_expand_dollar(t_expand *exp, t_mini *data)
 		{
 			value = ft_itoa(data->exit_status);
 			if (value)
+			{
 				if_value(exp, value);
+				exp->i++;
+			}
 			continue ;
 		}
 		key = ft_get_key(exp->str, &(exp->i));
@@ -94,10 +97,7 @@ void	ft_expand_dollar(t_expand *exp, t_mini *data)
 			exp->new_str[exp->n++] = '$';
 		value = ft_value_from_key(key, exp->data);
 		if (value)
-		{
-			ft_strcat(exp->new_str, value);
-			exp->n += ft_strlen(value);
-		}
+			ft_cat_value(exp, value);
 		(free(key), free(value));
 	}
 }
@@ -118,7 +118,17 @@ char	*ft_expand(char *str, t_mini *data)
 		ft_expand_dollar(&exp, data);
 		if (exp.str[exp.i] && exp.str[exp.i] != SQUOTE
 			&& exp.str[exp.i] != DQUOTE)
+		{
 			exp.new_str[exp.n++] = exp.str[exp.i++];
+		}
 	}
 	return (exp.new_str);
 }
+
+// char	*adding_char(char *str, char c)
+// {
+// 	char	*res;
+// 	int			len;
+
+// 	res = malloc(sizeof(char))
+// }
