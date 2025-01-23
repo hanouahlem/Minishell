@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 12:33:38 by ahbey             #+#    #+#             */
-/*   Updated: 2024/07/06 19:40:39 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/30 15:24:06 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ int	ft_putstr(char *str, int *len)
 {
 	int	i;
 
+	(void)len;
 	i = 0;
+	(void)len;
 	if (!str)
 	{
-		*len += write(2, "(null)", 6);
 		return (0);
 	}
 	while (str[i])

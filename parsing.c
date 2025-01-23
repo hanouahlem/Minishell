@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:44:02 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/14 15:35:37 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/31 16:48:49 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_quote(char *str)
 		i++;
 	}
 	if (flag == 1)
-		return (printf("error : syntax\n"), 1);
+		return (printf(" syntax error near unexpected token\n"), 1);
 	return (0);
 }
 
@@ -76,19 +76,19 @@ int	ft_check_redir(char *str, int *i)
 {
 	int	j;
 
-	while (str[*i] == ' ')
+	while (str[*i] == ' ' || str[*i] == '\t')
 		(*i)++;
 	if (str[*i] == '|')
 	{
 		j = *i + 1;
-		while (str[j] == ' ')
+		while (str[j] == ' ' || str[*i] == '\t')
 			j++;
 		if (str[j] == '|' || str[j] == '\0')
-			return (printf("Error : syntax 3\n"), 1);
+			return (printf(" syntax error near unexpected token \n"), 1);
 	}
 	if ((str[*i] == '>' && str[*i + 1] == '<') || (str[*i] == '<' && str[*i
 				+ 1] == '>'))
-		return (printf("Error : syntax 4\n"), 1);
+		return (printf(" syntax error near unexpected token \n"), 1);
 	if (str[*i] == '>' && str[*i + 1] == '>')
 		(*i)++;
 	else if (str[*i] == '<' && str[*i + 1] == '<')
@@ -103,7 +103,7 @@ int	ft_check_redir_in_out(char *str)
 
 	i = 0;
 	if (ft_check_redir_pipe_begin(str) == 1)
-		return (printf("Error : syntax 5\n"), 1);
+		return (printf(" syntax error near unexpected token\n"), 1);
 	while (str[i])
 	{
 		if (ft_check_redir(str, &i))
@@ -111,11 +111,11 @@ int	ft_check_redir_in_out(char *str)
 		if (str[i] == '>' || str[i] == '<')
 		{
 			j = i + 1;
-			while (str[j] == ' ')
+			while (str[j] == ' ' || str[j] == '\t')
 				j++;
 			if (str[j] == '\0' || str[j] == '|' || str[j] == '>'
 				|| str[j] == '<')
-				return (printf("Error : syntax 5\n"), 1);
+				return (printf(" syntax error near unexpected token \n"), 1);
 		}
 		if (str[i])
 			i++;

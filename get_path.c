@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:31:28 by manbengh          #+#    #+#             */
-/*   Updated: 2024/11/15 16:59:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2024/12/30 17:01:16 by manbengh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_env	*get_env(char **env)
 	i = 0;
 	node = NULL;
 	path = NULL;
+	if (env == NULL)
+		return (NULL);
 	while (env[i])
 	{
 		node = ft_lstnew_env(env[i]);
@@ -31,12 +33,6 @@ t_env	*get_env(char **env)
 	}
 	return (path);
 }
-// while (path)
-// {
-// 	printf("KEY :  %s\n", path->key);
-// 	printf("VALUE :  %s\n\n", path->value);
-// 	path = path->next;
-// }
 
 char	*find_key_for_env(char *my_env)
 {

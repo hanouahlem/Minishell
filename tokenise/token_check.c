@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:29:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/11/04 18:40:39 by manbengh         ###   ########.fr       */
+/*   Updated: 2024/12/27 19:40:23 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ char	*token_negation(char *str)
 		if (str[i] == SQUOTE || str[i] == DQUOTE)
 		{
 			flag_quote = str[i];
-			i++;
+			if (str[i])
+				i++;
 			while (str[i] && str[i] != flag_quote)
 			{
 				str[i] = -str[i];
-				i++;
+				if (str[i])
+					i++;
 			}
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (str);
 }
@@ -48,30 +51,6 @@ char	*token_positive(char *str)
 	}
 	return (str);
 }
-
-// char	*delete_quote(char *str)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*res;
-
-// 	i = 0;
-// 	j = 0;
-// 	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
-// 	while (str[i])
-// 	{
-// 		if (str[i] == SQUOTE || str[i] == DQUOTE)
-// 		{
-// 			i++;
-// 		}
-// 		res[j] = str[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	res[j] = '\0';
-// 	free(str);
-// 	return (res);
-// }
 
 char	*delete_quote(char *str)
 {
