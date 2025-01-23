@@ -6,13 +6,13 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 12:39:23 by ahbey             #+#    #+#             */
-/*   Updated: 2025/01/23 21:10:42 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/01/23 21:24:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+ 
 # include "libft/libft.h"
 # include "printf/ft_printf.h"
 # include <errno.h>

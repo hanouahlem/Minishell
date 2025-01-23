@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 15:36:48 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/31 17:26:59 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/01/23 21:28:44 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,4 @@ int	ft_exit(t_mini *data, t_parse *tab)
 	free_exec(data, NULL, data->exit_status);
 	return (0);
 }
+ 

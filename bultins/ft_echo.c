@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manbengh <manbengh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:09:33 by ahbey             #+#    #+#             */
-/*   Updated: 2024/12/09 20:19:00 by manbengh         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:28:35 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// echo max 2 fonctions 15 lignes chacune
-// 	si le premier argument est "-n"
-// 		pas de \n
-// 	tant que les arguments sont -n
-// 		i++
-// 	et afficher le reste
-
-// 	PAS OUBLIER
-// 		echo -
-// 		affiche -
-// -n est valable que si ca commence par un tiret et que ya DES net export
-// echo
-// 	si le premier argument est "-n"
-// 		pas de \n
-// 	tant que les arguments sont -n
-// 		i++
-// 	et afficher le reste
-
-// 	PAS OUBLIER
-// 		echo -
-// 		affiche -
-// -n est valable que si ca commence par un tiret et que ya DES n
 
 int	check_n(char *str)
 {
