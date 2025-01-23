@@ -6,7 +6,7 @@
 #    By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/09 19:25:19 by ahbey             #+#    #+#              #
-#    Updated: 2024/12/31 17:38:41 by ahbey            ###   ########.fr        #
+#    Updated: 2025/01/23 21:32:25 by ahbey            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRCS =	minishell.c \
 		exec/ft_heredoc.c\
 	
 		
-	
 CC	=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -g3
